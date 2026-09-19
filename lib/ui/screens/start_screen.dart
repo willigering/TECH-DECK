@@ -38,14 +38,18 @@ class StartScreen extends StatelessWidget {
                 title: 'LERNEN',
                 subtitle: 'Karteikarten durchgehen',
                 icon: Icons.menu_book_outlined,
-                onTap: empty ? null : () => _open(context, TopicPickerMode.learn),
+                onTap: empty
+                    ? null
+                    : () => _open(context, TopicPickerMode.learn),
               ),
               const SizedBox(height: 14),
               _ModeButton(
                 title: 'QUIZ',
                 subtitle: 'Wissen testen',
                 icon: Icons.track_changes_outlined,
-                onTap: empty ? null : () => _open(context, TopicPickerMode.quiz),
+                onTap: empty
+                    ? null
+                    : () => _open(context, TopicPickerMode.quiz),
               ),
               if (empty) ...[
                 const SizedBox(height: 22),

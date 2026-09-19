@@ -21,13 +21,11 @@ class TopicProgress {
   final int correctAnswers;
   final int wrongAnswers;
 
-  double get learnProgress =>
-      totalCards == 0 ? 0 : seenCards / totalCards;
+  double get learnProgress => totalCards == 0 ? 0 : seenCards / totalCards;
 
   int get answered => correctAnswers + wrongAnswers;
 
-  double get accuracy =>
-      answered == 0 ? 0 : correctAnswers / answered;
+  double get accuracy => answered == 0 ? 0 : correctAnswers / answered;
 }
 
 class AppStats {
@@ -49,11 +47,9 @@ class AppStats {
   final int skippedAnswers;
   final List<TopicProgress> perTopic;
 
-  double get learnProgress =>
-      totalCards == 0 ? 0 : learnedCards / totalCards;
+  double get learnProgress => totalCards == 0 ? 0 : learnedCards / totalCards;
 
   int get answered => correctAnswers + wrongAnswers;
 
-  double get accuracy =>
-      answered == 0 ? 0 : correctAnswers / answered;
+  double get accuracy => answered == 0 ? 0 : correctAnswers / answered;
 }

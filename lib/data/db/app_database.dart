@@ -31,9 +31,24 @@ class AppDatabase {
           await db.delete('topics');
         }
         if (oldVersion < 3) {
-          await _addColumnIfMissing(db, 'cards', 'wrong_answer_1', "TEXT NOT NULL DEFAULT ''");
-          await _addColumnIfMissing(db, 'cards', 'wrong_answer_2', "TEXT NOT NULL DEFAULT ''");
-          await _addColumnIfMissing(db, 'cards', 'wrong_answer_3', "TEXT NOT NULL DEFAULT ''");
+          await _addColumnIfMissing(
+            db,
+            'cards',
+            'wrong_answer_1',
+            "TEXT NOT NULL DEFAULT ''",
+          );
+          await _addColumnIfMissing(
+            db,
+            'cards',
+            'wrong_answer_2',
+            "TEXT NOT NULL DEFAULT ''",
+          );
+          await _addColumnIfMissing(
+            db,
+            'cards',
+            'wrong_answer_3',
+            "TEXT NOT NULL DEFAULT ''",
+          );
         }
         if (oldVersion < 4) {
           await db.execute('''
@@ -44,7 +59,12 @@ class AppDatabase {
           ''');
         }
         if (oldVersion < 5) {
-          await _addColumnIfMissing(db, 'cards', 'ai_status', "TEXT NOT NULL DEFAULT 'none'");
+          await _addColumnIfMissing(
+            db,
+            'cards',
+            'ai_status',
+            "TEXT NOT NULL DEFAULT 'none'",
+          );
           await _addColumnIfMissing(db, 'cards', 'updated_at', 'INTEGER');
         }
       },
@@ -75,9 +95,7 @@ class AppDatabase {
             FOREIGN KEY (topic_id) REFERENCES topics(id) ON DELETE CASCADE
           )
         ''');
-        await db.execute(
-          'CREATE INDEX idx_cards_topic ON cards(topic_id)',
-        );
+        await db.execute('CREATE INDEX idx_cards_topic ON cards(topic_id)');
         await db.execute('''
           CREATE TABLE app_meta (
             key TEXT PRIMARY KEY,

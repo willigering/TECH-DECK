@@ -7,7 +7,8 @@ import 'package:tech_deck/data/csv/csv_parser.dart';
 void main() {
   group('CsvParser', () {
     test('liest Frage/Antwort und erhält Umlaute', () {
-      const csv = 'Frage,Antwort\n'
+      const csv =
+          'Frage,Antwort\n'
           'Was ist ein Prozess?,Ein ausgeführtes Programm.\n'
           'Was ist eine Prüfung?,Die Abschlussprüfung.\n';
       final result = CsvParser.parseCards(csv);
@@ -17,7 +18,8 @@ void main() {
     });
 
     test('unterstützt Kommas und Anführungszeichen in Feldern', () {
-      const csv = 'Frage,Antwort\n'
+      const csv =
+          'Frage,Antwort\n'
           '"Was sind Hub, Switch und Router?","Geräte, die Netze verbinden."\n'
           '"Er sagte ""Hallo""","Eine Begrüßung"\n';
       final result = CsvParser.parseCards(csv);
@@ -28,7 +30,8 @@ void main() {
     });
 
     test('erkennt Semikolon als Delimiter', () {
-      const csv = 'Frage;Antwort\n'
+      const csv =
+          'Frage;Antwort\n'
           'Wie viele Bits hat IPv4?;32 Bit\n';
       final result = CsvParser.parseCards(csv);
       expect(result.cards, hasLength(1));
@@ -37,7 +40,8 @@ void main() {
     });
 
     test('mappt Question/Answer und überspringt leere Zeilen', () {
-      const csv = 'Question,Answer\n'
+      const csv =
+          'Question,Answer\n'
           '\n'
           'What is RAM?,Volatile memory\n'
           ',\n'
@@ -60,7 +64,12 @@ void main() {
     });
 
     test('dekodiert UTF-8 mit BOM', () {
-      final bytes = <int>[0xEF, 0xBB, 0xBF, ...utf8.encode('Frage,Antwort\nä,ö\n')];
+      final bytes = <int>[
+        0xEF,
+        0xBB,
+        0xBF,
+        ...utf8.encode('Frage,Antwort\nä,ö\n'),
+      ];
       final text = CsvParser.decodeBytes(bytes);
       final result = CsvParser.parseCards(text);
       expect(result.cards, hasLength(1));
@@ -69,16 +78,21 @@ void main() {
     });
 
     test('behandelt CSV ohne Kopfzeile als Karten', () {
-      const csv = 'Wofür steht die Abkürzung CSMA/CD?,Carrier Sense Multiple Access / Collision Detection.\n'
+      const csv =
+          'Wofür steht die Abkürzung CSMA/CD?,Carrier Sense Multiple Access / Collision Detection.\n'
           'Für welche physikalische Netzwerktopologie ist das CSMA/CD-Verfahren primär konzipiert?,Bustopologie.\n';
       final result = CsvParser.parseCards(csv);
       expect(result.cards, hasLength(2));
       expect(result.cards.first.question, 'Wofür steht die Abkürzung CSMA/CD?');
-      expect(result.cards.first.answer, 'Carrier Sense Multiple Access / Collision Detection.');
+      expect(
+        result.cards.first.answer,
+        'Carrier Sense Multiple Access / Collision Detection.',
+      );
     });
 
     test('ignoriert Thema-Spalte und nutzt Frage/Antwort', () {
-      const csv = 'Thema,Frage,Antwort\n'
+      const csv =
+          'Thema,Frage,Antwort\n'
           'Netzwerke,Was ist eine IP-Adresse?,Eine logische Adresse.\n';
       final result = CsvParser.parseCards(csv);
       expect(result.cards, hasLength(1));
@@ -86,7 +100,8 @@ void main() {
     });
 
     test('zählt leere Fragen und leere Antworten getrennt', () {
-      const csv = 'Frage;Antwort\n'
+      const csv =
+          'Frage;Antwort\n'
           ';32 Bit\n'
           'Was ist RAM?;\n'
           'Was ist ROM?;Festwertspeicher\n';
@@ -97,7 +112,8 @@ void main() {
     });
 
     test('liest karten-eigene Falschantworten', () {
-      const csv = 'Frage;Antwort;FalscheAntwort1;FalscheAntwort2;FalscheAntwort3\n'
+      const csv =
+          'Frage;Antwort;FalscheAntwort1;FalscheAntwort2;FalscheAntwort3\n'
           'Aus wie vielen Bits besteht eine IPv4-Adresse?;32 Bit;16 Bit;64 Bit;128 Bit\n';
       final result = CsvParser.parseCards(csv);
       expect(result.cards, hasLength(1));
@@ -109,12 +125,13 @@ void main() {
 
     test('parst alle mitgelieferten IT-Decks mit Distraktoren (16 x 50)', () {
       final dir = Directory('assets/decks');
-      final files = dir
-          .listSync()
-          .whereType<File>()
-          .where((f) => f.path.toLowerCase().endsWith('.csv'))
-          .toList()
-        ..sort((a, b) => a.path.compareTo(b.path));
+      final files =
+          dir
+              .listSync()
+              .whereType<File>()
+              .where((f) => f.path.toLowerCase().endsWith('.csv'))
+              .toList()
+            ..sort((a, b) => a.path.compareTo(b.path));
       expect(files, hasLength(16));
       var total = 0;
       for (final file in files) {

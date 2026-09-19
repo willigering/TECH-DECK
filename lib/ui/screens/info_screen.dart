@@ -17,9 +17,9 @@ class InfoScreen extends StatelessWidget {
 
   void _copy(BuildContext context, String label, String value) {
     Clipboard.setData(ClipboardData(text: value));
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('$label kopiert')),
-    );
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text('$label kopiert')));
   }
 
   @override
@@ -175,7 +175,11 @@ class InfoScreen extends StatelessWidget {
             ),
             IconButton(
               onPressed: () => _copy(context, label, value),
-              icon: const Icon(Icons.copy_rounded, color: TdColors.gold, size: 18),
+              icon: const Icon(
+                Icons.copy_rounded,
+                color: TdColors.gold,
+                size: 18,
+              ),
             ),
           ],
         ),

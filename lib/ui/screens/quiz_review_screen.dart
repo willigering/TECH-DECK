@@ -5,7 +5,6 @@ import '../../data/models/quiz.dart';
 import '../widgets/gold_button.dart';
 import '../widgets/pcb_background.dart';
 
-
 class QuizReviewScreen extends StatelessWidget {
   const QuizReviewScreen({super.key, required this.session});
 

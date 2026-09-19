@@ -45,9 +45,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final analyses = await context.read<DeckController>().pickAndAnalyzeCsv();
     if (!mounted || analyses == null) return;
     final summary = await Navigator.of(context).push<ImportSummary>(
-      MaterialPageRoute(
-        builder: (_) => ImportReviewScreen(analyses: analyses),
-      ),
+      MaterialPageRoute(builder: (_) => ImportReviewScreen(analyses: analyses)),
     );
     if (!mounted || summary == null) return;
     _toast(
@@ -60,7 +58,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final ok = await _confirm(
       'Statistiken zurücksetzen?',
       'Gelernte Karten und Quiz-Auswertungen werden gelöscht. '
-      'Importierte Themen bleiben erhalten.',
+          'Importierte Themen bleiben erhalten.',
     );
     if (ok != true || !mounted) return;
     await context.read<DeckController>().resetStats();
@@ -145,7 +143,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
           const SizedBox(height: 10),
           TextField(
             controller: _urlCtrl,
-            style: const TextStyle(color: TdColors.text, fontFamily: 'Rajdhani'),
+            style: const TextStyle(
+              color: TdColors.text,
+              fontFamily: 'Rajdhani',
+            ),
             decoration: const InputDecoration(
               labelText: 'Backend-URL',
               labelStyle: TextStyle(color: TdColors.gold),
@@ -155,7 +156,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
           TextField(
             controller: _tokenCtrl,
             obscureText: true,
-            style: const TextStyle(color: TdColors.text, fontFamily: 'Rajdhani'),
+            style: const TextStyle(
+              color: TdColors.text,
+              fontFamily: 'Rajdhani',
+            ),
             decoration: const InputDecoration(
               labelText: 'Optionales App-Token',
               labelStyle: TextStyle(color: TdColors.gold),
@@ -194,7 +198,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 topic: t,
                 onTap: () {},
                 trailing: IconButton(
-                  icon: const Icon(Icons.delete_outline, color: TdColors.danger),
+                  icon: const Icon(
+                    Icons.delete_outline,
+                    color: TdColors.danger,
+                  ),
                   onPressed: () => _deleteTopic(t.id, t.name),
                 ),
               ),

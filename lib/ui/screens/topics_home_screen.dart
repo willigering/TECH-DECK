@@ -29,7 +29,7 @@ class _TopicsHomeScreenState extends State<TopicsHomeScreen> {
     final msg = errors.isNotEmpty
         ? 'Import mit Fehlern: ${errors.first.error}'
         : '${summary.filesOk} Datei(en) · ${summary.cardsImported} Karten neu · '
-            '${summary.duplicates} Duplikate übersprungen';
+              '${summary.duplicates} Duplikate übersprungen';
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
   }
 
@@ -52,10 +52,7 @@ class _TopicsHomeScreenState extends State<TopicsHomeScreen> {
               ),
             )
           else if (topics.isEmpty) ...[
-            GoldButton(
-              label: 'CSV IMPORTIEREN',
-              onTap: _import,
-            ),
+            GoldButton(label: 'CSV IMPORTIEREN', onTap: _import),
             const SizedBox(height: 12),
             const Text(
               'Eine CSV-Datei entspricht genau einem Thema.\n'
@@ -73,7 +70,10 @@ class _TopicsHomeScreenState extends State<TopicsHomeScreen> {
               trailing: IconButton(
                 visualDensity: VisualDensity.compact,
                 onPressed: _import,
-                icon: const Icon(Icons.add_circle_outline, color: TdColors.gold),
+                icon: const Icon(
+                  Icons.add_circle_outline,
+                  color: TdColors.gold,
+                ),
               ),
             ),
             const Text(
@@ -86,22 +86,22 @@ class _TopicsHomeScreenState extends State<TopicsHomeScreen> {
             ),
             const SizedBox(height: 12),
             for (final topic in topics) ...[
-                TopicTile(
-                  topic: topic,
-                  onTap: () {
-                    deck.selectTopic(topic.id);
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        settings: const RouteSettings(
-                          name: TopicDetailScreen.routeName,
-                        ),
-                        builder: (_) => TopicDetailScreen(topicId: topic.id),
+              TopicTile(
+                topic: topic,
+                onTap: () {
+                  deck.selectTopic(topic.id);
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      settings: const RouteSettings(
+                        name: TopicDetailScreen.routeName,
                       ),
-                    );
-                  },
-                ),
-                const SizedBox(height: 10),
-              ],
+                      builder: (_) => TopicDetailScreen(topicId: topic.id),
+                    ),
+                  );
+                },
+              ),
+              const SizedBox(height: 10),
+            ],
           ],
         ],
       ),

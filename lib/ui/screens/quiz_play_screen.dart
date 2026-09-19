@@ -34,8 +34,7 @@ class _QuizPlayScreenState extends State<QuizPlayScreen> {
   bool _started = false;
   String? _error;
 
-  QuizQuestion? get _current =>
-      _questions.isEmpty ? null : _questions[_index];
+  QuizQuestion? get _current => _questions.isEmpty ? null : _questions[_index];
 
   @override
   void initState() {
@@ -47,10 +46,10 @@ class _QuizPlayScreenState extends State<QuizPlayScreen> {
     if (_started) return;
     _started = true;
     try {
-      final cards =
-          await context.read<DeckController>().cardsFor(widget.topicId);
-      final questions =
-          QuizGenerator().generate(cards, widget.questionCount);
+      final cards = await context.read<DeckController>().cardsFor(
+        widget.topicId,
+      );
+      final questions = QuizGenerator().generate(cards, widget.questionCount);
       if (!mounted) return;
       setState(() {
         _questions = questions;
@@ -91,11 +90,7 @@ class _QuizPlayScreenState extends State<QuizPlayScreen> {
         ? QuizVerdict.correct
         : QuizVerdict.wrong;
     _records.add(
-      QuizAnswerRecord(
-        question: q,
-        selectedIndex: _selected,
-        verdict: verdict,
-      ),
+      QuizAnswerRecord(question: q, selectedIndex: _selected, verdict: verdict),
     );
     _advance();
   }
@@ -112,12 +107,13 @@ class _QuizPlayScreenState extends State<QuizPlayScreen> {
   }
 
   Future<void> _finish() async {
-    final correct =
-        _records.where((r) => r.verdict == QuizVerdict.correct).length;
-    final wrong =
-        _records.where((r) => r.verdict == QuizVerdict.wrong).length;
-    final skipped =
-        _records.where((r) => r.verdict == QuizVerdict.skipped).length;
+    final correct = _records
+        .where((r) => r.verdict == QuizVerdict.correct)
+        .length;
+    final wrong = _records.where((r) => r.verdict == QuizVerdict.wrong).length;
+    final skipped = _records
+        .where((r) => r.verdict == QuizVerdict.skipped)
+        .length;
     final session = QuizSession(
       id: const Uuid().v4(),
       topicId: widget.topicId,
@@ -131,9 +127,7 @@ class _QuizPlayScreenState extends State<QuizPlayScreen> {
     await context.read<DeckController>().saveQuiz(session);
     if (!mounted) return;
     Navigator.of(context).pushReplacement(
-      MaterialPageRoute(
-        builder: (_) => QuizResultScreen(session: session),
-      ),
+      MaterialPageRoute(builder: (_) => QuizResultScreen(session: session)),
     );
   }
 
@@ -158,92 +152,90 @@ class _QuizPlayScreenState extends State<QuizPlayScreen> {
                     child: CircularProgressIndicator(color: TdColors.gold),
                   )
                 : _error != null
-                    ? Center(child: Text(_error!))
-                    : q == null
-                        ? const Center(
-                            child: Padding(
-                              padding: EdgeInsets.all(24),
-                              child: Text(
-                                'Für dieses Thema können keine vollständigen Quizfragen erzeugt werden.\n\nJede Karte braucht genau eine richtige Antwort und drei passende falsche Antworten.',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontFamily: 'Rajdhani',
-                                  fontSize: 18,
-                                  height: 1.4,
-                                ),
-                              ),
-                            ),
-                          )
-                        : Column(
-                            children: [
-                              Text(
-                                '${_index + 1} / ${_questions.length}',
-                                style: const TextStyle(
-                                  fontFamily: 'Orbitron',
-                                  fontSize: 13,
-                                  letterSpacing: 2,
-                                  color: TdColors.gold,
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              GoldProgressBar(
-                                value: (_index + 1) / _questions.length,
-                              ),
-                              const SizedBox(height: 20),
-                              GoldPanel(
-                                child: Text(
-                                  q.prompt,
-                                  textAlign: TextAlign.center,
-                                  style: const TextStyle(
-                                    fontFamily: 'Rajdhani',
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 22,
-                                    color: TdColors.text,
-                                    height: 1.3,
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 16),
-                              Expanded(
-                                child: ListView.separated(
-                                  itemCount: q.options.length,
-                                  separatorBuilder: (_, _) =>
-                                      const SizedBox(height: 10),
-                                  itemBuilder: (context, i) {
-                                    return _OptionTile(
-                                      letter: String.fromCharCode(65 + i),
-                                      text: q.choices[i].text,
-                                      selected: _selected == i,
-                                      reveal: _selected != null,
-                                      correct: q.choices[i].isCorrect,
-                                      onTap: () => _select(i),
-                                    );
-                                  },
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              Row(
-                                children: [
-                                  Expanded(
-                                    child: GoldButton(
-                                      label: 'ÜBERSPRINGEN',
-                                      filled: false,
-                                      onTap: _selected == null ? _skip : null,
-                                      enabled: _selected == null,
-                                    ),
-                                  ),
-                                  const SizedBox(width: 12),
-                                  Expanded(
-                                    child: GoldButton(
-                                      label: 'WEITER',
-                                      onTap: _selected != null ? _next : null,
-                                      enabled: _selected != null,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                ? Center(child: Text(_error!))
+                : q == null
+                ? const Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(24),
+                      child: Text(
+                        'Für dieses Thema können keine vollständigen Quizfragen erzeugt werden.\n\nJede Karte braucht genau eine richtige Antwort und drei gespeicherte, fachlich zur Frage passende Falschantworten. Unpassende oder doppelte Fragen werden übersprungen.',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Rajdhani',
+                          fontSize: 18,
+                          height: 1.4,
+                        ),
+                      ),
+                    ),
+                  )
+                : Column(
+                    children: [
+                      Text(
+                        '${_index + 1} / ${_questions.length}',
+                        style: const TextStyle(
+                          fontFamily: 'Orbitron',
+                          fontSize: 13,
+                          letterSpacing: 2,
+                          color: TdColors.gold,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      GoldProgressBar(value: (_index + 1) / _questions.length),
+                      const SizedBox(height: 20),
+                      GoldPanel(
+                        child: Text(
+                          q.prompt,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontFamily: 'Rajdhani',
+                            fontWeight: FontWeight.w600,
+                            fontSize: 22,
+                            color: TdColors.text,
+                            height: 1.3,
                           ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      Expanded(
+                        child: ListView.separated(
+                          itemCount: q.options.length,
+                          separatorBuilder: (_, _) =>
+                              const SizedBox(height: 10),
+                          itemBuilder: (context, i) {
+                            return _OptionTile(
+                              letter: String.fromCharCode(65 + i),
+                              text: q.choices[i].text,
+                              selected: _selected == i,
+                              reveal: _selected != null,
+                              correct: q.choices[i].isCorrect,
+                              onTap: () => _select(i),
+                            );
+                          },
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: GoldButton(
+                              label: 'ÜBERSPRINGEN',
+                              filled: false,
+                              onTap: _selected == null ? _skip : null,
+                              enabled: _selected == null,
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                          Expanded(
+                            child: GoldButton(
+                              label: 'WEITER',
+                              onTap: _selected != null ? _next : null,
+                              enabled: _selected != null,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
           ),
         ),
       ),

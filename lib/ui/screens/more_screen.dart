@@ -29,7 +29,7 @@ class _MoreScreenState extends State<MoreScreen> {
     final ok = await _confirm(
       'Statistiken zurücksetzen?',
       'Gelernte Karten und Quiz-Auswertungen werden gelöscht. '
-      'Importierte Themen bleiben erhalten.',
+          'Importierte Themen bleiben erhalten.',
     );
     if (ok != true || !mounted) return;
     await context.read<DeckController>().resetStats();
@@ -142,7 +142,10 @@ class _MoreScreenState extends State<MoreScreen> {
                 topic: t,
                 onTap: () {},
                 trailing: IconButton(
-                  icon: const Icon(Icons.delete_outline, color: TdColors.danger),
+                  icon: const Icon(
+                    Icons.delete_outline,
+                    color: TdColors.danger,
+                  ),
                   onPressed: () => _deleteTopic(t.id, t.name),
                 ),
               ),

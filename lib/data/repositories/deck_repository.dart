@@ -5,6 +5,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../logic/import_analyzer.dart';
+import '../../logic/question_normalizer.dart';
 import '../csv/csv_importer.dart';
 import '../csv/csv_parser.dart';
 import '../db/app_database.dart';
@@ -15,9 +16,9 @@ import '../models/topic.dart';
 
 class DeckRepository {
   DeckRepository({AppDatabase? database})
-      : _dbProvider = database ?? AppDatabase.instance;
+    : _dbProvider = database ?? AppDatabase.instance;
 
-  static const bundledContentRev = 'thematic-2';
+  static const bundledContentRev = 'quiz-quality-1';
 
   final AppDatabase _dbProvider;
   final _uuid = const Uuid();
@@ -35,12 +36,7 @@ class DeckRepository {
       ORDER BY t.sort_order ASC
     ''');
     return rows
-        .map(
-          (row) => Topic.fromMap(
-            row,
-            cardCount: _asInt(row['card_count']),
-          ),
-        )
+        .map((row) => Topic.fromMap(row, cardCount: _asInt(row['card_count'])))
         .toList();
   }
 
@@ -134,7 +130,10 @@ class DeckRepository {
   Future<void> ensureBundledTopics() async {
     const bundled = [
       ('assets/decks/01_IT_Grundlagen.csv', 'IT Grundlagen'),
-      ('assets/decks/02_Hardware_und_Architektur.csv', 'Hardware und Architektur'),
+      (
+        'assets/decks/02_Hardware_und_Architektur.csv',
+        'Hardware und Architektur',
+      ),
       ('assets/decks/03_Betriebssysteme.csv', 'Betriebssysteme'),
       ('assets/decks/04_Netzwerke_und_OSI.csv', 'Netzwerke und OSI'),
       ('assets/decks/05_IPv4_IPv6_Subnetting.csv', 'IPv4, IPv6 und Subnetting'),
@@ -203,11 +202,10 @@ class DeckRepository {
   }
 
   Future<void> _setMeta(Database db, String key, String value) async {
-    await db.insert(
-      'app_meta',
-      {'key': key, 'value': value},
-      conflictAlgorithm: ConflictAlgorithm.replace,
-    );
+    await db.insert('app_meta', {
+      'key': key,
+      'value': value,
+    }, conflictAlgorithm: ConflictAlgorithm.replace);
   }
 
   Future<ImportFileOutcome> _importOne(
@@ -245,10 +243,9 @@ class DeckRepository {
 
         late final String topicId;
         if (existing.isEmpty) {
-          final maxOrder = Sqflite.firstIntValue(
-                await txn.rawQuery(
-                  'SELECT MAX(sort_order) FROM topics',
-                ),
+          final maxOrder =
+              Sqflite.firstIntValue(
+                await txn.rawQuery('SELECT MAX(sort_order) FROM topics'),
               ) ??
               -1;
           topicId = _uuid.v4();
@@ -285,8 +282,11 @@ class DeckRepository {
             whereArgs: [topicId],
             limit: 1,
           );
-          final needsRefresh = sample.isEmpty ||
-              ((sample.first['wrong_answer_1'] as String? ?? '').trim().isEmpty);
+          final needsRefresh =
+              sample.isEmpty ||
+              ((sample.first['wrong_answer_1'] as String? ?? '')
+                  .trim()
+                  .isEmpty);
           if (needsRefresh && sample.isNotEmpty) {
             await txn.delete(
               'cards',
@@ -303,10 +303,12 @@ class DeckRepository {
           where: 'topic_id = ?',
           whereArgs: [topicId],
         );
+        final existingQuestions = <String>[];
         for (final row in current) {
-          known[
-              '${CsvParser.normalizeKey(row['question'] as String)}||'
-              '${CsvParser.normalizeKey(row['answer'] as String)}'] =
+          final q = row['question'] as String;
+          existingQuestions.add(q);
+          known['${CsvParser.normalizeKey(q)}||'
+                  '${CsvParser.normalizeKey(row['answer'] as String)}'] =
               row['id'] as String;
         }
 
@@ -329,7 +331,12 @@ class DeckRepository {
             duplicates++;
             continue;
           }
+          if (_nearDuplicateQuestion(card.question, existingQuestions)) {
+            duplicates++;
+            continue;
+          }
           known[key] = _uuid.v4();
+          existingQuestions.add(card.question);
           await txn.insert('cards', {
             'id': known[key],
             'topic_id': topicId,
@@ -381,7 +388,8 @@ class DeckRepository {
         );
         late final String topicId;
         if (existing.isEmpty) {
-          final maxOrder = Sqflite.firstIntValue(
+          final maxOrder =
+              Sqflite.firstIntValue(
                 await txn.rawQuery('SELECT MAX(sort_order) FROM topics'),
               ) ??
               -1;
@@ -398,6 +406,7 @@ class DeckRepository {
         }
 
         final known = <String, String>{};
+        final existingQuestions = <String>[];
         final current = await txn.query(
           'cards',
           columns: ['id', 'question', 'answer'],
@@ -405,9 +414,10 @@ class DeckRepository {
           whereArgs: [topicId],
         );
         for (final row in current) {
-          known[
-              '${CsvParser.normalizeKey(row['question'] as String)}||'
-              '${CsvParser.normalizeKey(row['answer'] as String)}'] =
+          final q = row['question'] as String;
+          existingQuestions.add(q);
+          known['${CsvParser.normalizeKey(q)}||'
+                  '${CsvParser.normalizeKey(row['answer'] as String)}'] =
               row['id'] as String;
         }
 
@@ -418,7 +428,10 @@ class DeckRepository {
           }
           final key =
               '${CsvParser.normalizeKey(draft.question)}||${CsvParser.normalizeKey(draft.answer)}';
-          final useAi = !learnOnly && draft.aiSuggestion != null && draft.aiSuggestion!.length == 3;
+          final useAi =
+              !learnOnly &&
+              draft.aiSuggestion != null &&
+              draft.aiSuggestion!.length == 3;
           final wrongs = learnOnly
               ? const ['', '', '']
               : (useAi ? draft.aiSuggestion! : draft.wrongAnswers);
@@ -436,11 +449,21 @@ class DeckRepository {
           };
           final existingId = known[key];
           if (existingId != null) {
-            await txn.update('cards', payload, where: 'id = ?', whereArgs: [existingId]);
+            await txn.update(
+              'cards',
+              payload,
+              where: 'id = ?',
+              whereArgs: [existingId],
+            );
+            duplicates++;
+            continue;
+          }
+          if (_nearDuplicateQuestion(draft.question, existingQuestions)) {
             duplicates++;
             continue;
           }
           known[key] = _uuid.v4();
+          existingQuestions.add(draft.question);
           await txn.insert('cards', {
             'id': known[key],
             'topic_id': topicId,
@@ -471,6 +494,13 @@ class DeckRepository {
         error: 'Import fehlgeschlagen: $e',
       );
     }
+  }
+
+  bool _nearDuplicateQuestion(String question, List<String> existing) {
+    for (final other in existing) {
+      if (QuestionNormalizer.areDuplicates(question, other)) return true;
+    }
+    return false;
   }
 
   Future<void> deleteTopic(String topicId) async {
@@ -513,7 +543,9 @@ class DeckRepository {
       'wrong_count': session.wrongCount,
       'skipped_count': session.skippedCount,
       'completed_at': session.completedAt.millisecondsSinceEpoch,
-      'review_json': jsonEncode(session.records.map((r) => r.toJson()).toList()),
+      'review_json': jsonEncode(
+        session.records.map((r) => r.toJson()).toList(),
+      ),
     });
   }
 
@@ -523,15 +555,11 @@ class DeckRepository {
 
     final learned = _asInt(
       Sqflite.firstIntValue(
-        await db.rawQuery(
-          'SELECT COUNT(*) FROM cards WHERE times_seen > 0',
-        ),
+        await db.rawQuery('SELECT COUNT(*) FROM cards WHERE times_seen > 0'),
       ),
     );
     final total = _asInt(
-      Sqflite.firstIntValue(
-        await db.rawQuery('SELECT COUNT(*) FROM cards'),
-      ),
+      Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM cards')),
     );
     final quizzes = _asInt(
       Sqflite.firstIntValue(
@@ -615,9 +643,7 @@ class DeckRepository {
     final db = await _db;
     await db.transaction((txn) async {
       await txn.delete('quiz_sessions');
-      await txn.rawUpdate(
-        'UPDATE cards SET times_seen = 0, last_seen = NULL',
-      );
+      await txn.rawUpdate('UPDATE cards SET times_seen = 0, last_seen = NULL');
     });
   }
 

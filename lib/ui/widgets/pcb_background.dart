@@ -189,33 +189,80 @@ class _BoardPainter extends CustomPainter {
       vias.add(Offset(x1, y0));
     }
 
-    stub(size.width * 0.10, size.height * 0.16, size.width * 0.18, size.height * 0.22);
-    stub(size.width * 0.90, size.height * 0.34, size.width * 0.80, size.height * 0.28);
-    stub(size.width * 0.28, size.height * 0.52, size.width * 0.36, size.height * 0.42);
-    stub(size.width * 0.72, size.height * 0.70, size.width * 0.64, size.height * 0.60);
-    stub(size.width * 0.50, size.height * 0.86, size.width * 0.42, size.height * 0.78, thick: false);
-    stub(size.width * 0.10, size.height * 0.70, size.width * 0.20, size.height * 0.62);
+    stub(
+      size.width * 0.10,
+      size.height * 0.16,
+      size.width * 0.18,
+      size.height * 0.22,
+    );
+    stub(
+      size.width * 0.90,
+      size.height * 0.34,
+      size.width * 0.80,
+      size.height * 0.28,
+    );
+    stub(
+      size.width * 0.28,
+      size.height * 0.52,
+      size.width * 0.36,
+      size.height * 0.42,
+    );
+    stub(
+      size.width * 0.72,
+      size.height * 0.70,
+      size.width * 0.64,
+      size.height * 0.60,
+    );
+    stub(
+      size.width * 0.50,
+      size.height * 0.86,
+      size.width * 0.42,
+      size.height * 0.78,
+      thick: false,
+    );
+    stub(
+      size.width * 0.10,
+      size.height * 0.70,
+      size.width * 0.20,
+      size.height * 0.62,
+    );
 
-    chips.add(_makeChip(Rect.fromCenter(
-      center: Offset(size.width * 0.22, size.height * 0.28),
-      width: size.width * 0.22,
-      height: size.height * 0.10,
-    )));
-    chips.add(_makeChip(Rect.fromCenter(
-      center: Offset(size.width * 0.78, size.height * 0.38),
-      width: size.width * 0.20,
-      height: size.height * 0.12,
-    )));
-    chips.add(_makeChip(Rect.fromCenter(
-      center: Offset(size.width * 0.50, size.height * 0.62),
-      width: size.width * 0.34,
-      height: size.height * 0.11,
-    )));
-    chips.add(_makeChip(Rect.fromCenter(
-      center: Offset(size.width * 0.24, size.height * 0.80),
-      width: size.width * 0.18,
-      height: size.height * 0.08,
-    )));
+    chips.add(
+      _makeChip(
+        Rect.fromCenter(
+          center: Offset(size.width * 0.22, size.height * 0.28),
+          width: size.width * 0.22,
+          height: size.height * 0.10,
+        ),
+      ),
+    );
+    chips.add(
+      _makeChip(
+        Rect.fromCenter(
+          center: Offset(size.width * 0.78, size.height * 0.38),
+          width: size.width * 0.20,
+          height: size.height * 0.12,
+        ),
+      ),
+    );
+    chips.add(
+      _makeChip(
+        Rect.fromCenter(
+          center: Offset(size.width * 0.50, size.height * 0.62),
+          width: size.width * 0.34,
+          height: size.height * 0.11,
+        ),
+      ),
+    );
+    chips.add(
+      _makeChip(
+        Rect.fromCenter(
+          center: Offset(size.width * 0.24, size.height * 0.80),
+          width: size.width * 0.18,
+          height: size.height * 0.08,
+        ),
+      ),
+    );
 
     // Kreuzungs-Vias auf dem Raster.
     for (final relY in busRows) {

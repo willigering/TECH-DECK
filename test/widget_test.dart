@@ -6,8 +6,8 @@ void main() {
   test('App-Metadaten sind gesetzt', () {
     expect(AppInfo.name, 'TECH//DECK');
     expect(AppInfo.developer, 'Willi Gering');
-    expect(AppInfo.version, '1.5.0');
-    expect(AppInfo.buildNumber, 9);
+    expect(AppInfo.version, '1.6.0');
+    expect(AppInfo.buildNumber, 10);
     expect(AppInfo.tagline, 'LERNE. VERSTEHE. VERBINDE.');
   });
 
@@ -17,10 +17,6 @@ void main() {
       '02_IPv4_IPv6.csv',
       '03_Betriebssysteme.csv',
     ].map(CsvParser.topicNameFromFilename).toList();
-    expect(names, [
-      '01_Netzwerke',
-      '02_IPv4_IPv6',
-      '03_Betriebssysteme',
-    ]);
+    expect(names, ['01_Netzwerke', '02_IPv4_IPv6', '03_Betriebssysteme']);
   });
 }

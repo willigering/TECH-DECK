@@ -10,7 +10,7 @@ import '../logic/import_analyzer.dart';
 
 class DeckController extends ChangeNotifier {
   DeckController({DeckRepository? repository})
-      : _repo = repository ?? DeckRepository();
+    : _repo = repository ?? DeckRepository();
 
   final DeckRepository _repo;
 

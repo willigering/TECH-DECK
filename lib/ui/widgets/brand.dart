@@ -24,11 +24,7 @@ class TdLogo extends StatelessWidget {
 }
 
 class BrandHeader extends StatelessWidget {
-  const BrandHeader({
-    super.key,
-    this.compact = false,
-    this.showLogo = false,
-  });
+  const BrandHeader({super.key, this.compact = false, this.showLogo = false});
 
   final bool compact;
   final bool showLogo;
@@ -129,9 +125,7 @@ class PercentRing extends StatelessWidget {
                   fontFamily: 'Orbitron',
                   fontSize: 36,
                   color: TdColors.gold,
-                  shadows: [
-                    Shadow(color: TdColors.gold, blurRadius: 16),
-                  ],
+                  shadows: [Shadow(color: TdColors.gold, blurRadius: 16)],
                 ),
               ),
               const SizedBox(height: 4),

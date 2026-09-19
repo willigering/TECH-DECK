@@ -45,8 +45,9 @@ Optional `TECHDECK_API_TOKEN` setzen. Dann denselben Wert in der App eintragen.
 
 - `GET /health`
 - `POST /v1/distractors`  
-  Body: `{ "question": "...", "correctAnswer": "..." }`  
-  Antwort: `{ "wrongAnswers": ["...", "...", "..."] }`
+  Body: `{ "question": "...", "correctAnswer": "...", "existingWrongAnswers": [] }`  
+  Antwort: `{ "wrongAnswers": ["...", "...", "..."] }`  
+  Die drei Werte gehören immer zur übergebenen Frage. Fachfremde Floskeln werden verworfen.
 
 KI-Anfragen laufen nur bei ausdrücklicher Erstellung/Prüfung, nie im Quiz oder Lernmodus.
 

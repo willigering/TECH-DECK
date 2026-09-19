@@ -16,8 +16,8 @@ class DistractorApiException implements Exception {
 
 class DistractorApi {
   DistractorApi({AiSettings? settings, http.Client? client})
-      : _settings = settings ?? AiSettings(),
-        _client = client ?? http.Client();
+    : _settings = settings ?? AiSettings(),
+      _client = client ?? http.Client();
 
   final AiSettings _settings;
   final http.Client _client;
@@ -77,15 +77,19 @@ class DistractorApi {
     if (raw is! List) {
       throw DistractorApiException('KI-Antwort ohne drei Falschantworten.');
     }
-    final values = raw.map((e) => '$e').toList();
-    final valid = DistractorValidator.normalizeThree(values, correctAnswer);
-    if (valid == null) {
+    final values = raw.map((e) => '$e'.trim()).toList();
+    final check = DistractorValidator.evaluate(
+      question: question,
+      correctAnswer: correctAnswer,
+      wrongAnswers: values,
+    );
+    if (!check.ok) {
       throw DistractorApiException(
-        DistractorValidator.issueFor(values, correctAnswer) ??
+        check.firstIssue ??
             'Die KI-Antwort ist ungültig und wurde nicht gespeichert.',
       );
     }
-    return valid;
+    return values.take(3).toList();
   }
 
   String _errorMessage(http.Response response) {

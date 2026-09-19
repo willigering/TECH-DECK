@@ -15,32 +15,39 @@ void main() {
     String w1 = '',
     String w2 = '',
     String w3 = '',
-  }) =>
-      Flashcard(
-        id: id,
-        topicId: 'topic',
-        question: q,
-        answer: a,
-        wrongAnswer1: w1,
-        wrongAnswer2: w2,
-        wrongAnswer3: w3,
-      );
+  }) => Flashcard(
+    id: id,
+    topicId: 'topic',
+    question: q,
+    answer: a,
+    wrongAnswer1: w1,
+    wrongAnswer2: w2,
+    wrongAnswer3: w3,
+  );
 
-  Flashcard complete(String id, String q, String a) => card(
-        id,
-        q,
-        a,
-        w1: '$a falsch 1',
-        w2: '$a falsch 2',
-        w3: '$a falsch 3',
-      );
+  Flashcard complete(String id, String q, String a) {
+    final unit = a.contains('Bit')
+        ? [
+            '8 Bit',
+            '16 Bit',
+            '24 Bit',
+            '64 Bit',
+            '256 Bit',
+          ].where((e) => e != a).take(3).toList()
+        : a.contains('Oktette')
+        ? ['2 Oktette', '6 Oktette', '8 Oktette']
+        : a.trim() == '7'
+        ? ['4', '8', '16']
+        : ['4', '8', '16'];
+    return card(id, q, a, w1: unit[0], w2: unit[1], w3: unit[2]);
+  }
 
   test('erzeugt nur Fragen aus den übergebenen Karten', () {
     final cards = [
-      complete('1', 'Bits IPv4?', '32 Bit'),
-      complete('2', 'Oktette IPv4?', '4 Oktette'),
-      complete('3', 'Bits IPv6?', '128 Bit'),
-      complete('4', 'OSI-Schichten?', '7'),
+      complete('1', 'Wie viele Bits hat IPv4?', '32 Bit'),
+      complete('2', 'Wie viele Oktette hat IPv4?', '4 Oktette'),
+      complete('3', 'Wie viele Bits hat IPv6?', '128 Bit'),
+      complete('4', 'Wie viele Schichten hat das OSI-Modell?', '7'),
     ];
     final questions = QuizGenerator(random: Random(1)).generate(cards, 10);
     expect(questions.length, 4);
@@ -84,9 +91,9 @@ void main() {
         '2',
         'Was macht ein SELECT in SQL?',
         'Datensätze lesen',
-        w1: 'einfügen',
-        w2: 'ändern',
-        w3: 'löschen',
+        w1: 'SELECT fügt Datensätze ein',
+        w2: 'SELECT ändert Datensätze',
+        w3: 'SELECT löscht Datensätze',
       ),
     ];
     final questions = QuizGenerator(random: Random(7)).generate(cards, 8);
@@ -97,11 +104,30 @@ void main() {
 
   test('nimmt niemals Antworten anderer Karten', () {
     final cards = [
-      card('1', 'Was ist CSMA/CD?', 'Zugriffsverfahren', w1: 'A', w2: 'B', w3: 'C'),
-      card('2', 'Welche Topologie?', 'Bustopologie', w1: 'Stern', w2: 'Ring', w3: 'Mesh'),
+      card(
+        '1',
+        'Was ist CSMA/CD?',
+        'Zugriffsverfahren bei Kollisionen.',
+        w1: 'CSMA/CD ignoriert Kollisionen vollständig.',
+        w2: 'CSMA/CD arbeitet nur auf Layer 3.',
+        w3: 'CSMA/CD vergibt IP-Adressen.',
+      ),
+      card(
+        '2',
+        'Welche Topologie?',
+        'Bustopologie',
+        w1: 'Sterntopologie',
+        w2: 'Ringtopologie',
+        w3: 'Mesh-Topologie',
+      ),
     ];
     final first = QuizGenerator(random: Random(3)).questionFor(cards.first)!;
-    expect(first.options.toSet(), {'Zugriffsverfahren', 'A', 'B', 'C'});
+    expect(first.options.toSet(), {
+      'Zugriffsverfahren bei Kollisionen.',
+      'CSMA/CD ignoriert Kollisionen vollständig.',
+      'CSMA/CD arbeitet nur auf Layer 3.',
+      'CSMA/CD vergibt IP-Adressen.',
+    });
     expect(first.options, isNot(contains('Bustopologie')));
   });
 
@@ -112,17 +138,55 @@ void main() {
   });
 
   test('richtige Antwort als Distraktor macht die Karte ungültig', () {
-    final bad = card('1', 'Bits?', '32 Bit', w1: '32 Bit', w2: '16 Bit', w3: '64 Bit');
+    final bad = card(
+      '1',
+      'Bits?',
+      '32 Bit',
+      w1: '32 Bit',
+      w2: '16 Bit',
+      w3: '64 Bit',
+    );
     expect(QuizGenerator.isQuizReady(bad), isFalse);
   });
 
   test('mischt nur die Reihenfolge, isCorrect bleibt', () {
-    final c = card('1', 'Bits?', '32 Bit', w1: '16 Bit', w2: '64 Bit', w3: '128 Bit');
+    final c = card(
+      '1',
+      'Bits?',
+      '32 Bit',
+      w1: '16 Bit',
+      w2: '64 Bit',
+      w3: '128 Bit',
+    );
     final a = QuizGenerator(random: Random(1)).questionFor(c)!;
     final b = QuizGenerator(random: Random(2)).questionFor(c)!;
     expect(a.options.toSet(), b.options.toSet());
     expect(a.choices.where((o) => o.isCorrect).single.text, '32 Bit');
     expect(a.options, isNot(equals(b.options)));
+  });
+
+  test('nahe Formulierungen derselben Frage nur einmal', () {
+    final cards = [
+      complete('1', 'Was ist DHCP?', '32 Bit'),
+      complete('2', 'Was bedeutet DHCP?', '32 Bit'),
+      complete('3', 'Erkläre DHCP.', '32 Bit'),
+    ];
+    final questions = QuizGenerator(random: Random(4)).generate(cards, 10);
+    expect(questions, hasLength(1));
+  });
+
+  test('Quiz hat genau vier Antworten und eine richtige', () {
+    final c = card(
+      '1',
+      'Bits?',
+      '32 Bit',
+      w1: '16 Bit',
+      w2: '64 Bit',
+      w3: '128 Bit',
+    );
+    final q = QuizGenerator(random: Random(5)).questionFor(c)!;
+    expect(q.choices, hasLength(4));
+    expect(q.choices.where((o) => o.isCorrect), hasLength(1));
   });
 
   test('mischt Lernkarten innerhalb des Decks', () {

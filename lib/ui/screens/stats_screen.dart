@@ -29,7 +29,10 @@ class StatsScreen extends StatelessWidget {
           GoldPanel(
             child: Column(
               children: [
-                _row('GELERNTE KARTEN', '${stats.learnedCards} / ${stats.totalCards}'),
+                _row(
+                  'GELERNTE KARTEN',
+                  '${stats.learnedCards} / ${stats.totalCards}',
+                ),
                 const Divider(color: TdColors.goldLine),
                 _row('ABSOLVIERTE QUIZZE', '${stats.quizzesCompleted}'),
                 const Divider(color: TdColors.goldLine),

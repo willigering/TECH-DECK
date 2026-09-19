@@ -33,7 +33,11 @@ class TopicTile extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       child: Row(
         children: [
-          const Icon(Icons.insert_drive_file_outlined, color: TdColors.gold, size: 22),
+          const Icon(
+            Icons.insert_drive_file_outlined,
+            color: TdColors.gold,
+            size: 22,
+          ),
           const SizedBox(width: 12),
           Expanded(
             child: Text(
@@ -58,7 +62,11 @@ class TopicTile extends StatelessWidget {
           ),
           const SizedBox(width: 6),
           trailing ??
-              const Icon(Icons.chevron_right_rounded, color: TdColors.gold, size: 22),
+              const Icon(
+                Icons.chevron_right_rounded,
+                color: TdColors.gold,
+                size: 22,
+              ),
         ],
       ),
     );

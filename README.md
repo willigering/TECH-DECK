@@ -13,7 +13,8 @@ Mitgeliefert sind 16 IT-Themen mit je 50 Karten (800 insgesamt). Zusätzlich kan
 - CSV-Import (UTF-8, Umlaute, Quotes, große Dateien)
 - Themenübersicht in Importreihenfolge
 - Lernmodus mit echter Card-Flip-Animation
-- Quiz mit 10 / 15 / 20 Fragen: eine richtige und drei **gespeicherte** falsche Antworten derselben Karte
+- Quiz mit 10 / 15 / 20 Fragen: eine richtige und drei **gespeicherte**, zur Frage passende falsche Antworten derselben Karte
+- Karten ohne fachlich passende Distraktoren erscheinen nicht im Quiz, bleiben aber im Lernmodus
 - Lernmodus zeigt nur die korrekte Lösung, keine Distraktoren
 - Optional: KI-Distraktoren über ein eigenes Backend (SpaceXAI), nie mit Schlüssel in der App
 - Lokale Statistiken, vollständig offline

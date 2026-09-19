@@ -77,27 +77,9 @@ abstract final class CsvParser {
   };
 
   static const wrongAnswerHeaders = [
-    {
-      'falscheantwort1',
-      'wronganswer1',
-      'distractor1',
-      'falsch1',
-      'incorrect1',
-    },
-    {
-      'falscheantwort2',
-      'wronganswer2',
-      'distractor2',
-      'falsch2',
-      'incorrect2',
-    },
-    {
-      'falscheantwort3',
-      'wronganswer3',
-      'distractor3',
-      'falsch3',
-      'incorrect3',
-    },
+    {'falscheantwort1', 'wronganswer1', 'distractor1', 'falsch1', 'incorrect1'},
+    {'falscheantwort2', 'wronganswer2', 'distractor2', 'falsch2', 'incorrect2'},
+    {'falscheantwort3', 'wronganswer3', 'distractor3', 'falsch3', 'incorrect3'},
   ];
 
   static String decodeBytes(List<int> bytes) {
@@ -130,7 +112,11 @@ abstract final class CsvParser {
         .where((cols) => cols.any((c) => c.trim().isNotEmpty))
         .toList();
     if (split.isEmpty) {
-      return CsvDocument(headers: const [], rows: const [], delimiter: delimiter);
+      return CsvDocument(
+        headers: const [],
+        rows: const [],
+        delimiter: delimiter,
+      );
     }
     final headers = split.first.map((h) => h.trim()).toList();
     final rows = split.skip(1).toList();

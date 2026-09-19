@@ -6,10 +6,7 @@ import 'package:file_picker/file_picker.dart';
 import 'csv_parser.dart';
 
 class PickedCsvFile {
-  const PickedCsvFile({
-    required this.filename,
-    required this.bytes,
-  });
+  const PickedCsvFile({required this.filename, required this.bytes});
 
   final String filename;
   final Uint8List bytes;
@@ -41,10 +38,8 @@ class ImportSummary {
   final List<ImportFileOutcome> outcomes;
 
   int get filesOk => outcomes.where((o) => o.ok).length;
-  int get cardsImported =>
-      outcomes.fold(0, (sum, o) => sum + o.imported);
-  int get duplicates =>
-      outcomes.fold(0, (sum, o) => sum + o.duplicates);
+  int get cardsImported => outcomes.fold(0, (sum, o) => sum + o.imported);
+  int get duplicates => outcomes.fold(0, (sum, o) => sum + o.duplicates);
 }
 
 class CsvImporter {
@@ -69,7 +64,9 @@ class CsvImporter {
         }
       }
       if (bytes == null || bytes.isEmpty) continue;
-      picked.add(PickedCsvFile(filename: name, bytes: Uint8List.fromList(bytes)));
+      picked.add(
+        PickedCsvFile(filename: name, bytes: Uint8List.fromList(bytes)),
+      );
     }
     return picked;
   }

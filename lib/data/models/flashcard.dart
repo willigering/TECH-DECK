@@ -21,6 +21,7 @@ class Flashcard {
   final String wrongAnswer1;
   final String wrongAnswer2;
   final String wrongAnswer3;
+
   /// none | suggested | accepted | rejected
   /// accepted = Nutzer hat Distraktoren bestätigt, keine KI-Wahrheitsgarantie.
   final String aiStatus;
@@ -33,7 +34,8 @@ class Flashcard {
 
   bool get aiReviewed => aiStatus == 'accepted';
 
-  bool get quizReady {
+  /// Nur strukturell vollständig. Quizfähigkeit prüft [DistractorValidator].
+  bool get hasThreeWrongAnswers {
     if (question.trim().isEmpty || answer.trim().isEmpty) return false;
     final wrongs = wrongAnswers.map((e) => e.trim()).toList();
     if (wrongs.length != 3 || wrongs.any((e) => e.isEmpty)) return false;
@@ -43,6 +45,8 @@ class Flashcard {
     }
     return true;
   }
+
+  bool get quizReady => hasThreeWrongAnswers;
 
   /// Die drei CSV-Distraktoren in Spaltenreihenfolge, ungefiltert.
   List<String> get wrongAnswers => [wrongAnswer1, wrongAnswer2, wrongAnswer3];
@@ -78,19 +82,19 @@ class Flashcard {
   }
 
   Map<String, Object?> toMap() => {
-        'id': id,
-        'topic_id': topicId,
-        'question': question,
-        'answer': answer,
-        'wrong_answer_1': wrongAnswer1,
-        'wrong_answer_2': wrongAnswer2,
-        'wrong_answer_3': wrongAnswer3,
-        'ai_status': aiStatus,
-        'updated_at': updatedAt?.millisecondsSinceEpoch,
-        'is_favorite': isFavorite ? 1 : 0,
-        'times_seen': timesSeen,
-        'last_seen': lastSeen?.millisecondsSinceEpoch,
-      };
+    'id': id,
+    'topic_id': topicId,
+    'question': question,
+    'answer': answer,
+    'wrong_answer_1': wrongAnswer1,
+    'wrong_answer_2': wrongAnswer2,
+    'wrong_answer_3': wrongAnswer3,
+    'ai_status': aiStatus,
+    'updated_at': updatedAt?.millisecondsSinceEpoch,
+    'is_favorite': isFavorite ? 1 : 0,
+    'times_seen': timesSeen,
+    'last_seen': lastSeen?.millisecondsSinceEpoch,
+  };
 
   factory Flashcard.fromMap(Map<String, Object?> map) {
     final last = map['last_seen'] as int?;

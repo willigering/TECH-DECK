@@ -39,8 +39,9 @@ class _LearnScreenState extends State<LearnScreen> {
 
   Future<void> _load() async {
     try {
-      final cards =
-          await context.read<DeckController>().cardsFor(widget.topicId);
+      final cards = await context.read<DeckController>().cardsFor(
+        widget.topicId,
+      );
       if (!mounted) return;
       setState(() {
         _cards = shuffledCopy(cards, Random());
@@ -133,92 +134,88 @@ class _LearnScreenState extends State<LearnScreen> {
                     child: CircularProgressIndicator(color: TdColors.gold),
                   )
                 : _error != null
-                    ? Center(child: Text(_error!))
-                    : card == null
-                        ? const Center(
-                            child: Text('Keine Karten in diesem Thema.'),
-                          )
-                        : Column(
-                            children: [
-                              Text(
-                                '${_index + 1} / ${_cards.length}',
-                                style: const TextStyle(
-                                  fontFamily: 'Orbitron',
-                                  fontSize: 13,
-                                  letterSpacing: 2,
-                                  color: TdColors.gold,
-                                ),
+                ? Center(child: Text(_error!))
+                : card == null
+                ? const Center(child: Text('Keine Karten in diesem Thema.'))
+                : Column(
+                    children: [
+                      Text(
+                        '${_index + 1} / ${_cards.length}',
+                        style: const TextStyle(
+                          fontFamily: 'Orbitron',
+                          fontSize: 13,
+                          letterSpacing: 2,
+                          color: TdColors.gold,
+                        ),
+                      ),
+                      const SizedBox(height: 10),
+                      GoldProgressBar(value: (_index + 1) / _cards.length),
+                      const SizedBox(height: 22),
+                      Expanded(
+                        child: FlipStudyCard(
+                          key: ValueKey(card.id),
+                          question: card.question,
+                          answer: card.answer,
+                          flipped: _flipped,
+                          onFlip: _flip,
+                        ),
+                      ),
+                      const SizedBox(height: 14),
+                      if (!_flipped)
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.rotate_right,
+                              size: 16,
+                              color: TdColors.textDim,
+                            ),
+                            SizedBox(width: 8),
+                            Text(
+                              'Tippe zum Umdrehen',
+                              style: TextStyle(
+                                fontFamily: 'Rajdhani',
+                                fontSize: 15,
+                                color: TdColors.textDim,
                               ),
-                              const SizedBox(height: 10),
-                              GoldProgressBar(
-                                value: (_index + 1) / _cards.length,
-                              ),
-                              const SizedBox(height: 22),
-                              Expanded(
-                                child: FlipStudyCard(
-                                  key: ValueKey(card.id),
-                                  question: card.question,
-                                  answer: card.answer,
-                                  flipped: _flipped,
-                                  onFlip: _flip,
-                                ),
-                              ),
-                              const SizedBox(height: 14),
-                              if (!_flipped)
-                                const Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.rotate_right,
-                                      size: 16,
-                                      color: TdColors.textDim,
-                                    ),
-                                    SizedBox(width: 8),
-                                    Text(
-                                      'Tippe zum Umdrehen',
-                                      style: TextStyle(
-                                        fontFamily: 'Rajdhani',
-                                        fontSize: 15,
-                                        color: TdColors.textDim,
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              else
-                                GoldButton(
-                                  label: 'NÄCHSTE KARTE',
-                                  enabled: _index < _cards.length - 1,
-                                  onTap: _index < _cards.length - 1
-                                      ? () => _go(1)
-                                      : null,
-                                ),
-                              const SizedBox(height: 16),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  _RoundAction(
-                                    icon: Icons.arrow_back_rounded,
-                                    label: 'ZURÜCK',
-                                    enabled: _index > 0,
-                                    onTap: () => _go(-1),
-                                  ),
-                                  _RoundAction(
-                                    icon: card.isFavorite
-                                        ? Icons.star_rounded
-                                        : Icons.star_border_rounded,
-                                    label: 'MARKIEREN',
-                                    onTap: _toggleFavorite,
-                                  ),
-                                  _RoundAction(
-                                    icon: Icons.arrow_forward_rounded,
-                                    label: 'WEITER',
-                                    enabled: _index < _cards.length - 1,
-                                    onTap: () => _go(1),
-                                  ),
-                                ],
-                              ),
-                            ],
+                            ),
+                          ],
+                        )
+                      else
+                        GoldButton(
+                          label: 'NÄCHSTE KARTE',
+                          enabled: _index < _cards.length - 1,
+                          onTap: _index < _cards.length - 1
+                              ? () => _go(1)
+                              : null,
+                        ),
+                      const SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          _RoundAction(
+                            icon: Icons.arrow_back_rounded,
+                            label: 'ZURÜCK',
+                            enabled: _index > 0,
+                            onTap: () => _go(-1),
                           ),
+                          _RoundAction(
+                            icon: card.isFavorite
+                                ? Icons.star_rounded
+                                : Icons.star_border_rounded,
+                            label: 'MARKIEREN',
+                            onTap: _toggleFavorite,
+                          ),
+                          _RoundAction(
+                            icon: Icons.arrow_forward_rounded,
+                            label: 'WEITER',
+                            enabled: _index < _cards.length - 1,
+                            onTap: () => _go(1),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
           ),
         ),
       ),

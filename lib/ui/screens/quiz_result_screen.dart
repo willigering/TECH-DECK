@@ -44,7 +44,8 @@ class QuizResultScreen extends StatelessWidget {
                 const SizedBox(height: 22),
                 PercentRing(
                   percent: session.percent,
-                  caption: '${session.correctCount} / ${session.questionCount} richtig',
+                  caption:
+                      '${session.correctCount} / ${session.questionCount} richtig',
                 ),
                 const SizedBox(height: 24),
                 Row(

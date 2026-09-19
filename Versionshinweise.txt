@@ -5,7 +5,15 @@
   Stand:      2026-09-18
 ================================================================================
 
-Aktuelle Version: 1.5.0 (Build 9) - 2026-09-18
+Aktuelle Version: 1.6.0 (Build 10) - 2026-09-19
+
+v1.6.0 (Build 10) - 2026-09-19
+- Quiz nur mit gespeicherten, fachlich zur Frage passenden Falschantworten
+- Semantische Prüfung: Floskeln, fremde Themen und Zahlenbrüche werden ausgeschlossen
+- Nahe doppelte Fragen (z. B. „Was ist DHCP?“ / „Was bedeutet DHCP?“) nur einmal im Quiz
+- Import warnt und listet Duplikate sowie ungeeignete Distraktoren zur Prüfung
+- KI weiterhin nur im Review, Schlüssel nur im Backend; Vorschläge vor dem Speichern prüfbar
+- Mitgelieferte Decks: Schablonen-Falschantworten durch karteneigene Alternativen ersetzt
 
 v1.5.0 (Build 9) - 2026-09-18
 - CSV-Import mit Analyse: Lernkarten oder vollständige Quizkarten

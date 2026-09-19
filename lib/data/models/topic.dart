@@ -34,12 +34,12 @@ class Topic {
   }
 
   Map<String, Object?> toMap() => {
-        'id': id,
-        'name': name,
-        'source_filename': sourceFilename,
-        'sort_order': sortOrder,
-        'imported_at': importedAt.millisecondsSinceEpoch,
-      };
+    'id': id,
+    'name': name,
+    'source_filename': sourceFilename,
+    'sort_order': sortOrder,
+    'imported_at': importedAt.millisecondsSinceEpoch,
+  };
 
   factory Topic.fromMap(Map<String, Object?> map, {int cardCount = 0}) {
     return Topic(
@@ -47,7 +47,9 @@ class Topic {
       name: map['name'] as String,
       sourceFilename: map['source_filename'] as String,
       sortOrder: map['sort_order'] as int,
-      importedAt: DateTime.fromMillisecondsSinceEpoch(map['imported_at'] as int),
+      importedAt: DateTime.fromMillisecondsSinceEpoch(
+        map['imported_at'] as int,
+      ),
       cardCount: cardCount,
     );
   }

@@ -86,7 +86,7 @@ class QuizSetupScreen extends StatelessWidget {
                       const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 12),
                         child: Text(
-                          'Keine vollständigen Quizkarten in diesem Thema.\nJede Karte braucht eine richtige und drei falsche Antworten.',
+                          'Keine quizbereiten Karten in diesem Thema.\nJede Karte braucht eine richtige und drei fachlich zur Frage passende falsche Antworten.',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontFamily: 'Rajdhani',
@@ -103,13 +103,13 @@ class QuizSetupScreen extends StatelessWidget {
                           enabled: n <= available,
                           onTap: n <= available
                               ? () => Navigator.of(context).pushReplacement(
-                                    MaterialPageRoute(
-                                      builder: (_) => QuizPlayScreen(
-                                        topicId: topicId,
-                                        questionCount: n,
-                                      ),
+                                  MaterialPageRoute(
+                                    builder: (_) => QuizPlayScreen(
+                                      topicId: topicId,
+                                      questionCount: n,
                                     ),
-                                  )
+                                  ),
+                                )
                               : null,
                         ),
                         const SizedBox(height: 12),

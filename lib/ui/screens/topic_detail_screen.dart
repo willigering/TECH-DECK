@@ -117,7 +117,8 @@ class TopicDetailScreen extends StatelessWidget {
                           deck.selectTopic(topic.id);
                           Navigator.of(context).push(
                             MaterialPageRoute(
-                              builder: (_) => QuizSetupScreen(topicId: topic.id),
+                              builder: (_) =>
+                                  QuizSetupScreen(topicId: topic.id),
                             ),
                           );
                         },

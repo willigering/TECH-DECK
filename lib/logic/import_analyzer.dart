@@ -1,4 +1,6 @@
 import '../data/csv/csv_parser.dart';
+import 'distractor_validator.dart';
+import 'question_normalizer.dart';
 
 enum ImportCardState {
   quizReady,
@@ -55,7 +57,8 @@ class ImportAnalysis {
       cards.where((c) => c.state == ImportCardState.invalidDistractors).length;
   int get duplicateCount =>
       cards.where((c) => c.state == ImportCardState.duplicateQuestion).length;
-  int get faultyCount => skippedEmptyQuestion + skippedEmptyAnswer + invalidCount;
+  int get faultyCount =>
+      skippedEmptyQuestion + skippedEmptyAnswer + invalidCount;
 }
 
 abstract final class ImportAnalyzer {
@@ -63,33 +66,36 @@ abstract final class ImportAnalyzer {
     required String filename,
     required CsvParseResult parsed,
   }) {
-    final seenQuestions = <String, int>{};
     final drafts = <ImportCardDraft>[];
-    for (final card in parsed.cards) {
-      final qKey = CsvParser.normalizeKey(card.question);
-      seenQuestions[qKey] = (seenQuestions[qKey] ?? 0) + 1;
-    }
+    final keptQuestions = <String>[];
 
     for (final card in parsed.cards) {
-      final qKey = CsvParser.normalizeKey(card.question);
       final wrongs = card.wrongAnswers.map((e) => e.trim()).toList();
       final filled = wrongs.where((e) => e.isNotEmpty).toList();
       ImportCardState state;
       String? issue;
-      if ((seenQuestions[qKey] ?? 0) > 1) {
+
+      final duplicateOf = _duplicateOf(card.question, keptQuestions);
+      if (duplicateOf != null) {
         state = ImportCardState.duplicateQuestion;
-        issue = 'Diese Frage kommt in der Datei mehrfach vor.';
+        issue = 'Ähnliche Frage bereits in der Datei: „$duplicateOf“';
       } else if (filled.isEmpty) {
         state = ImportCardState.missingDistractors;
         issue = 'Keine falschen Antworten vorhanden.';
+        keptQuestions.add(card.question);
       } else {
-        final problem = _distractorIssue(filled, card.answer);
-        if (problem == null && filled.length == 3) {
+        final check = DistractorValidator.evaluate(
+          question: card.question,
+          correctAnswer: card.answer,
+          wrongAnswers: filled,
+        );
+        if (check.ok && filled.length == 3) {
           state = ImportCardState.quizReady;
         } else {
           state = ImportCardState.invalidDistractors;
-          issue = problem ?? 'Falsche Antworten sind unvollständig.';
+          issue = check.firstIssue ?? 'Falsche Antworten sind unvollständig.';
         }
+        keptQuestions.add(card.question);
       }
       drafts.add(
         ImportCardDraft(
@@ -112,13 +118,10 @@ abstract final class ImportAnalyzer {
     );
   }
 
-  static String? _distractorIssue(List<String> filled, String correct) {
-    if (filled.length != 3) return 'Es fehlen drei falsche Antworten.';
-    final seen = <String>{CsvParser.normalizeKey(correct)};
-    for (final text in filled) {
-      if (text.isEmpty) return 'Eine falsche Antwort ist leer.';
-      if (!seen.add(CsvParser.normalizeKey(text))) {
-        return 'Antworten dürfen nicht doppelt vorkommen.';
+  static String? _duplicateOf(String question, List<String> kept) {
+    for (final existing in kept) {
+      if (QuestionNormalizer.areDuplicates(question, existing)) {
+        return existing;
       }
     }
     return null;

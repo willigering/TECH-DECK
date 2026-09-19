@@ -43,14 +43,14 @@ class QuizAnswerRecord {
   }
 
   Map<String, Object?> toJson() => {
-        'cardId': question.cardId,
-        'prompt': question.prompt,
-        'correctAnswer': question.correctAnswer,
-        'options': question.options,
-        'correctIndex': question.correctIndex,
-        'selectedIndex': selectedIndex,
-        'verdict': verdict.name,
-      };
+    'cardId': question.cardId,
+    'prompt': question.prompt,
+    'correctAnswer': question.correctAnswer,
+    'options': question.options,
+    'correctIndex': question.correctIndex,
+    'selectedIndex': selectedIndex,
+    'verdict': verdict.name,
+  };
 
   factory QuizAnswerRecord.fromJson(Map<String, Object?> json) {
     final options = (json['options'] as List<dynamic>).cast<String>();

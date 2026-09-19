@@ -28,9 +28,7 @@ class ImportReviewScreen extends StatelessWidget {
     return PcbBackground(
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        appBar: AppBar(
-          title: const Text('CSV-Import'),
-        ),
+        appBar: AppBar(title: const Text('CSV-Import')),
         body: SafeArea(
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 12, 20, 24),
@@ -59,7 +57,59 @@ class ImportReviewScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                const SizedBox(height: 22),
+                const SizedBox(height: 14),
+                if (dupes + invalid + missing > 0)
+                  Expanded(
+                    child: ListView(
+                      children: [
+                        const Text(
+                          'ZUR PRÜFUNG',
+                          style: TextStyle(
+                            fontFamily: 'Orbitron',
+                            fontSize: 11,
+                            letterSpacing: 1.6,
+                            color: TdColors.gold,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        for (final analysis in analyses)
+                          for (final card in analysis.cards)
+                            if (card.state != ImportCardState.quizReady)
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: GoldPanel(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        card.question,
+                                        style: const TextStyle(
+                                          fontFamily: 'Rajdhani',
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 16,
+                                          color: TdColors.text,
+                                        ),
+                                      ),
+                                      const SizedBox(height: 4),
+                                      Text(
+                                        card.issue ?? _stateLabel(card.state),
+                                        style: const TextStyle(
+                                          fontFamily: 'Rajdhani',
+                                          fontSize: 14,
+                                          color: TdColors.textMuted,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                      ],
+                    ),
+                  )
+                else
+                  const Spacer(),
+                const SizedBox(height: 10),
                 GoldButton(
                   label: 'NUR ALS LERNKARTEN',
                   filled: false,
@@ -88,7 +138,6 @@ class ImportReviewScreen extends StatelessWidget {
                   filled: false,
                   onTap: () => _commit(context, learnOnly: false),
                 ),
-                const Spacer(),
                 TextButton(
                   onPressed: () => Navigator.pop(context),
                   child: const Text(
@@ -106,6 +155,15 @@ class ImportReviewScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String _stateLabel(ImportCardState state) {
+    return switch (state) {
+      ImportCardState.missingDistractors => 'Keine falschen Antworten.',
+      ImportCardState.invalidDistractors => 'Falschantworten ungeeignet.',
+      ImportCardState.duplicateQuestion => 'Doppelte oder sehr ähnliche Frage.',
+      ImportCardState.quizReady => 'Quizbereit.',
+    };
   }
 
   Widget _row(String label, String value) {
@@ -148,9 +206,9 @@ class ImportReviewScreen extends StatelessWidget {
 
   Future<void> _commit(BuildContext context, {required bool learnOnly}) async {
     final summary = await context.read<DeckController>().commitAnalyses(
-          analyses,
-          learnOnly: learnOnly,
-        );
+      analyses,
+      learnOnly: learnOnly,
+    );
     if (!context.mounted) return;
     Navigator.of(context).pop(summary);
   }

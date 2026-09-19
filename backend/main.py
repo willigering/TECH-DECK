@@ -21,13 +21,16 @@ XAI_BASE_URL = os.getenv("XAI_BASE_URL", "https://api.x.ai/v1").rstrip("/")
 APP_TOKEN = os.getenv("TECHDECK_API_TOKEN", "").strip()
 RATE_LIMIT = int(os.getenv("RATE_LIMIT_PER_MINUTE", "30"))
 
-SYSTEM_PROMPT = """Du erzeugst genau drei FALSCHEN Antworten für eine einzelne Quizfrage.
+SYSTEM_PROMPT = """Du erzeugst genau drei FALSCHE Antworten für EINE einzelne IHK-Quizfrage (Fachinformatiker Systemintegration).
+
 Regeln:
-- Jede falsche Antwort muss eine plausible Antwort auf GENAU DIESE Frage sein, aber fachlich falsch.
-- Gleiches Antwortformat wie die richtige Antwort (Zahl, Einheit, kurzer Begriff oder kurzer Satz).
-- Keine Antworten aus fremden Themen, keine Definitionen anderer Begriffe.
-- Keine Duplikate, keine leeren Texte, keine Wiederholung der Frage.
-- Die richtige Antwort darf nicht unter den falschen Antworten vorkommen.
+- Jede Falschantwort ist eine direkte, plausible Antwort auf GENAU DIESE Frage, aber fachlich falsch.
+- Gleiches Format wie die richtige Antwort (Zahl+Einheit, Begriff oder kurzer Satz).
+- Keine Definitionen anderer Begriffe. Keine Antworten aus fremden Themen.
+- Keine allgemeinen Floskeln (Passwörter, Backup, Stromversorgung, mündliche Absprache).
+- Keine Duplikate, keine leeren Texte, keine Wiederholung der richtigen Antwort.
+- Verrate die richtige Lösung nicht durch Formulierungen wie „nicht 32 Bit“.
+- Arbeite ausschließlich mit der gelieferten Frage und richtigen Antwort.
 - Nur JSON gemäß Schema."""
 
 SCHEMA = {
@@ -102,6 +105,15 @@ def _normalize(text: str) -> str:
     return " ".join(text.lower().split())
 
 
+_JUNK = (
+    "speichert ausschließlich passw",
+    "vollständiges backup aller dateien",
+    "mündliche absprache",
+    "stromversorgung eines rechners",
+    "löscht dateien und einstellungen ohne nachfrage",
+)
+
+
 def validate_wrong_answers(raw: list[Any], correct: str) -> list[str]:
     if not isinstance(raw, list):
         raise HTTPException(status_code=422, detail="wrongAnswers muss eine Liste sein.")
@@ -117,6 +129,12 @@ def validate_wrong_answers(raw: list[Any], correct: str) -> list[str]:
         key = _normalize(item)
         if key in seen:
             raise HTTPException(status_code=422, detail="Antworten dürfen nicht doppelt vorkommen.")
+        low = item.lower()
+        if any(marker in low for marker in _JUNK):
+            raise HTTPException(
+                status_code=422,
+                detail="Eine Falschantwort ist fachfremd und wurde verworfen.",
+            )
         seen.add(key)
     return values
 

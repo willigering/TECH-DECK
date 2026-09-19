@@ -62,7 +62,8 @@ class _AiPreviewScreenState extends State<AiPreviewScreen> {
   List<TextEditingController> _ensureControllers(int index) {
     return _controllers.putIfAbsent(index, () {
       final draft = _targets[index];
-      final seed = draft.aiSuggestion ??
+      final seed =
+          draft.aiSuggestion ??
           draft.wrongAnswers.where((e) => e.trim().isNotEmpty).toList();
       return List.generate(
         3,
@@ -92,7 +93,8 @@ class _AiPreviewScreenState extends State<AiPreviewScreen> {
     } on DistractorApiException catch (e) {
       _error = e.message;
     } catch (_) {
-      _error = 'KI-Anfrage fehlgeschlagen. Du kannst die Felder selbst ausfüllen.';
+      _error =
+          'KI-Anfrage fehlgeschlagen. Du kannst die Felder selbst ausfüllen.';
     } finally {
       if (mounted) setState(() => _busy = false);
     }
@@ -105,14 +107,17 @@ class _AiPreviewScreenState extends State<AiPreviewScreen> {
 
   Future<void> _accept() async {
     _applyEditors();
-    final issue = DistractorValidator.issueFor(
-      _current.aiSuggestion ?? const [],
-      _current.answer,
+    final check = DistractorValidator.evaluate(
+      question: _current.question,
+      correctAnswer: _current.answer,
+      wrongAnswers: _current.aiSuggestion ?? const [],
     );
-    if (issue != null) {
-      setState(() => _error = issue);
+    if (!check.ok) {
+      setState(() => _error = check.firstIssue);
       return;
     }
+    _current.state = ImportCardState.quizReady;
+    _current.issue = null;
     _goNext();
   }
 
@@ -140,9 +145,9 @@ class _AiPreviewScreenState extends State<AiPreviewScreen> {
 
   Future<void> _finish() async {
     final summary = await context.read<DeckController>().commitAnalyses(
-          widget.analyses,
-          learnOnly: false,
-        );
+      widget.analyses,
+      learnOnly: false,
+    );
     if (!mounted) return;
     Navigator.of(context).pop(summary);
   }
@@ -217,11 +222,15 @@ class _AiPreviewScreenState extends State<AiPreviewScreen> {
                             filled: true,
                             fillColor: Colors.black.withValues(alpha: 0.45),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(color: TdColors.goldLine),
+                              borderSide: const BorderSide(
+                                color: TdColors.goldLine,
+                              ),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(color: TdColors.gold),
+                              borderSide: const BorderSide(
+                                color: TdColors.gold,
+                              ),
                               borderRadius: BorderRadius.circular(12),
                             ),
                           ),
@@ -232,7 +241,9 @@ class _AiPreviewScreenState extends State<AiPreviewScreen> {
                         const Padding(
                           padding: EdgeInsets.symmetric(vertical: 12),
                           child: Center(
-                            child: CircularProgressIndicator(color: TdColors.gold),
+                            child: CircularProgressIndicator(
+                              color: TdColors.gold,
+                            ),
                           ),
                         ),
                       if (_error != null)

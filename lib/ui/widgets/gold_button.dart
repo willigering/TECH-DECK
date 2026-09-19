@@ -37,7 +37,9 @@ class GoldButton extends StatelessWidget {
             ? TdColors.gold
             : Colors.black.withValues(alpha: 0.45),
         border: Border.all(
-          color: active ? TdColors.gold : TdColors.goldDim.withValues(alpha: 0.5),
+          color: active
+              ? TdColors.gold
+              : TdColors.goldDim.withValues(alpha: 0.5),
           width: 1.2,
         ),
         boxShadow: active
