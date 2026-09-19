@@ -1,0 +1,62 @@
+================================================================================
+  RELEASE NOTES / VERSIONSHINWEISE
+  App:        TECH//DECK
+  Entwickler: Willi Gering
+  Stand:      2026-09-18
+================================================================================
+
+Aktuelle Version: 1.5.0 (Build 9) - 2026-09-18
+
+v1.5.0 (Build 9) - 2026-09-18
+- CSV-Import mit Analyse: Lernkarten oder vollständige Quizkarten
+- Optionale KI-Distraktoren über eigenes Backend (SpaceXAI), Schlüssel nur serverseitig
+- Nutzer bestätigt, bearbeitet oder lehnt Vorschläge ab, bevor sie gespeichert werden
+- Quiz verwendet ausschließlich die drei gespeicherten Falschantworten derselben Karte
+- Keine KI-Anfragen im Lern- oder Quizmodus
+
+v1.4.1 (Build 8) - 2026-09-18
+- Quiz-Falschantworten müssen thematisch zur Frage passen
+- Fachfremde Definitionen anderer Begriffe (z. B. Daemon bei chmod, Redundanz bei Dokumentation) werden verworfen
+- Fehlende oder unpassende Distraktoren werden aus derselben Karte erzeugt, nie aus anderen Karten
+
+v1.4.0 (Build 7) - 2026-09-18
+- CSV mit FalscheAntwort1–3: Quiz nutzt nur die Distraktoren derselben Karte
+- Lernmodus zeigt weiterhin ausschließlich die Spalte Antwort
+- Unvollständige Quizkarten werden übersprungen, Fortschritt bleibt erhalten
+- 16 IT-Themen mit je 50 Karten inkl. passender Falschantworten
+
+v1.3.0 (Build 6) - 2026-09-17
+- Alle bisherigen Lernkarten entfernt (inkl. CSMACD)
+- 16 IT-Themen mit je 50 Karten mitgeliefert (800 Karten)
+- Themen: IT Grundlagen, Hardware, Betriebssysteme, Netzwerke/OSI,
+  IPv4/IPv6/Subnetting, Netzwerkdienste, IT-Sicherheit, Datenbanken/SQL,
+  Programmierung, Virtualisierung/Cloud, Webtechnologien, DevOps/CI/CD,
+  IT-Service-Management, Monitoring/Backup, Datenschutz/Recht,
+  Prüfung und Fehleranalyse
+- Bestehende App-Datenbanken werden beim Update geleert und neu befüllt
+
+v1.2.2 (Build 5) - 2026-09-14
+- Lernkarten eines Decks starten gemischt, nicht mehr in Importreihenfolge
+- Mischen-Button oben rechts im Lernmodus
+- Quiz-Falschantworten kommen aus demselben Thema und passen zur Frage
+  (ähnliche Frage, Antwortform und Einheit statt fachfremder Optionen)
+
+v1.2.1 (Build 4) - 2026-09-03
+- Thema CSMACD als erstes Kartendeck mitgeliefert (52 Karten aus CSMACD.csv)
+- CSV ohne Kopfzeile wird vollständig eingelesen (erste Zeile ist eine Karte)
+
+v1.2.0 (Build 3) - 2026-09-03
+- Nur noch 4 Tabs: Start, Statistik, Einstellungen, Info
+- Starttab: Auswahl zwischen LERNEN und QUIZ, danach Themenwahl
+- CSV-Import nur noch unter Einstellungen
+- Info-Tab mit App-Infos und freiwilliger Spende (PayPal / Krypto)
+- Hintergrund: Mainboard-Busleitungen statt wandernder Lichtpunkte
+- Nur noch minimales Schimmern der Leiterbahnen
+
+v1.1.0 (Build 2) - 2026-09-03
+- Design an die Mockups angepasst, Gehirn-Chip-Logo
+
+v1.0.0 (Build 1) - 2026-09-03
+- Erste Version: CSV-Import, Lernen, Quiz, Statistik, Offline
+
+--- Ende ---
