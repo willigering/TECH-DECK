@@ -2,12 +2,12 @@
   RELEASE NOTES / VERSIONSHINWEISE
   App:        TECH//DECK
   Entwickler: Willi Gering
-  Stand:      2026-09-18
+  Stand:      2026-09-20
 ================================================================================
 
-Aktuelle Version: 1.6.0 (Build 10) - 2026-09-19
+Aktuelle Version: 1.6.0 (Build 10) - 2026-09-20
 
-v1.6.0 (Build 10) - 2026-09-19
+v1.6.0 (Build 10) - 2026-09-20
 - Quiz nur mit gespeicherten, fachlich zur Frage passenden Falschantworten
 - Semantische Prüfung: Floskeln, fremde Themen und Zahlenbrüche werden ausgeschlossen
 - Nahe doppelte Fragen (z. B. „Was ist DHCP?“ / „Was bedeutet DHCP?“) nur einmal im Quiz
