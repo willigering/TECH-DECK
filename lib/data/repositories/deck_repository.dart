@@ -18,7 +18,7 @@ class DeckRepository {
   DeckRepository({AppDatabase? database})
     : _dbProvider = database ?? AppDatabase.instance;
 
-  static const bundledContentRev = 'quiz-quality-1';
+  static const bundledContentRev = 'quiz-quality-2-klausurvorbereitung';
 
   final AppDatabase _dbProvider;
   final _uuid = const Uuid();
@@ -126,7 +126,7 @@ class DeckRepository {
     return ImportSummary(outcomes: outcomes);
   }
 
-  /// Lädt mitgelieferte Decks in fester Reihenfolge (16 IT-Themen à 50 Karten).
+  /// Lädt mitgelieferte Decks in fester Reihenfolge.
   Future<void> ensureBundledTopics() async {
     const bundled = [
       ('assets/decks/01_IT_Grundlagen.csv', 'IT Grundlagen'),
@@ -166,6 +166,7 @@ class DeckRepository {
         'assets/decks/16_Pruefung_und_Fehleranalyse.csv',
         'Prüfung und Fehleranalyse',
       ),
+      ('assets/decks/17_Klausurvorbereitung.csv', 'Klausurvorbereitung'),
     ];
     final db = await _db;
     final currentRev = await _meta(db, 'bundled_rev');
