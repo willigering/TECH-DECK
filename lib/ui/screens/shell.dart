@@ -4,10 +4,8 @@ import 'package:provider/provider.dart';
 import '../../core/colors.dart';
 import '../../state/deck_controller.dart';
 import '../widgets/pcb_background.dart';
-import 'info_screen.dart';
 import 'settings_screen.dart';
 import 'start_screen.dart';
-import 'stats_screen.dart';
 
 class MainShell extends StatefulWidget {
   const MainShell({super.key});
@@ -34,9 +32,7 @@ class _MainShellState extends State<MainShell> {
           index: _index,
           children: [
             _tabNav(const StartScreen()),
-            _tabNav(const StatsScreen()),
             _tabNav(const SettingsScreen()),
-            _tabNav(const InfoScreen()),
           ],
         ),
         bottomNavigationBar: _BottomBar(
@@ -60,10 +56,8 @@ class _BottomBar extends StatelessWidget {
   final ValueChanged<int> onChanged;
 
   static const _items = [
-    (Icons.home_outlined, Icons.home_rounded, 'Start'),
-    (Icons.bar_chart_outlined, Icons.bar_chart, 'Statistik'),
+    (Icons.home_outlined, Icons.home_rounded, 'Lernkarten'),
     (Icons.settings_outlined, Icons.settings, 'Einstellungen'),
-    (Icons.info_outline, Icons.info, 'Info'),
   ];
 
   @override
