@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../core/colors.dart';
 import '../../state/deck_controller.dart';
 import '../widgets/brand.dart';
+import '../widgets/gold_button.dart';
 import '../widgets/topic_tile.dart';
 import 'learn_screen.dart';
 
