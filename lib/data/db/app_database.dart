@@ -20,7 +20,7 @@ class AppDatabase {
     final path = p.join(dir.path, 'tech_deck.db');
     return openDatabase(
       path,
-      version: 5,
+      version: 6,
       onConfigure: (db) async {
         await db.execute('PRAGMA foreign_keys = ON');
       },
@@ -67,6 +67,29 @@ class AppDatabase {
           );
           await _addColumnIfMissing(db, 'cards', 'updated_at', 'INTEGER');
         }
+        if (oldVersion < 6) {
+          await db.transaction((txn) async {
+            await txn.execute('''
+              CREATE TABLE cards_clean (
+                id TEXT PRIMARY KEY,
+                topic_id TEXT NOT NULL,
+                question TEXT NOT NULL,
+                answer TEXT NOT NULL,
+                FOREIGN KEY (topic_id) REFERENCES topics(id) ON DELETE CASCADE
+              )
+            ''');
+            await txn.execute('''
+              INSERT INTO cards_clean (id, topic_id, question, answer)
+              SELECT id, topic_id, question, answer FROM cards
+            ''');
+            await txn.execute('DROP TABLE cards');
+            await txn.execute('ALTER TABLE cards_clean RENAME TO cards');
+            await txn.execute(
+              'CREATE INDEX idx_cards_topic ON cards(topic_id)',
+            );
+            await txn.execute('DROP TABLE IF EXISTS quiz_sessions');
+          });
+        }
       },
       onCreate: (db, version) async {
         await db.execute('''
@@ -84,14 +107,6 @@ class AppDatabase {
             topic_id TEXT NOT NULL,
             question TEXT NOT NULL,
             answer TEXT NOT NULL,
-            wrong_answer_1 TEXT NOT NULL DEFAULT '',
-            wrong_answer_2 TEXT NOT NULL DEFAULT '',
-            wrong_answer_3 TEXT NOT NULL DEFAULT '',
-            ai_status TEXT NOT NULL DEFAULT 'none',
-            updated_at INTEGER,
-            is_favorite INTEGER NOT NULL DEFAULT 0,
-            times_seen INTEGER NOT NULL DEFAULT 0,
-            last_seen INTEGER,
             FOREIGN KEY (topic_id) REFERENCES topics(id) ON DELETE CASCADE
           )
         ''');
@@ -100,19 +115,6 @@ class AppDatabase {
           CREATE TABLE app_meta (
             key TEXT PRIMARY KEY,
             value TEXT NOT NULL
-          )
-        ''');
-        await db.execute('''
-          CREATE TABLE quiz_sessions (
-            id TEXT PRIMARY KEY,
-            topic_id TEXT NOT NULL,
-            question_count INTEGER NOT NULL,
-            correct_count INTEGER NOT NULL,
-            wrong_count INTEGER NOT NULL,
-            skipped_count INTEGER NOT NULL,
-            completed_at INTEGER NOT NULL,
-            review_json TEXT NOT NULL,
-            FOREIGN KEY (topic_id) REFERENCES topics(id) ON DELETE CASCADE
           )
         ''');
       },
