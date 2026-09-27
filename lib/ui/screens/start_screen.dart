@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import '../../core/colors.dart';
 import '../../state/deck_controller.dart';
 import '../widgets/brand.dart';
-import '../widgets/gold_button.dart';
 import 'topic_picker_screen.dart';
 
 class StartScreen extends StatelessWidget {
