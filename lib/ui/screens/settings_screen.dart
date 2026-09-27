@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/colors.dart';
-import '../../data/ai/ai_settings.dart';
 import '../../data/csv/csv_importer.dart';
 import '../../state/deck_controller.dart';
 import '../widgets/brand.dart';
@@ -18,26 +17,13 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  final _ai = AiSettings();
-  final _urlCtrl = TextEditingController();
-  final _tokenCtrl = TextEditingController();
-
   @override
   void initState() {
     super.initState();
-    _loadAi();
-  }
-
-  Future<void> _loadAi() async {
-    _urlCtrl.text = await _ai.backendUrl();
-    _tokenCtrl.text = await _ai.backendToken();
-    if (mounted) setState(() {});
   }
 
   @override
   void dispose() {
-    _urlCtrl.dispose();
-    _tokenCtrl.dispose();
     super.dispose();
   }
 
@@ -52,17 +38,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
       '${summary.filesOk} Datei(en) · ${summary.cardsImported} Karten neu · '
       '${summary.duplicates} Duplikate',
     );
-  }
-
-  Future<void> _resetStats() async {
-    final ok = await _confirm(
-      'Statistiken zurücksetzen?',
-      'Gelernte Karten und Quiz-Auswertungen werden gelöscht. '
-          'Importierte Themen bleiben erhalten.',
-    );
-    if (ok != true || !mounted) return;
-    await context.read<DeckController>().resetStats();
-    _toast('Statistiken zurückgesetzt.');
   }
 
   Future<void> _deleteTopic(String id, String name) async {
@@ -129,59 +104,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           const SizedBox(height: 28),
-          const SectionLabel('KI-BACKEND'),
-          const SizedBox(height: 10),
-          const Text(
-            'Die App spricht nur dein Backend an. Der SpaceXAI-Schlüssel bleibt auf dem Server.',
-            style: TextStyle(
-              fontFamily: 'Rajdhani',
-              fontSize: 15,
-              color: TdColors.textMuted,
-              height: 1.35,
-            ),
-          ),
-          const SizedBox(height: 10),
-          TextField(
-            controller: _urlCtrl,
-            style: const TextStyle(
-              color: TdColors.text,
-              fontFamily: 'Rajdhani',
-            ),
-            decoration: const InputDecoration(
-              labelText: 'Backend-URL',
-              labelStyle: TextStyle(color: TdColors.gold),
-            ),
-            onSubmitted: (v) => _ai.setBackendUrl(v),
-          ),
-          TextField(
-            controller: _tokenCtrl,
-            obscureText: true,
-            style: const TextStyle(
-              color: TdColors.text,
-              fontFamily: 'Rajdhani',
-            ),
-            decoration: const InputDecoration(
-              labelText: 'Optionales App-Token',
-              labelStyle: TextStyle(color: TdColors.gold),
-            ),
-            onSubmitted: (v) => _ai.setBackendToken(v),
-          ),
-          const SizedBox(height: 8),
-          GoldButton(
-            label: 'BACKEND SPEICHERN',
-            filled: false,
-            onTap: () async {
-              await _ai.setBackendUrl(_urlCtrl.text);
-              await _ai.setBackendToken(_tokenCtrl.text);
-              _toast('Backend-Einstellungen gespeichert.');
-            },
-          ),
-          const SizedBox(height: 16),
-          GoldButton(
-            label: 'STATISTIK ZURÜCKSETZEN',
-            filled: false,
-            onTap: _resetStats,
-          ),
           const SizedBox(height: 28),
           const SectionLabel('THEMEN VERWALTEN'),
           const SizedBox(height: 14),
