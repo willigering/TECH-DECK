@@ -2,10 +2,16 @@
   RELEASE NOTES / VERSIONSHINWEISE
   App:        TECH//DECK
   Entwickler: Willi Gering
-  Stand:      2026-09-20
+  Stand:      2026-09-27
 ================================================================================
 
-Aktuelle Version: 1.6.0 (Build 10) - 2026-09-20
+Aktuelle Version: 1.7.0 (Build 11) - 2026-09-27
+
+v1.7.0 (Build 11) - 2026-09-27
+- App auf Lernkarten reduziert: Thema wählen und Karten lernen
+- Quiz, KI-Distraktoren und Statistiken entfernt
+- Neues mitgeliefertes Thema Klausurvorbereitung
+- CSV-Import übernimmt Frage und Antwort als Lernkarten
 
 v1.6.0 (Build 10) - 2026-09-20
 - Quiz nur mit gespeicherten, fachlich zur Frage passenden Falschantworten

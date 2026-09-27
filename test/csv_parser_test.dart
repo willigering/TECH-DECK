@@ -111,7 +111,7 @@ void main() {
       expect(result.cards, hasLength(1));
     });
 
-    test('parst alle mitgelieferten IT-Decks mit Distraktoren (16 x 50)', () {
+    test('parst alle mitgelieferten IT-Decks', () {
       final dir = Directory('assets/decks');
       final files =
           dir
@@ -123,18 +123,20 @@ void main() {
       expect(files, hasLength(17));
       var total = 0;
       for (final file in files) {
+        final name = file.uri.pathSegments.last;
         final result = CsvParser.parseCards(file.readAsStringSync());
+        final expected = name.contains('Klausurvorbereitung') ? 100 : 50;
         expect(
           result.cards,
-          hasLength(50),
-          reason: '${file.uri.pathSegments.last} muss 50 Karten haben',
+          hasLength(expected),
+          reason: '$name muss $expected Karten haben',
         );
         for (final card in result.cards) {
           expect(card.answer, isNotEmpty);
         }
         total += result.cards.length;
       }
-      expect(total, 800);
+      expect(total, 900);
     });
   });
 }
