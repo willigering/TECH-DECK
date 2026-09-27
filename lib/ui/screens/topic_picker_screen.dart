@@ -7,9 +7,8 @@ import '../widgets/brand.dart';
 import '../widgets/gold_button.dart';
 import '../widgets/topic_tile.dart';
 import 'learn_screen.dart';
-import 'quiz_setup_screen.dart';
 
-enum TopicPickerMode { learn, quiz }
+enum TopicPickerMode { learn }
 
 class TopicPickerScreen extends StatelessWidget {
   const TopicPickerScreen({super.key, required this.mode});
@@ -21,7 +20,7 @@ class TopicPickerScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final deck = context.watch<DeckController>();
-    final title = mode == TopicPickerMode.learn ? 'LERNEN' : 'QUIZ';
+    const title = 'LERNEN';
     return SafeArea(
       child: ListView(
         padding: const EdgeInsets.fromLTRB(20, 24, 20, 32),
@@ -61,9 +60,7 @@ class TopicPickerScreen extends StatelessWidget {
                         deck.selectTopic(topic.id);
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (_) => mode == TopicPickerMode.learn
-                                ? LearnScreen(topicId: topic.id)
-                                : QuizSetupScreen(topicId: topic.id),
+                            builder: (_) => LearnScreen(topicId: topic.id),
                           ),
                         );
                       },
