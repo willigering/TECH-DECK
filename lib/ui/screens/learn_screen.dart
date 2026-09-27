@@ -74,15 +74,6 @@ class _LearnScreenState extends State<LearnScreen> {
     });
   }
 
-  Future<void> _toggleFavorite() async {
-    final card = _current;
-    if (card == null) return;
-    await context.read<DeckController>().toggleFavorite(card.id);
-    setState(() {
-      _cards[_index] = card.copyWith(isFavorite: !card.isFavorite);
-    });
-  }
-
   void _reshuffle() {
     if (_cards.length < 2) return;
     HapticFeedback.selectionClick();
