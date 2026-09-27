@@ -4,61 +4,41 @@ import 'package:provider/provider.dart';
 import '../../core/colors.dart';
 import '../../data/csv/csv_importer.dart';
 import '../../state/deck_controller.dart';
-import '../widgets/brand.dart';
 import '../widgets/gold_button.dart';
 import '../widgets/topic_tile.dart';
-import 'import_review_screen.dart';
 
-class SettingsScreen extends StatefulWidget {
+class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
 
-  @override
-  State<SettingsScreen> createState() => _SettingsScreenState();
-}
-
-class _SettingsScreenState extends State<SettingsScreen> {
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
-
-  Future<void> _import() async {
-    final analyses = await context.read<DeckController>().pickAndAnalyzeCsv();
-    if (!mounted || analyses == null) return;
-    final summary = await Navigator.of(context).push<ImportSummary>(
-      MaterialPageRoute(builder: (_) => ImportReviewScreen(analyses: analyses)),
-    );
-    if (!mounted || summary == null) return;
-    _toast(
-      '${summary.filesOk} Datei(en) · ${summary.cardsImported} Karten neu · '
-      '${summary.duplicates} Duplikate',
+  Future<void> _import(BuildContext context) async {
+    final summary = await context.read<DeckController>().importCsv();
+    if (!context.mounted || summary == null) return;
+    final message = summary.outcomes.any((o) => !o.ok)
+        ? 'Import mit Fehlern.'
+        : '${summary.filesOk} Datei(en) · ${summary.cardsImported} Karten neu · '
+            '${summary.duplicates} Duplikate übersprungen';
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
     );
   }
 
-  Future<void> _deleteTopic(String id, String name) async {
-    final ok = await _confirm(
-      'Thema löschen?',
-      '"$name" und alle zugehörigen Karten werden entfernt.',
-    );
-    if (ok != true || !mounted) return;
-    await context.read<DeckController>().deleteTopic(id);
-  }
-
-  Future<bool?> _confirm(String title, String body) {
-    return showDialog<bool>(
+  Future<void> _deleteTopic(
+    BuildContext context,
+    String id,
+    String name,
+  ) async {
+    final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: TdColors.bgPanel,
-        title: Text(
-          title,
-          style: const TextStyle(fontFamily: 'Orbitron', color: TdColors.gold),
+        title: const Text(
+          'Thema löschen?',
+          style: TextStyle(fontFamily: 'Orbitron', color: TdColors.gold),
         ),
-        content: Text(body, style: const TextStyle(color: TdColors.text)),
+        content: Text(
+          '"$name" und alle zugehörigen Karten werden entfernt.',
+          style: const TextStyle(color: TdColors.text),
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx, false),
@@ -71,10 +51,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ],
       ),
     );
-  }
-
-  void _toast(String msg) {
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+    if (ok == true && context.mounted) {
+      await context.read<DeckController>().deleteTopic(id);
+    }
   }
 
   @override
@@ -89,13 +68,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
           GoldButton(
             label: 'CSV IMPORTIEREN',
             icon: Icons.file_upload_outlined,
-            onTap: _import,
+            onTap: () => _import(context),
           ),
           const SizedBox(height: 10),
           const Text(
             'Eine CSV-Datei entspricht genau einem Thema. '
-            'Der Dateiname (ohne .csv) wird zum Themennamen. '
-            'Die Reihenfolge bleibt die Importreihenfolge.',
+            'Frage und Antwort werden als Lernkarten übernommen. '
+            'Der Dateiname (ohne .csv) wird zum Themennamen.',
             style: TextStyle(
               fontFamily: 'Rajdhani',
               fontSize: 15,
@@ -123,7 +102,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     Icons.delete_outline,
                     color: TdColors.danger,
                   ),
-                  onPressed: () => _deleteTopic(t.id, t.name),
+                  onPressed: () => _deleteTopic(context, t.id, t.name),
                 ),
               ),
               const SizedBox(height: 10),
