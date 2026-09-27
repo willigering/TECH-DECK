@@ -236,7 +236,11 @@ class DeckRepository {
         );
         final existingQuestions = <String>[];
         for (final row in current) {
-          existingQuestions.add(row['question'] as String);
+          final question = row['question'] as String;
+          final answer = row['answer'] as String;
+          existingQuestions.add(question);
+          known['${CsvParser.normalizeKey(question)}||${CsvParser.normalizeKey(answer)}'] =
+              row['id'] as String;
         }
 
         for (final card in parsed.cards) {
