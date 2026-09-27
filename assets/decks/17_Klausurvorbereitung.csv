@@ -1,0 +1,236 @@
+Frage;Antwort
+Was ist ein Computer?;Ein elektronisches System, das Daten nach vorgegebenen Regeln verarbeitet.
+Welche zwei grundlegenden Bestandteile hat ein Computersystem?;Hardware und Software.
+Was bedeutet EVA?;"E: Eingabe
+V: Verarbeitung
+A: Ausgabe"
+Welche Aufgabe hat die CPU?;"CPU = Central Processing Unit
+C: Central
+P: Processing
+U: Unit
+→ Führt Programmanweisungen aus und verarbeitet Daten."
+Was ist Software?;Programme, Anweisungen und die für deren Ausführung benötigten Daten.
+Welche Aufgabe hat die Firmware eines PCs beim Einschalten?;Sie initialisiert grundlegende Hardware und leitet den Bootvorgang ein.
+Was ist UEFI?;"UEFI = Unified Extensible Firmware Interface
+
+UEFI ist eine moderne Firmware-Schnittstelle, die Hardware initialisiert und den Start des Betriebssystems ermöglicht.
+
+Vorteile gegenüber klassischem BIOS:
+• GPT-Unterstützung
+• Unterstützung sehr großer Systemdatenträger
+• Secure Boot
+• moderne Bootverfahren
+• Unterstützung moderner Hardware und Firmware-Funktionen
+• erweiterte Konfigurationsmöglichkeiten"
+Welcher Vorteil von UEFI ist für moderne PCs besonders relevant?;"Vorteile von UEFI gegenüber klassischem BIOS:
+
+• Unterstützung von GPT und damit sehr großen Systemdatenträgern
+• moderne und flexible Firmware-Schnittstelle
+• Unterstützung moderner Bootverfahren
+• Secure Boot zur Prüfung vertrauenswürdiger Bootkomponenten
+• Unterstützung moderner Hardware und Firmware-Funktionen
+• erweiterte und komfortablere Konfigurationsmöglichkeiten"
+Welche Kombination ist bei modernen Windows-PCs typischerweise anzutreffen?;UEFI als Firmware zusammen mit GPT als Partitionsschema.
+Warum sollte man BIOS und UEFI nicht einfach als unterschiedliche Dateisysteme betrachten?;"BIOS und UEFI sind Firmware-/Startumgebungen, keine Dateisysteme.
+
+UEFI bietet gegenüber klassischem BIOS unter anderem:
+• GPT-Unterstützung
+• Unterstützung großer Systemdatenträger
+• moderne Bootverfahren
+• Secure Boot
+• erweiterte Firmware-Funktionen
+
+GPT und MBR sind dagegen Partitionsschemata für Datenträger."
+Welche Schnittstellen können digitale Bild- und Tonsignale übertragen?;"Zum Beispiel HDMI und DisplayPort; USB-C kann dies je nach Gerät über DisplayPort Alt Mode oder andere unterstützte Modi."
+Wofür wird ein RJ45-Anschluss am PC typischerweise verwendet?;Für eine kabelgebundene Ethernet-Netzwerkverbindung.
+Wofür wird ein 3,5-mm-Klinkenanschluss typischerweise verwendet?;Für analoge Audio-Signale, zum Beispiel Kopfhörer oder Mikrofon.
+Wofür wird USB an einem PC verwendet?;"USB = Universal Serial Bus
+U: Universal
+S: Serial
+B: Bus
+→ Anschluss und Kommunikation mit Peripheriegeräten; je nach Implementierung auch Datenübertragung und Stromversorgung."
+Welche interne Schnittstelle wird für SATA-Laufwerke verwendet?;"SATA = Serial ATA (Serial Advanced Technology Attachment)
+S: Serial
+ATA: Advanced Technology Attachment
+→ Verbindung von SATA-Laufwerken mit dem Mainboard."
+Welche Schnittstelle wurde klassisch für Tastatur und Maus verwendet und ist heute weitgehend durch USB ersetzt?;PS/2.
+Welche Aufgabe hat der Arbeitsspeicher (RAM)?;Er hält aktuell benötigte Daten und Programme temporär für den schnellen Zugriff der CPU bereit.
+Welche Aufgabe hat das PC-Netzteil?;Es wandelt Netzwechselspannung in benötigte Gleichspannungen um und versorgt die Komponenten mit elektrischer Leistung.
+Welche Aufgabe hat das Mainboard?;Es verbindet zentrale Komponenten und stellt Schnittstellen für deren Kommunikation und Erweiterung bereit.
+Welche Aufgabe hat eine dedizierte Grafikkarte?;Sie verarbeitet Grafikdaten und stellt Bildsignale für angeschlossene Anzeigegeräte bereit.
+Aus welchen fünf Bauteilen besteht das Von-Neumann-Modell?;"Das Von-Neumann-Modell besteht aus fünf Bauteilen:
+
+• Steuerwerk – steuert und koordiniert die Abläufe
+• Rechenwerk – führt arithmetische und logische Operationen aus
+• Speicherwerk – speichert Daten und Programme
+• Eingabewerk – nimmt Daten und Befehle auf
+• Ausgabewerk – gibt verarbeitete Ergebnisse aus"
+Warum kann mehr RAM die Leistung verbessern?;"Mehr RAM kann Vorteile bringen, wenn bisher zu wenig Arbeitsspeicher vorhanden war:
+
+• mehr Programme/Daten können gleichzeitig im RAM bleiben
+• weniger Auslagerung auf den langsameren Massenspeicher
+• weniger Wartezeiten bei speicherintensiven Anwendungen
+
+→ Mehr RAM macht einen PC nicht automatisch schneller, wenn bereits genügend RAM vorhanden ist."
+Welche Kriterien sollten bei der Auswahl eines IT-Systems berücksichtigt werden?;"Wichtige Kriterien sind:
+
+• Leistungsanforderungen
+• Anschaffungskosten
+• Betriebskosten
+• Energieverbrauch
+• Kompatibilität
+• Erweiterbarkeit
+• Wartbarkeit
+• Zuverlässigkeit
+• erwartete Lebensdauer
+• Sicherheitsanforderungen"
+Was bedeutet Energieeffizienz bei IT-Hardware?;Eine geforderte Leistung wird mit möglichst geringem Energieverbrauch erbracht.
+Was beschreibt das Preis-Leistungs-Verhältnis eines IT-Systems?;Das Verhältnis zwischen Kosten und dem damit erzielten Nutzen bzw. der erbrachten Leistung.
+Wann kann eine teurere SSD wirtschaftlich sinnvoll sein?;Wenn ihre höhere Leistung, Kapazität, Lebensdauer oder andere Eigenschaften den Mehrpreis gegenüber der Alternative rechtfertigen.
+Welche technische Verbindung wird bei NVMe-SSDs typischerweise genutzt?;"NVMe-SSDs nutzen typischerweise PCIe als Übertragungsweg; M.2 ist dabei häufig der verwendete Formfaktor."
+Welche Schnittstelle verbindet eine SATA-SSD mit dem Mainboard?;SATA.
+Was ist PCIe?;"PCIe = Peripheral Component Interconnect Express
+PCI: Peripheral Component Interconnect
+e: Express
+→ Serielle Hochgeschwindigkeits-Schnittstelle für Erweiterungskarten und andere PCIe-Geräte."
+Wofür wird ein DIMM-Steckplatz verwendet?;"DIMM = Dual Inline Memory Module
+D: Dual
+I: Inline
+M: Memory
+M: Module
+→ Steckplatz für RAM-Module."
+Wie viele Bits ergeben ein Byte?;8 Bit.
+Was ist eine Partition?;Ein logisch abgegrenzter Bereich eines physischen Datenträgers.
+Was ist der Unterschied zwischen Partition und Dateisystem?;"Die Partition grenzt Speicherplatz ab; das Dateisystem organisiert Dateien und Verzeichnisse innerhalb eines Volumes."
+Welches Dateisystem wird für Windows-Systemlaufwerke typischerweise verwendet?;"NTFS = New Technology File System
+N: New
+T: Technology
+F: File
+S: System
+→ Typisches Dateisystem für Windows-Systemlaufwerke."
+Welche Eigenschaft von NTFS ist für Windows-Systeme besonders relevant?;NTFS unterstützt unter anderem Zugriffsrechte und große Dateien.
+Welches Dateisystem eignet sich häufig für Wechseldatenträger mit großen Dateien und breiter Gerätekompatibilität?;exFAT.
+Was bedeutet das Formatieren eines Volumes?;"Dabei wird ein Dateisystem auf dem Volume eingerichtet bzw. neu eingerichtet; vorhandene Daten können dabei verloren gehen."
+Warum sollte vor dem Formatieren eines Volumes eine Datensicherung geprüft werden?;Weil beim Formatieren vorhandene Daten unzugänglich bzw. gelöscht werden können.
+Warum kann das aktuell laufende Windows-Systemvolume nicht einfach aus diesem Windows heraus formatiert werden?;Weil das laufende Betriebssystem und benötigte Dateien dieses Volume gerade verwenden.
+Was ist ein wesentlicher Unterschied zwischen SSD und HDD?;"SSD:
+• Flash-Speicher
+• keine beweglichen Teile
+• sehr kurze Zugriffszeiten
+• lautlos
+• meist geringerer Stromverbrauch
+
+HDD:
+• magnetische Datenscheiben
+• mechanische Schreib-/Leseköpfe
+• längere Zugriffszeiten
+• mechanische Geräusche
+• bei großen Kapazitäten meist günstiger pro Terabyte"
+Welchen typischen Kostenvorteil kann eine HDD gegenüber einer SSD haben?;"Vorteile einer HDD gegenüber einer SSD:
+
+• meist geringerer Preis pro Terabyte
+• hohe Speicherkapazitäten oft günstiger erhältlich
+• für große Datenmengen häufig wirtschaftlicher
+
+→ Dafür sind HDDs mechanisch, haben längere Zugriffszeiten und sind empfindlicher gegenüber Erschütterungen."
+Was ist der Unterschied zwischen Backup und Redundanz?;"Ein Backup dient der Wiederherstellung von Daten; Redundanz stellt zusätzliche Ressourcen bereit, um Ausfälle abzufangen."
+Welchen Zweck hat ein Backup?;Es ermöglicht die Wiederherstellung von Daten nach Verlust, Beschädigung, Manipulation oder versehentlichem Löschen.
+Was bedeutet Redundanz in der IT?;Zusätzliche Ressourcen oder Komponenten sind vorhanden, sodass ein Ausfall nicht unmittelbar zum Systemausfall führt.
+Was ist ein Vollbackup?;Eine Sicherung, bei der alle ausgewählten Daten vollständig gesichert werden.
+Was speichert ein inkrementelles Backup?;Die seit dem unmittelbar vorherigen Backup neu hinzugekommenen oder geänderten Daten.
+Was speichert ein differentielles Backup?;Alle seit dem letzten Vollbackup neu hinzugekommenen oder geänderten Daten.
+Welche Sicherungen benötigt man typischerweise für eine vollständige Wiederherstellung mit Voll- und Differentialbackups?;Das letzte Vollbackup und das letzte differentielle Backup.
+Welche Sicherungen benötigt man typischerweise für eine vollständige Wiederherstellung mit Voll- und Inkrementalbackups?;Das Vollbackup und alle benötigten Inkrementalbackups seit diesem Vollbackup.
+Was besagt das 3-2-1-Backup-Prinzip?;Mindestens 3 Kopien, auf mindestens 2 unterschiedlichen Speicherarten bzw. Medien, davon mindestens 1 Kopie räumlich getrennt.
+Warum sollte mindestens eine Backup-Kopie räumlich getrennt aufbewahrt werden?;Damit ein Ereignis am Hauptstandort nicht gleichzeitig alle Sicherungskopien zerstört.
+Welche Bedeutung hat das Archivbit unter Windows?;Das Archivattribut kann kennzeichnen, dass eine Datei seit der letzten entsprechenden Sicherung geändert wurde.
+Wie kann ein Backup-Programm das Archivbit verwenden?;Es kann das Attribut zur Erkennung geänderter Dateien für bestimmte Sicherungsstrategien auswerten.
+Was ist ein Betriebssystem?;"OS = Operating System
+O: Operating
+S: System
+→ Systemsoftware, die Hardware und Ressourcen verwaltet und grundlegende Dienste für Anwendungen bereitstellt."
+Welche Aufgabe hat ein Betriebssystem bei der Speicherverwaltung?;Es verwaltet die Zuweisung und Nutzung des Arbeitsspeichers durch Prozesse.
+Welche Aufgabe hat ein Betriebssystem bei der Prozessverwaltung?;Es verwaltet Prozesse und weist ihnen Prozessorzeit und weitere Ressourcen zu.
+Welche Aufgabe hat ein Betriebssystem bei der Dateiverwaltung?;Es organisiert Dateien und Verzeichnisse und regelt deren Zugriff.
+Welche Aufgabe hat ein Betriebssystem bei der Geräteverwaltung?;Es verwaltet Geräte über Treiber und stellt Anwendungen standardisierte Schnittstellen bereit.
+Was bedeutet Virtualisierung?;IT-Ressourcen werden logisch getrennt und als virtuelle Ressourcen auf physischer Infrastruktur bereitgestellt.
+Was ist eine virtuelle Maschine?;Ein softwarebasiertes, logisch isoliertes Computersystem, das auf einem Hostsystem ausgeführt wird.
+Welche Aufgabe hat ein Hypervisor?;Er stellt die Virtualisierungsschicht bereit und verwaltet virtuelle Maschinen sowie deren Ressourcen.
+Was ist ein Hypervisor Typ 1?;Ein Hypervisor, der direkt auf der physischen Hardware läuft.
+Was ist ein Hypervisor Typ 2?;Ein Hypervisor, der als Software auf einem vorhandenen Host-Betriebssystem läuft.
+Nennen Sie ein Beispiel für einen Typ-1-Hypervisor.;"Beispiele sind Microsoft Hyper-V und VMware ESXi; auch Proxmox VE basiert auf einem Typ-1-Hypervisor (KVM)."
+Welche Ressourcen müssen bei der Planung einer VM berücksichtigt werden?;CPU/vCPU, RAM, Speicherplatz, Netzwerkressourcen und die Anforderungen des Gastbetriebssystems.
+Warum darf einer VM nicht unnötig viel RAM zugewiesen werden?;"Weil der Host und andere VMs ebenfalls RAM benötigen; zu starke Zuweisung kann die Gesamtleistung beeinträchtigen."
+Welche VM-Netzwerkart bindet eine VM typischerweise direkt in das physische LAN ein?;Bridged Networking bzw. eine Netzwerkbrücke.
+Welche IP-Einstellungen müssen bei einer VM zum verwendeten Netzwerk passen?;"IP-Adresse, Präfix/Subnetzmaske und bei Kommunikation in andere Netze das passende Gateway; DNS muss ebenfalls passend konfiguriert sein."
+Wie funktioniert NAT bei einer virtuellen Maschine typischerweise?;"NAT = Network Address Translation
+N: Network
+A: Address
+T: Translation
+→ Übersetzt Netzwerkadressen zwischen dem virtuellen Netz und dem externen Netz."
+Wie viele Bits hat eine IPv4-Adresse?;32 Bit.
+Aus wie vielen Oktetten besteht eine IPv4-Adresse?;Aus vier Oktetten mit jeweils 8 Bit.
+Welchen Wertebereich hat ein IPv4-Oktett?;0 bis 255.
+Was bestimmt die IPv4-Subnetzmaske bzw. Präfixlänge?;Sie bestimmt, welcher Teil der Adresse den Netzanteil und welcher den Hostanteil bildet.
+Welche Subnetzmaske entspricht dem Präfix /24?;255.255.255.0.
+Wie viele nutzbare Hostadressen hat ein klassisches IPv4-/24-Netz?;254 nutzbare Hostadressen.
+Was ist die Netzwerkadresse eines IPv4-Subnetzes?;"Die Adresse, bei der alle Hostbits auf 0 gesetzt sind; sie identifiziert das Subnetz."
+Was ist die Broadcastadresse eines IPv4-Subnetzes?;"Die Adresse, bei der alle Hostbits auf 1 gesetzt sind; sie dient dem Broadcast im Subnetz."
+Welche IPv4-Bereiche sind nach RFC 1918 für private Netze reserviert?;10.0.0.0/8, 172.16.0.0/12 und 192.168.0.0/16.
+Was bedeutet die IPv4-Adresse 127.0.0.1?;Sie ist eine Loopback-Adresse und verweist auf den eigenen Rechner.
+Welcher IPv4-Bereich wird für IPv4 Link-Local bzw. APIPA verwendet?;169.254.0.0/16.
+Welche Netzwerkadresse gehört zu 192.168.1.130/25?;192.168.1.128.
+Was ist der Unterschied zwischen MBR und GPT?;"GPT ist ein modernes Partitionsschema mit deutlich mehr Partitionen und Unterstützung großer Datenträger; MBR ist älter und stärker begrenzt."
+Welche Punkte sind vor dem Formatieren eines Volumes zu prüfen?;Richtiges Volume, Datensicherung, keine benötigten System-/Programmdaten darauf und ausreichende Berechtigungen.
+Ein PC hat 192.168.10.37/24. Welche Netzwerk- und Broadcastadresse gehören dazu?;"Netzwerk: 192.168.10.0; Broadcast: 192.168.10.255."
+Ein Unternehmen benötigt mindestens 50 nutzbare IPv4-Hostadressen pro Subnetz. Welches kleinste klassische Präfix ist geeignet?;/26: 64 Adressen insgesamt, davon 62 nutzbare Hostadressen.
+Was ist der Unterschied zwischen BIOS und UEFI beim Systemstart?;"BIOS:
+• ältere Firmware-Schnittstelle
+• typischerweise mit MBR verwendet
+• traditioneller und stärker eingeschränkter Startmechanismus
+
+UEFI:
+• moderne Firmware-Schnittstelle
+• unterstützt GPT und große Systemdatenträger
+• moderne Bootverfahren
+• kann Secure Boot verwenden
+• erweiterte Firmware-Funktionen
+
+Beide initialisieren Hardware und leiten den Start des Betriebssystems ein."
+Welche Aufgabe hat ein Bootloader?;Er lädt bzw. startet das Betriebssystem oder übergibt den Start an dessen Bootmanager.
+Was ist der Unterschied zwischen MBR und GPT hinsichtlich der Partitionsanzahl?;GPT unterstützt deutlich mehr Partitionen als das klassische MBR-Schema.
+Was ist der Unterschied zwischen M.2 und NVMe?;"M.2 bezeichnet einen Formfaktor/Steckplatz; NVMe ist ein Protokoll für SSDs, typischerweise über PCIe."
+Welche interne Schnittstelle wird für eine moderne Grafikkarte typischerweise verwendet?;PCIe, meist über einen PCIe-x16-Steckplatz.
+Welche interne Schnittstelle verbindet eine klassische SATA-SSD mit dem Mainboard?;SATA.
+Was ist ein Gerätetreiber?;Software, die dem Betriebssystem die Kommunikation mit einer bestimmten Hardware ermöglicht.
+Was ist bei der Auswahl eines Netzteils neben der Nennleistung zu beachten?;Kompatible Anschlüsse, ausreichende Leistungsreserven, Effizienz und Qualität.
+Warum ist Redundanz kein Ersatz für ein Backup?;"Fehler wie versehentliches Löschen oder Schadsoftware können sich auf redundante Kopien auswirken; ein Backup dient der Wiederherstellung eines früheren Datenstands."
+Welche Aufgabe hat ein Default Gateway?;Es leitet IP-Pakete zu Zielen außerhalb des eigenen lokalen Subnetzes weiter.
+Was macht DHCP?;"DHCP = Dynamic Host Configuration Protocol
+D: Dynamic
+H: Host
+C: Configuration
+P: Protocol
+→ Kann Clients automatisch IP-Adresse, Subnetzmaske, Gateway und DNS-Konfiguration zuweisen."
+Welche Aufgabe hat DNS?;"DNS = Domain Name System
+D: Domain
+N: Name
+S: System
+→ Löst vor allem Hostnamen bzw. Domainnamen in IP-Adressen auf."
+Was ist eine MAC-Adresse?;"MAC = Media Access Control
+M: Media
+A: Access
+C: Control
+→ Adresse einer Netzwerkschnittstelle auf der Sicherungsschicht."
+Was bedeutet S.M.A.R.T. im Projektmanagement bei der Zielformulierung?;"S.M.A.R.T. beschreibt die Anforderungen an ein gut formuliertes Ziel:
+
+S: Spezifisch – das Ziel ist eindeutig und konkret.
+M: Messbar – die Zielerreichung kann überprüft werden.
+A: Attraktiv – das Ziel ist sinnvoll und motivierend.
+R: Realisierbar – das Ziel ist erreichbar.
+T: Terminiert – es gibt einen festen Zeitpunkt bzw. eine Frist."
+Was bedeutet SWOT bei einer Analyse?;"SWOT = Strengths, Weaknesses, Opportunities, Threats
+S: Strengths – Stärken
+W: Weaknesses – Schwächen
+O: Opportunities – Chancen
+T: Threats – Risiken/Gefahren"
