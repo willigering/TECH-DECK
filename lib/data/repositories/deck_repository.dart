@@ -134,7 +134,6 @@ class DeckRepository {
         PickedCsvFile(filename: item.$1.split('/').last, bytes: bytes),
         topicName: item.$2,
         sortOrder: i,
-        replaceExisting: true,
         forceReplace: forceReplace,
       );
     }
@@ -165,7 +164,6 @@ class DeckRepository {
     PickedCsvFile file, {
     String? topicName,
     int? sortOrder,
-    bool replaceExisting = false,
     bool forceReplace = false,
   }) async {
     final resolvedName =
@@ -227,26 +225,6 @@ class DeckRepository {
             where: 'topic_id = ?',
             whereArgs: [topicId],
           );
-        } else if (replaceExisting) {
-          final sample = await txn.query(
-            'cards',
-            columns: ['wrong_answer_1'],
-            where: 'topic_id = ?',
-            whereArgs: [topicId],
-            limit: 1,
-          );
-          final needsRefresh =
-              sample.isEmpty ||
-              ((sample.first['wrong_answer_1'] as String? ?? '')
-                  .trim()
-                  .isEmpty);
-          if (needsRefresh && sample.isNotEmpty) {
-            await txn.delete(
-              'cards',
-              where: 'topic_id = ?',
-              whereArgs: [topicId],
-            );
-          }
         }
 
         final known = <String, String>{};
