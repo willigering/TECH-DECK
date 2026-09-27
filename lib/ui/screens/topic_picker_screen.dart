@@ -8,14 +8,10 @@ import '../widgets/gold_button.dart';
 import '../widgets/topic_tile.dart';
 import 'learn_screen.dart';
 
-enum TopicPickerMode { learn }
-
 class TopicPickerScreen extends StatelessWidget {
-  const TopicPickerScreen({super.key, required this.mode});
+  const TopicPickerScreen({super.key});
 
   static const routeName = 'topic-picker';
-
-  final TopicPickerMode mode;
 
   @override
   Widget build(BuildContext context) {
