@@ -58,20 +58,9 @@ class _LearnScreenState extends State<LearnScreen> {
     }
   }
 
-  Future<void> _flip() async {
-    final card = _current;
-    if (card == null) return;
-    final becomingBack = !_flipped;
+  void _flip() {
+    if (_current == null) return;
     setState(() => _flipped = !_flipped);
-    if (becomingBack) {
-      await context.read<DeckController>().markSeen(card.id);
-      setState(() {
-        _cards[_index] = card.copyWith(
-          timesSeen: card.timesSeen + 1,
-          lastSeen: DateTime.now(),
-        );
-      });
-    }
   }
 
   void _go(int delta) {
@@ -198,13 +187,6 @@ class _LearnScreenState extends State<LearnScreen> {
                             label: 'ZURÜCK',
                             enabled: _index > 0,
                             onTap: () => _go(-1),
-                          ),
-                          _RoundAction(
-                            icon: card.isFavorite
-                                ? Icons.star_rounded
-                                : Icons.star_border_rounded,
-                            label: 'MARKIEREN',
-                            onTap: _toggleFavorite,
                           ),
                           _RoundAction(
                             icon: Icons.arrow_forward_rounded,
