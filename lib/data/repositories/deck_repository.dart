@@ -18,7 +18,7 @@ class DeckRepository {
   DeckRepository({AppDatabase? database})
     : _dbProvider = database ?? AppDatabase.instance;
 
-  static const bundledContentRev = 'quiz-quality-2-klausurvorbereitung';
+  static const bundledContentRev = 'quiz-quality-1';
 
   final AppDatabase _dbProvider;
   final _uuid = const Uuid();
