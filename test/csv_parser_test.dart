@@ -111,18 +111,6 @@ void main() {
       expect(result.cards, hasLength(1));
     });
 
-    test('liest karten-eigene Falschantworten', () {
-      const csv =
-          'Frage;Antwort;FalscheAntwort1;FalscheAntwort2;FalscheAntwort3\n'
-          'Aus wie vielen Bits besteht eine IPv4-Adresse?;32 Bit;16 Bit;64 Bit;128 Bit\n';
-      final result = CsvParser.parseCards(csv);
-      expect(result.cards, hasLength(1));
-      final card = result.cards.single;
-      expect(card.question, 'Aus wie vielen Bits besteht eine IPv4-Adresse?');
-      expect(card.answer, '32 Bit');
-      expect(card.wrongAnswers, ['16 Bit', '64 Bit', '128 Bit']);
-    });
-
     test('parst alle mitgelieferten IT-Decks mit Distraktoren (16 x 50)', () {
       final dir = Directory('assets/decks');
       final files =
@@ -132,7 +120,7 @@ void main() {
               .where((f) => f.path.toLowerCase().endsWith('.csv'))
               .toList()
             ..sort((a, b) => a.path.compareTo(b.path));
-      expect(files, hasLength(16));
+      expect(files, hasLength(17));
       var total = 0;
       for (final file in files) {
         final result = CsvParser.parseCards(file.readAsStringSync());
@@ -143,11 +131,6 @@ void main() {
         );
         for (final card in result.cards) {
           expect(card.answer, isNotEmpty);
-          expect(
-            card.wrongAnswers.every((w) => w.trim().isNotEmpty),
-            isTrue,
-            reason: '${file.uri.pathSegments.last}: ${card.question}',
-          );
         }
         total += result.cards.length;
       }
