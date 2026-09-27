@@ -104,7 +104,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
           ),
           const SizedBox(height: 28),
-          const SizedBox(height: 28),
           const SectionLabel('THEMEN VERWALTEN'),
           const SizedBox(height: 14),
           if (deck.topics.isEmpty)
