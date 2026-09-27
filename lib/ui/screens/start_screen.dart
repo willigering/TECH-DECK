@@ -10,11 +10,11 @@ import 'topic_picker_screen.dart';
 class StartScreen extends StatelessWidget {
   const StartScreen({super.key});
 
-  void _open(BuildContext context, TopicPickerMode mode) {
+  void _open(BuildContext context) {
     Navigator.of(context).push(
       MaterialPageRoute(
         settings: const RouteSettings(name: TopicPickerScreen.routeName),
-        builder: (_) => TopicPickerScreen(mode: mode),
+        builder: (_) => const TopicPickerScreen(),
       ),
     );
   }
@@ -40,7 +40,7 @@ class StartScreen extends StatelessWidget {
                 icon: Icons.menu_book_outlined,
                 onTap: empty
                     ? null
-                    : () => _open(context, TopicPickerMode.learn),
+                    : () => _open(context),
               ),
               if (empty) ...[
                 const SizedBox(height: 22),
