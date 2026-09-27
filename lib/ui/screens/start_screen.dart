@@ -35,26 +35,17 @@ class StartScreen extends StatelessWidget {
               const CircularProgressIndicator(color: TdColors.gold)
             else ...[
               _ModeButton(
-                title: 'LERNEN',
-                subtitle: 'Karteikarten durchgehen',
+                title: 'LERNKARTEN',
+                subtitle: 'Thema auswählen und lernen',
                 icon: Icons.menu_book_outlined,
                 onTap: empty
                     ? null
                     : () => _open(context, TopicPickerMode.learn),
               ),
-              const SizedBox(height: 14),
-              _ModeButton(
-                title: 'QUIZ',
-                subtitle: 'Wissen testen',
-                icon: Icons.track_changes_outlined,
-                onTap: empty
-                    ? null
-                    : () => _open(context, TopicPickerMode.quiz),
-              ),
               if (empty) ...[
                 const SizedBox(height: 22),
                 const Text(
-                  'Noch keine Themen.\nCSV-Dateien unter Einstellungen importieren.',
+                  'Noch keine Themen.\nLernkarten unter Einstellungen importieren.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontFamily: 'Rajdhani',
