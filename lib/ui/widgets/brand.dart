@@ -113,7 +113,7 @@ class PercentRing extends StatelessWidget {
       width: size,
       height: size,
       child: CustomPaint(
-        painter: _RingPainter(percent / 100),
+        painter: _RingPainter(percent / 100, Theme.of(context).colorScheme.primary),
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -146,9 +146,10 @@ class PercentRing extends StatelessWidget {
 }
 
 class _RingPainter extends CustomPainter {
-  _RingPainter(this.value);
+  _RingPainter(this.value, this.accent);
 
   final double value;
+  final Color accent;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -157,18 +158,18 @@ class _RingPainter extends CustomPainter {
     final track = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 7
-      ..color = Theme.of(context).colorScheme.primaryDeep;
+      ..color = accent.withValues(alpha: .16);
     final glow = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 7
       ..strokeCap = StrokeCap.round
-      ..color = Theme.of(context).colorScheme.primary.withValues(alpha: 0.28)
+      ..color = accent.withValues(alpha: 0.28)
       ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6);
     final fill = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 7
       ..strokeCap = StrokeCap.round
-      ..color = Theme.of(context).colorScheme.primary;
+      ..color = accent;
     canvas.drawCircle(c, r, track);
     final sweep = 2 * math.pi * value.clamp(0, 1);
     final rect = Rect.fromCircle(center: c, radius: r);
