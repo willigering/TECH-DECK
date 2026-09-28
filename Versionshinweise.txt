@@ -5,7 +5,10 @@
   Stand:      2026-09-28
 ================================================================================
 
-Aktuelle Version: 1.7.1 (Build 12) - 2026-09-28
+Aktuelle Version: 1.7.2 (Build 13) - 2026-09-28
+
+v1.7.2 (Build 13) - 2026-09-28
+- Logo als sauberes Vektor-Gehirn-Chip-Zeichen, Farbe folgt dem Theme
 
 v1.7.1 (Build 12) - 2026-09-28
 - Logo themenbewusst: Icon-Markierung statt festem schwarzen PNG
