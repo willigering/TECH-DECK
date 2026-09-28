@@ -77,7 +77,7 @@ Keine Nummerierung, keine erfundenen Inhalte und keinen zusätzlichen Text auße
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.surface,
-              border: Border.all(color: Theme.of(context).colorScheme.primaryLine),
+              border: Border.all(color: Theme.of(context).colorScheme.primary.withValues(alpha: .55)),
               borderRadius: BorderRadius.circular(12),
             ),
             child: SelectableText(
