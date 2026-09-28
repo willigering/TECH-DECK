@@ -109,8 +109,10 @@ class _LearnScreenState extends State<LearnScreen> {
           child: Padding(
             padding: const EdgeInsets.fromLTRB(20, 4, 20, 16),
             child: _loading
-                ? const Center(
-                    child: CircularProgressIndicator(color: Theme.of(context).colorScheme.primary),
+                ? Center(
+                    child: CircularProgressIndicator(
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   )
                 : _error != null
                 ? Center(child: Text(_error!))

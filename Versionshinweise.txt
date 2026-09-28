@@ -8,7 +8,12 @@
 Aktuelle Version: 1.7.1 (Build 12) - 2026-09-28
 
 v1.7.1 (Build 12) - 2026-09-28
-- App-Logo und Launcher-Icons aktualisiert
+- Logo themenbewusst: Icon-Markierung statt festem schwarzen PNG
+- Themes wählbar (Dark Gold Standard), Auswahl wird gespeichert
+- Anleitung-Tab und Import-Hilfe für Lernkarten
+- CSV- und Markdown-Import; Themenname aus Dateiname
+- Mitgelieferte Decks: Windows-Terminal und Linux-Terminal
+- Gebündelte Lernkarten werden bei Bedarf wiederhergestellt
 
 v1.7.0 (Build 11) - 2026-09-27
 - App auf Lernkarten reduziert: Thema wählen und Karten lernen
