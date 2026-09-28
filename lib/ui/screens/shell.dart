@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../core/colors.dart';
 import '../../state/deck_controller.dart';
 import '../widgets/pcb_background.dart';
+import 'instructions_screen.dart';
 import 'settings_screen.dart';
 import 'start_screen.dart';
 
@@ -17,11 +18,9 @@ class MainShell extends StatefulWidget {
 class _MainShellState extends State<MainShell> {
   int _index = 0;
 
-  Widget _tabNav(Widget child) {
-    return Navigator(
-      onGenerateRoute: (_) => MaterialPageRoute(builder: (_) => child),
-    );
-  }
+  Widget _tabNav(Widget child) => Navigator(
+        onGenerateRoute: (_) => MaterialPageRoute(builder: (_) => child),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -33,15 +32,14 @@ class _MainShellState extends State<MainShell> {
           children: [
             _tabNav(const StartScreen()),
             _tabNav(const SettingsScreen()),
+            _tabNav(const InstructionsScreen()),
           ],
         ),
         bottomNavigationBar: _BottomBar(
           index: _index,
           onChanged: (i) {
             setState(() => _index = i);
-            if (i == 1) {
-              context.read<DeckController>().load();
-            }
+            if (i == 1) context.read<DeckController>().load();
           },
         ),
       ),
@@ -51,13 +49,13 @@ class _MainShellState extends State<MainShell> {
 
 class _BottomBar extends StatelessWidget {
   const _BottomBar({required this.index, required this.onChanged});
-
   final int index;
   final ValueChanged<int> onChanged;
 
   static const _items = [
-    (Icons.home_outlined, Icons.home_rounded, 'Lernkarten'),
+    (Icons.menu_book_outlined, Icons.menu_book_rounded, 'Lernkarten'),
     (Icons.settings_outlined, Icons.settings, 'Einstellungen'),
+    (Icons.help_outline_rounded, Icons.help_rounded, 'Anleitung'),
   ];
 
   @override
@@ -91,13 +89,7 @@ class _BottomBar extends StatelessWidget {
 }
 
 class _NavItem extends StatelessWidget {
-  const _NavItem({
-    required this.icon,
-    required this.label,
-    required this.selected,
-    required this.onTap,
-  });
-
+  const _NavItem({required this.icon, required this.label, required this.selected, required this.onTap});
   final IconData icon;
   final String label;
   final bool selected;
@@ -122,29 +114,14 @@ class _NavItem extends StatelessWidget {
               decoration: BoxDecoration(
                 color: TdColors.gold,
                 borderRadius: BorderRadius.circular(2),
-                boxShadow: selected
-                    ? [
-                        BoxShadow(
-                          color: TdColors.gold.withValues(alpha: 0.6),
-                          blurRadius: 8,
-                        ),
-                      ]
-                    : null,
+                boxShadow: selected ? [BoxShadow(color: TdColors.gold.withValues(alpha: 0.6), blurRadius: 8)] : null,
               ),
             ),
             Icon(icon, size: 22, color: color),
             const SizedBox(height: 4),
-            Text(
-              label,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontFamily: 'Rajdhani',
-                fontSize: 11,
-                fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
-                color: color,
-              ),
-            ),
+            Text(label, maxLines: 1, overflow: TextOverflow.ellipsis,
+              style: TextStyle(fontFamily: 'Rajdhani', fontSize: 11,
+                fontWeight: selected ? FontWeight.w700 : FontWeight.w500, color: color)),
           ],
         ),
       ),
