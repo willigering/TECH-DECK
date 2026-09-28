@@ -6,6 +6,6 @@ class AppInfo {
   static const String version = '1.7.0';
   static const int buildNumber = 11;
   static const String description =
-      'Karteikarten-App für die Prüfungsvorbereitung von Fachinformatikern.';
+      'Lernkarten-App zum Lernen, Wiederholen und Vertiefen.';
 
 }
