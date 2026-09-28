@@ -2,7 +2,6 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-import '../../core/colors.dart';
 
 class TdLogo extends StatelessWidget {
   const TdLogo({super.key, this.size = 180});
@@ -41,10 +40,10 @@ class BrandHeader extends StatelessWidget {
             fontWeight: FontWeight.w700,
             fontSize: compact ? 22 : 28,
             letterSpacing: compact ? 3 : 5,
-            color: TdColors.gold,
+            color: Theme.of(context).colorScheme.primary,
             shadows: [
               Shadow(
-                color: TdColors.gold.withValues(alpha: 0.55),
+                color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.55),
                 blurRadius: 22,
               ),
             ],
@@ -58,7 +57,7 @@ class BrandHeader extends StatelessWidget {
             fontFamily: 'Orbitron',
             fontSize: compact ? 9 : 10,
             letterSpacing: compact ? 2.2 : 3.4,
-            color: TdColors.textMuted,
+            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .65),
           ),
         ),
         if (showLogo) ...[
@@ -82,11 +81,11 @@ class SectionLabel extends StatelessWidget {
       children: [
         Text(
           text,
-          style: const TextStyle(
+          style: TextStyle(
             fontFamily: 'Orbitron',
             fontSize: 13,
             letterSpacing: 2.4,
-            color: TdColors.gold,
+            color: Theme.of(context).colorScheme.primary,
           ),
         ),
         const Spacer(),
@@ -121,21 +120,21 @@ class PercentRing extends StatelessWidget {
             children: [
               Text(
                 '$percent%',
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Orbitron',
                   fontSize: 36,
-                  color: TdColors.gold,
-                  shadows: [Shadow(color: TdColors.gold, blurRadius: 16)],
+                  color: Theme.of(context).colorScheme.primary,
+                  shadows: [Shadow(color: Theme.of(context).colorScheme.primary, blurRadius: 16)],
                 ),
               ),
               const SizedBox(height: 4),
               Text(
                 caption,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Rajdhani',
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
-                  color: TdColors.textMuted,
+                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .65),
                 ),
               ),
             ],
@@ -158,18 +157,18 @@ class _RingPainter extends CustomPainter {
     final track = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 7
-      ..color = TdColors.goldDeep;
+      ..color = Theme.of(context).colorScheme.primaryDeep;
     final glow = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 7
       ..strokeCap = StrokeCap.round
-      ..color = TdColors.gold.withValues(alpha: 0.28)
+      ..color = Theme.of(context).colorScheme.primary.withValues(alpha: 0.28)
       ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6);
     final fill = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 7
       ..strokeCap = StrokeCap.round
-      ..color = TdColors.gold;
+      ..color = Theme.of(context).colorScheme.primary;
     canvas.drawCircle(c, r, track);
     final sweep = 2 * math.pi * value.clamp(0, 1);
     final rect = Rect.fromCircle(center: c, radius: r);
