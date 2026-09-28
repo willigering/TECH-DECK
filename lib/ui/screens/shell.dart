@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/colors.dart';
 import '../../state/deck_controller.dart';
 import '../widgets/pcb_background.dart';
 import 'instructions_screen.dart';
@@ -61,9 +60,9 @@ class _BottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        color: TdColors.bgElevated,
-        border: Border(top: BorderSide(color: TdColors.goldLine)),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        border: Border(top: BorderSide(color: Theme.of(context).colorScheme.primary.withValues(alpha: .55))),
       ),
       child: SafeArea(
         top: false,
@@ -97,7 +96,8 @@ class _NavItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = selected ? TdColors.goldBright : TdColors.textDim;
+    final cs = Theme.of(context).colorScheme;
+    final color = selected ? cs.primary : cs.onSurface.withValues(alpha: .48);
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(12),
@@ -112,9 +112,9 @@ class _NavItem extends StatelessWidget {
               height: 2,
               margin: const EdgeInsets.only(bottom: 6),
               decoration: BoxDecoration(
-                color: TdColors.gold,
+                color: cs.primary,
                 borderRadius: BorderRadius.circular(2),
-                boxShadow: selected ? [BoxShadow(color: TdColors.gold.withValues(alpha: 0.6), blurRadius: 8)] : null,
+                boxShadow: selected ? [BoxShadow(color: cs.primary.withValues(alpha: 0.6), blurRadius: 8)] : null,
               ),
             ),
             Icon(icon, size: 22, color: color),
