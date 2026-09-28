@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/colors.dart';
 import '../../state/deck_controller.dart';
 import '../widgets/brand.dart';
 import '../widgets/gold_button.dart';
@@ -32,7 +31,7 @@ class StartScreen extends StatelessWidget {
             const BrandHeader(showLogo: true),
             const Spacer(),
             if (deck.loading)
-              const CircularProgressIndicator(color: TdColors.gold)
+              CircularProgressIndicator(color: Theme.of(context).colorScheme.primary)
             else ...[
               _ModeButton(
                 title: 'LERNKARTEN',
@@ -50,7 +49,7 @@ class StartScreen extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: 'Rajdhani',
                     fontSize: 16,
-                    color: TdColors.textMuted,
+                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .65),
                     height: 1.35,
                   ),
                 ),
@@ -86,27 +85,27 @@ class _ModeButton extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 22),
         child: Row(
           children: [
-            Icon(icon, size: 34, color: TdColors.gold),
+            Icon(icon, size: 34, color: Theme.of(context).colorScheme.primary),
             const SizedBox(width: 16),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Orbitron',
                     fontSize: 20,
                     letterSpacing: 2.4,
-                    color: TdColors.gold,
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
                 const SizedBox(height: 2),
                 Text(
                   subtitle,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontFamily: 'Rajdhani',
                     fontSize: 15,
-                    color: TdColors.textMuted,
+                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .65),
                   ),
                 ),
               ],
