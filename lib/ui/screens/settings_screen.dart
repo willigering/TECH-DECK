@@ -17,37 +17,21 @@ class SettingsScreen extends StatelessWidget {
         ? 'Import mit Fehlern.'
         : '${summary.filesOk} Datei(en) · ${summary.cardsImported} Karten neu · '
             '${summary.duplicates} Duplikate übersprungen';
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(message)),
-    );
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
   }
 
-  Future<void> _deleteTopic(
-    BuildContext context,
-    String id,
-    String name,
-  ) async {
+  Future<void> _deleteTopic(BuildContext context, String id, String name) async {
     final ok = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
         backgroundColor: TdColors.bgPanel,
-        title: const Text(
-          'Thema löschen?',
-          style: TextStyle(fontFamily: 'Orbitron', color: TdColors.gold),
-        ),
-        content: Text(
-          '"$name" und alle zugehörigen Karten werden entfernt.',
-          style: const TextStyle(color: TdColors.text),
-        ),
+        title: const Text('Thema löschen?', style: TextStyle(fontFamily: 'Orbitron', color: TdColors.gold)),
+        content: Text('"$name" und alle zugehörigen Karten werden entfernt.',
+            style: const TextStyle(color: TdColors.text)),
         actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(ctx, false),
-            child: const Text('ABBRECHEN'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(ctx, true),
-            child: const Text('OK', style: TextStyle(color: TdColors.gold)),
-          ),
+          TextButton(onPressed: () => Navigator.pop(ctx, false), child: const Text('ABBRECHEN')),
+          TextButton(onPressed: () => Navigator.pop(ctx, true),
+              child: const Text('OK', style: TextStyle(color: TdColors.gold))),
         ],
       ),
     );
@@ -66,42 +50,28 @@ class SettingsScreen extends StatelessWidget {
           const SectionLabel('EINSTELLUNGEN'),
           const SizedBox(height: 16),
           GoldButton(
-            label: 'CSV IMPORTIEREN',
+            label: 'LERNKARTEN IMPORTIEREN',
             icon: Icons.file_upload_outlined,
             onTap: () => _import(context),
           ),
           const SizedBox(height: 10),
           const Text(
-            'Eine CSV-Datei entspricht genau einem Thema. '
-            'Frage und Antwort werden als Lernkarten übernommen. '
-            'Der Dateiname (ohne .csv) wird zum Themennamen.',
-            style: TextStyle(
-              fontFamily: 'Rajdhani',
-              fontSize: 15,
-              color: TdColors.textMuted,
-              height: 1.35,
-            ),
+            'Importiere eigene Lernkarten als .csv oder .md. Eine Datei entspricht einem Thema; '
+            'der Dateiname wird zum Themennamen. Eine genaue Anleitung und einen KI-Prompt findest du im Tab „Anleitung“.',
+            style: TextStyle(fontFamily: 'Rajdhani', fontSize: 15, color: TdColors.textMuted, height: 1.35),
           ),
           const SizedBox(height: 28),
           const SectionLabel('THEMEN VERWALTEN'),
           const SizedBox(height: 14),
           if (deck.topics.isEmpty)
-            const GoldPanel(
-              child: Text(
-                'Keine Themen vorhanden.',
-                textAlign: TextAlign.center,
-              ),
-            )
+            const GoldPanel(child: Text('Keine Themen vorhanden.', textAlign: TextAlign.center))
           else
             for (final t in deck.topics) ...[
               TopicTile(
                 topic: t,
                 onTap: () {},
                 trailing: IconButton(
-                  icon: const Icon(
-                    Icons.delete_outline,
-                    color: TdColors.danger,
-                  ),
+                  icon: const Icon(Icons.delete_outline, color: TdColors.danger),
                   onPressed: () => _deleteTopic(context, t.id, t.name),
                 ),
               ),
