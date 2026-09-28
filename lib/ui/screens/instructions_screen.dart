@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../core/colors.dart';
 import '../widgets/brand.dart';
 
 class InstructionsScreen extends StatelessWidget {
@@ -52,12 +51,12 @@ Keine Nummerierung, keine erfundenen Inhalte und keinen zusätzlichen Text auße
         children: [
           const SectionLabel('ANLEITUNG'),
           const SizedBox(height: 14),
-          const GoldPanel(
+          GoldPanel(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text('Eigene Lernkarten erstellen',
-                    style: TextStyle(fontFamily: 'Orbitron', fontSize: 16, color: TdColors.gold)),
+                    style: TextStyle(fontFamily: 'Orbitron', fontSize: 16, color: Theme.of(context).colorScheme.primary)),
                 SizedBox(height: 12),
                 Text(
                   '1. Wähle eine KI deiner Wahl.\n'
@@ -66,7 +65,7 @@ Keine Nummerierung, keine erfundenen Inhalte und keinen zusätzlichen Text auße
                   '4. Lass die KI die Inhalte recherchieren.\n'
                   '5. Speichere das Ergebnis als .csv oder .md.\n'
                   '6. Öffne Einstellungen → Lernkarten importieren.',
-                  style: TextStyle(fontFamily: 'Rajdhani', fontSize: 16, height: 1.45, color: TdColors.text),
+                  style: TextStyle(fontFamily: 'Rajdhani', fontSize: 16, height: 1.45, color: Theme.of(context).colorScheme.onSurface),
                 ),
               ],
             ),
@@ -77,13 +76,13 @@ Keine Nummerierung, keine erfundenen Inhalte und keinen zusätzlichen Text auße
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: TdColors.bgPanel,
-              border: Border.all(color: TdColors.goldLine),
+              color: Theme.of(context).colorScheme.surface,
+              border: Border.all(color: Theme.of(context).colorScheme.primaryLine),
               borderRadius: BorderRadius.circular(12),
             ),
             child: SelectableText(
               aiPrompt,
-              style: const TextStyle(fontFamily: 'Rajdhani', fontSize: 14, height: 1.4, color: TdColors.textMuted),
+              style: TextStyle(fontFamily: 'Rajdhani', fontSize: 14, height: 1.4, color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .65)),
             ),
           ),
           const SizedBox(height: 10),
@@ -95,13 +94,13 @@ Keine Nummerierung, keine erfundenen Inhalte und keinen zusätzlichen Text auße
           const SizedBox(height: 24),
           const SectionLabel('UNTERSTÜTZTE DATEIEN'),
           const SizedBox(height: 10),
-          const GoldPanel(
+          GoldPanel(
             child: Text(
               'CSV: Erste Zeile „Frage;Antwort“, danach eine Karte pro Zeile.\n\n'
               'Markdown: Optional „# Themenname“. Jede Frage beginnt mit „## “; '
               'der Text bis zur nächsten Frage ist die Antwort.\n\n'
               'Der Dateiname wird beim Import als Themenname verwendet.',
-              style: TextStyle(fontFamily: 'Rajdhani', fontSize: 15, height: 1.4, color: TdColors.textMuted),
+              style: TextStyle(fontFamily: 'Rajdhani', fontSize: 15, height: 1.4, color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .65)),
             ),
           ),
         ],
