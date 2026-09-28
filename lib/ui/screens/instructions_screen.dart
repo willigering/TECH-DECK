@@ -1,0 +1,111 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+
+import '../../core/colors.dart';
+import '../widgets/brand.dart';
+
+class InstructionsScreen extends StatelessWidget {
+  const InstructionsScreen({super.key});
+
+  static const aiPrompt = '''Erstelle [ANZAHL] Lernkarten zum Thema „[THEMA]“.
+
+Recherchiere die Inhalte sorgfältig anhand seriöser, etablierter und möglichst aktueller Fachquellen. Erfinde keine Fragen, Antworten, Begriffe oder Fakten. Prüfe jede Antwort vor der Ausgabe auf fachliche Richtigkeit.
+
+Regeln:
+- Eine eindeutige Frage pro Lernkarte.
+- Kurze, präzise und fachlich korrekte Antwort.
+- Keine doppelten oder nahezu identischen Fragen.
+- Decke die wichtigsten Grundlagen und praxisrelevanten Inhalte des Themas ab.
+- Verwende etablierte Fachbegriffe.
+- Bei widersprüchlichen oder nicht sicher belegbaren Informationen keine Lernkarte erstellen.
+
+Gib das Ergebnis wahlweise als CSV oder Markdown aus.
+
+CSV:
+Frage;Antwort
+Was ist ...?;...
+
+Markdown:
+# [THEMA]
+
+## Was ist ...?
+Die fachlich korrekte Antwort.
+
+## Wofür wird ... verwendet?
+Die fachlich korrekte Antwort.
+
+Keine Nummerierung, keine erfundenen Inhalte und keinen zusätzlichen Text außerhalb der Lernkarten.''';
+
+  Future<void> _copy(BuildContext context) async {
+    await Clipboard.setData(const ClipboardData(text: aiPrompt));
+    if (!context.mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Prompt kopiert')),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: ListView(
+        padding: const EdgeInsets.fromLTRB(20, 24, 20, 32),
+        children: [
+          const SectionLabel('ANLEITUNG'),
+          const SizedBox(height: 14),
+          const GoldPanel(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text('Eigene Lernkarten erstellen',
+                    style: TextStyle(fontFamily: 'Orbitron', fontSize: 16, color: TdColors.gold)),
+                SizedBox(height: 12),
+                Text(
+                  '1. Wähle eine KI deiner Wahl.\n'
+                  '2. Kopiere den Prompt unten.\n'
+                  '3. Ersetze [ANZAHL] und [THEMA].\n'
+                  '4. Lass die KI die Inhalte recherchieren.\n'
+                  '5. Speichere das Ergebnis als .csv oder .md.\n'
+                  '6. Öffne Einstellungen → Lernkarten importieren.',
+                  style: TextStyle(fontFamily: 'Rajdhani', fontSize: 16, height: 1.45, color: TdColors.text),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 18),
+          const SectionLabel('PROMPT FÜR DEINE KI'),
+          const SizedBox(height: 10),
+          Container(
+            padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: TdColors.bgPanel,
+              border: Border.all(color: TdColors.goldLine),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: SelectableText(
+              aiPrompt,
+              style: const TextStyle(fontFamily: 'Rajdhani', fontSize: 14, height: 1.4, color: TdColors.textMuted),
+            ),
+          ),
+          const SizedBox(height: 10),
+          OutlinedButton.icon(
+            onPressed: () => _copy(context),
+            icon: const Icon(Icons.copy_rounded),
+            label: const Text('PROMPT KOPIEREN'),
+          ),
+          const SizedBox(height: 24),
+          const SectionLabel('UNTERSTÜTZTE DATEIEN'),
+          const SizedBox(height: 10),
+          const GoldPanel(
+            child: Text(
+              'CSV: Erste Zeile „Frage;Antwort“, danach eine Karte pro Zeile.\n\n'
+              'Markdown: Optional „# Themenname“. Jede Frage beginnt mit „## “; '
+              'der Text bis zur nächsten Frage ist die Antwort.\n\n'
+              'Der Dateiname wird beim Import als Themenname verwendet.',
+              style: TextStyle(fontFamily: 'Rajdhani', fontSize: 15, height: 1.4, color: TdColors.textMuted),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
