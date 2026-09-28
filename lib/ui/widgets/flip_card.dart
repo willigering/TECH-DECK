@@ -3,7 +3,6 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import '../../core/colors.dart';
 
 class FlipStudyCard extends StatefulWidget {
   const FlipStudyCard({
@@ -108,11 +107,11 @@ class _Face extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(24, 28, 24, 24),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(18),
-        color: const Color(0xF2050505),
-        border: Border.all(color: TdColors.gold, width: 1.15),
+        color: Theme.of(context).colorScheme.surface.withValues(alpha: .96),
+        border: Border.all(color: Theme.of(context).colorScheme.primary, width: 1.15),
         boxShadow: [
           BoxShadow(
-            color: TdColors.gold.withValues(alpha: back ? 0.32 : 0.22),
+            color: Theme.of(context).colorScheme.primary.withValues(alpha: back ? 0.32 : 0.22),
             blurRadius: 26,
           ),
         ],
@@ -127,7 +126,7 @@ class _Face extends StatelessWidget {
               fontWeight: FontWeight.w600,
               fontSize: back ? 20 : 26,
               height: 1.35,
-              color: TdColors.text,
+              color: Theme.of(context).colorScheme.onSurface,
             ),
           ),
         ),
