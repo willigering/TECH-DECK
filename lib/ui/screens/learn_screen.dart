@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/colors.dart';
 import '../../data/models/flashcard.dart';
 import '../../logic/study_order.dart';
 import '../../state/deck_controller.dart';
@@ -111,7 +110,7 @@ class _LearnScreenState extends State<LearnScreen> {
             padding: const EdgeInsets.fromLTRB(20, 4, 20, 16),
             child: _loading
                 ? const Center(
-                    child: CircularProgressIndicator(color: TdColors.gold),
+                    child: CircularProgressIndicator(color: Theme.of(context).colorScheme.primary),
                   )
                 : _error != null
                 ? Center(child: Text(_error!))
@@ -121,11 +120,11 @@ class _LearnScreenState extends State<LearnScreen> {
                     children: [
                       Text(
                         '${_index + 1} / ${_cards.length}',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontFamily: 'Orbitron',
                           fontSize: 13,
                           letterSpacing: 2,
-                          color: TdColors.gold,
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                       ),
                       const SizedBox(height: 10),
@@ -142,13 +141,13 @@ class _LearnScreenState extends State<LearnScreen> {
                       ),
                       const SizedBox(height: 14),
                       if (!_flipped)
-                        const Row(
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
                               Icons.rotate_right,
                               size: 16,
-                              color: TdColors.textDim,
+                              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .45),
                             ),
                             SizedBox(width: 8),
                             Text(
@@ -156,7 +155,7 @@ class _LearnScreenState extends State<LearnScreen> {
                               style: TextStyle(
                                 fontFamily: 'Rajdhani',
                                 fontSize: 15,
-                                color: TdColors.textDim,
+                                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .45),
                               ),
                             ),
                           ],
@@ -225,24 +224,24 @@ class _RoundAction extends StatelessWidget {
                 height: 46,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: TdColors.gold),
+                  border: Border.all(color: Theme.of(context).colorScheme.primary),
                   boxShadow: [
                     BoxShadow(
-                      color: TdColors.gold.withValues(alpha: 0.18),
+                      color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.18),
                       blurRadius: 10,
                     ),
                   ],
                 ),
-                child: Icon(icon, color: TdColors.gold, size: 22),
+                child: Icon(icon, color: Theme.of(context).colorScheme.primary, size: 22),
               ),
               const SizedBox(height: 6),
               Text(
                 label,
-                style: const TextStyle(
+                style: TextStyle(
                   fontFamily: 'Orbitron',
                   fontSize: 8,
                   letterSpacing: 1,
-                  color: TdColors.gold,
+                  color: Theme.of(context).colorScheme.primary,
                 ),
               ),
             ],
