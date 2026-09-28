@@ -10,47 +10,86 @@ class TdLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final accent = Theme.of(context).colorScheme.primary;
-    return SizedBox(
-      width: size,
-      height: size,
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          Container(
-            width: size * .54,
-            height: size * .54,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  color: accent.withValues(alpha: .24),
-                  blurRadius: size * .20,
-                  spreadRadius: size * .025,
-                ),
-              ],
-            ),
-          ),
-          Icon(
-            Icons.memory_rounded,
-            size: size * .62,
-            color: accent,
-            shadows: [
-              Shadow(
-                color: accent.withValues(alpha: .58),
-                blurRadius: size * .075,
-              ),
-            ],
-          ),
-          Icon(
-            Icons.school_rounded,
-            size: size * .27,
-            color: Theme.of(context).colorScheme.surface,
-          ),
-        ],
+    return SizedBox.square(
+      dimension: size,
+      child: CustomPaint(
+        painter: _TdLogoPainter(Theme.of(context).colorScheme.primary),
       ),
     );
   }
+}
+
+class _TdLogoPainter extends CustomPainter {
+  const _TdLogoPainter(this.color);
+  final Color color;
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final s = size.shortestSide;
+    canvas.save();
+    canvas.translate((size.width - s) / 2, (size.height - s) / 2);
+    canvas.scale(s / 100, s / 100);
+
+    final line = Paint()
+      ..color = color
+      ..style = PaintingStyle.stroke
+      ..strokeWidth = 2.15
+      ..strokeCap = StrokeCap.round
+      ..strokeJoin = StrokeJoin.round;
+    final dot = Paint()..color = color;
+    const c = Offset(50, 50);
+    const r = 32.5;
+
+    canvas.drawCircle(c, r, line);
+
+    const angles = [-110,-98,-86,-74,-62,-24,-12,0,12,24,62,74,86,98,110,156,168,180,192,204];
+    for (final deg in angles) {
+      final a = deg * math.pi / 180;
+      final p1 = Offset(c.dx + math.cos(a) * r, c.dy + math.sin(a) * r);
+      final p2 = Offset(c.dx + math.cos(a) * 40.5, c.dy + math.sin(a) * 40.5);
+      canvas.drawLine(p1, p2, line);
+      canvas.drawCircle(p2, 1.35, dot);
+    }
+
+    Path brain(bool left) {
+      final x = left ? 1.0 : -1.0;
+      Offset p(double dx, double dy) => Offset(50 - x * dx, dy);
+      return Path()
+        ..moveTo(p(4,31).dx,p(4,31).dy)
+        ..cubicTo(p(10,27).dx,p(10,27).dy,p(14,31).dx,p(14,31).dy,p(14,36).dx,p(14,36).dy)
+        ..cubicTo(p(22,34).dx,p(22,34).dy,p(25,40).dx,p(25,40).dy,p(23,45).dx,p(23,45).dy)
+        ..cubicTo(p(29,49).dx,p(29,49).dy,p(26,57).dx,p(26,57).dy,p(22,58).dx,p(22,58).dy)
+        ..cubicTo(p(25,65).dx,p(25,65).dy,p(19,70).dx,p(19,70).dy,p(14,67).dx,p(14,67).dy)
+        ..cubicTo(p(14,74).dx,p(14,74).dy,p(7,76).dx,p(7,76).dy,p(4,70).dx,p(4,70).dy)
+        ..close();
+    }
+    canvas.drawPath(brain(true), line);
+    canvas.drawPath(brain(false), line);
+    canvas.drawLine(const Offset(46,32), const Offset(46,69), line);
+    canvas.drawLine(const Offset(54,32), const Offset(54,69), line);
+
+    void trace(List<Offset> pts) {
+      final p = Path()..moveTo(pts.first.dx, pts.first.dy);
+      for (var i=1;i<pts.length;i++) {
+        final prev=pts[i-1], cur=pts[i];
+        p.quadraticBezierTo((prev.dx+cur.dx)/2, prev.dy, cur.dx, cur.dy);
+      }
+      canvas.drawPath(p,line);
+      canvas.drawCircle(pts.first,1.25,dot);
+      canvas.drawCircle(pts.last,1.25,dot);
+    }
+    trace(const [Offset(42,38),Offset(38,40),Offset(37,44),Offset(41,46)]);
+    trace(const [Offset(34,48),Offset(37,52),Offset(42,52)]);
+    trace(const [Offset(42,59),Offset(38,60),Offset(37,64)]);
+    trace(const [Offset(58,38),Offset(62,40),Offset(63,44),Offset(59,46)]);
+    trace(const [Offset(66,48),Offset(63,52),Offset(58,52)]);
+    trace(const [Offset(58,59),Offset(62,60),Offset(63,64)]);
+
+    canvas.restore();
+  }
+
+  @override
+  bool shouldRepaint(covariant _TdLogoPainter oldDelegate) => oldDelegate.color != color;
 }
 
 class BrandHeader extends StatelessWidget {
