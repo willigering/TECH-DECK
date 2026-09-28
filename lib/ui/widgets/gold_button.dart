@@ -10,7 +10,7 @@ class GoldButton extends StatelessWidget {
     final child=AnimatedContainer(duration:const Duration(milliseconds:180),height:height,padding:const EdgeInsets.symmetric(horizontal:18),
       decoration:BoxDecoration(borderRadius:radius,color:filled&&active?cs.primary:cs.surface.withValues(alpha:.72),
         border:Border.all(color:active?cs.primary:cs.outline.withValues(alpha:.45),width:1.2),
-        boxShadow:active?[BoxShadow(color:cs.primary.withValues(alpha:filled?.28:.14),blurRadius:filled?18:12)]:null),
+        boxShadow:active?[BoxShadow(color:cs.primary.withValues(alpha:filled ? .28 : .14),blurRadius:filled?18:12)]:null),
       child:Row(mainAxisAlignment:MainAxisAlignment.center,mainAxisSize:expand?MainAxisSize.max:MainAxisSize.min,children:[
         if(icon!=null)...[Icon(icon,size:20,color:fg),const SizedBox(width:10)],
         Flexible(child:Text(label,overflow:TextOverflow.ellipsis,style:TextStyle(fontFamily:'Orbitron',fontSize:13,letterSpacing:1.8,fontWeight:FontWeight.w600,color:fg)))
