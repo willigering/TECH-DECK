@@ -13,7 +13,7 @@ class DeckRepository {
   DeckRepository({AppDatabase? database})
     : _dbProvider = database ?? AppDatabase.instance;
 
-  static const bundledContentRev = 'learn-only-1';
+  static const bundledContentRev = 'learn-only-2';
 
   final AppDatabase _dbProvider;
   final _uuid = const Uuid();
@@ -119,6 +119,8 @@ class DeckRepository {
         'Prüfung und Fehleranalyse',
       ),
       ('assets/decks/17_Klausurvorbereitung.csv', 'Klausurvorbereitung'),
+      ('assets/decks/18_Windows_Terminal.csv', 'Windows Terminal'),
+      ('assets/decks/19_Linux_Terminal.csv', 'Linux Terminal'),
     ];
     final db = await _db;
     final currentRev = await _meta(db, 'bundled_rev');
