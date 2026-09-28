@@ -27,7 +27,7 @@ class TopicPickerScreen extends StatelessWidget {
           if (deck.topics.isEmpty)
             GoldPanel(
               child: Column(
-                children: const [
+                children: [
                   Text(
                     'Keine Themen vorhanden.',
                     style: TextStyle(
