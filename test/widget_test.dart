@@ -6,8 +6,8 @@ void main() {
   test('App-Metadaten sind gesetzt', () {
     expect(AppInfo.name, 'TECH//DECK');
     expect(AppInfo.developer, 'Willi Gering');
-    expect(AppInfo.version, '1.7.0');
-    expect(AppInfo.buildNumber, 11);
+    expect(AppInfo.version, '1.7.1');
+    expect(AppInfo.buildNumber, 12);
     expect(AppInfo.tagline, 'LERNE. VERSTEHE. VERBINDE.');
   });
 
