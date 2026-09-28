@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../core/colors.dart';
 import '../../state/deck_controller.dart';
 import '../widgets/brand.dart';
 import '../widgets/gold_button.dart';
@@ -34,14 +33,14 @@ class TopicPickerScreen extends StatelessWidget {
                     style: TextStyle(
                       fontFamily: 'Rajdhani',
                       fontSize: 18,
-                      color: TdColors.text,
+                      color: Theme.of(context).colorScheme.onSurface,
                     ),
                   ),
                   SizedBox(height: 8),
                   Text(
                     'Importiere zuerst CSV-Dateien unter Einstellungen.',
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: TdColors.textMuted),
+                    style: TextStyle(color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .65)),
                   ),
                 ],
               ),
