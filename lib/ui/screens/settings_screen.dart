@@ -6,6 +6,7 @@ import '../../state/deck_controller.dart';
 import '../../state/theme_controller.dart';
 import '../widgets/brand.dart';
 import '../widgets/gold_button.dart';
+import '../widgets/topic_mark_sheet.dart';
 import '../widgets/topic_tile.dart';
 
 class SettingsScreen extends StatelessWidget {
@@ -69,15 +70,25 @@ class SettingsScreen extends StatelessWidget {
             style: Theme.of(context).textTheme.bodyMedium),
           const SizedBox(height: 28),
           const SectionLabel('THEMEN VERWALTEN'),
+          const SizedBox(height: 8),
+          Text(
+            'Tippen: Farbe und Wichtig. Lange drücken geht auch in der Themenliste.',
+            style: Theme.of(context).textTheme.bodyMedium,
+          ),
           const SizedBox(height: 14),
           if (deck.topics.isEmpty)
             const GoldPanel(child: Text('Keine Themen vorhanden.', textAlign: TextAlign.center))
           else
             for (final t in deck.topics) ...[
-              TopicTile(topic: t, onTap: () {}, trailing: IconButton(
-                icon: Icon(Icons.delete_outline, color: cs.error),
-                onPressed: () => _deleteTopic(context, t.id, t.name),
-              )),
+              TopicTile(
+                topic: t,
+                onTap: () => showTopicMarkSheet(context, t),
+                onLongPress: () => showTopicMarkSheet(context, t),
+                trailing: IconButton(
+                  icon: Icon(Icons.delete_outline, color: cs.error),
+                  onPressed: () => _deleteTopic(context, t.id, t.name),
+                ),
+              ),
               const SizedBox(height: 10),
             ],
           const SizedBox(height: 22),

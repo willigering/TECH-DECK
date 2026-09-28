@@ -120,7 +120,7 @@ void main() {
               .where((f) => f.path.toLowerCase().endsWith('.csv'))
               .toList()
             ..sort((a, b) => a.path.compareTo(b.path));
-      expect(files, hasLength(17));
+      expect(files, hasLength(19));
       var total = 0;
       for (final file in files) {
         final name = file.uri.pathSegments.last;
@@ -136,7 +136,7 @@ void main() {
         }
         total += result.cards.length;
       }
-      expect(total, 900);
+      expect(total, 1000);
     });
   });
 }

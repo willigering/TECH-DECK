@@ -82,6 +82,21 @@ class DeckController extends ChangeNotifier {
     return _repo.loadCards(topicId);
   }
 
+  Future<void> setTopicMark(
+    String topicId, {
+    String? colorKey,
+    bool clearColor = false,
+    bool? isImportant,
+  }) async {
+    await _repo.updateTopicMark(
+      topicId,
+      colorKey: colorKey,
+      clearColor: clearColor,
+      isImportant: isImportant,
+    );
+    await load();
+  }
+
   Future<void> deleteTopic(String topicId) async {
     await _repo.deleteTopic(topicId);
     if (_selectedTopicId == topicId) _selectedTopicId = null;

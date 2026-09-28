@@ -20,7 +20,7 @@ class AppDatabase {
     final path = p.join(dir.path, 'tech_deck.db');
     return openDatabase(
       path,
-      version: 6,
+      version: 7,
       onConfigure: (db) async {
         await db.execute('PRAGMA foreign_keys = ON');
       },
@@ -90,6 +90,15 @@ class AppDatabase {
             await txn.execute('DROP TABLE IF EXISTS quiz_sessions');
           });
         }
+        if (oldVersion < 7) {
+          await _addColumnIfMissing(db, 'topics', 'accent_color', 'TEXT');
+          await _addColumnIfMissing(
+            db,
+            'topics',
+            'is_important',
+            'INTEGER NOT NULL DEFAULT 0',
+          );
+        }
       },
       onCreate: (db, version) async {
         await db.execute('''
@@ -98,7 +107,9 @@ class AppDatabase {
             name TEXT NOT NULL UNIQUE,
             source_filename TEXT NOT NULL,
             sort_order INTEGER NOT NULL,
-            imported_at INTEGER NOT NULL
+            imported_at INTEGER NOT NULL,
+            accent_color TEXT,
+            is_important INTEGER NOT NULL DEFAULT 0
           )
         ''');
         await db.execute('''

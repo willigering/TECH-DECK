@@ -2,6 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../core/topic_marks.dart';
 import '../../logic/question_normalizer.dart';
 import '../csv/csv_importer.dart';
 import '../csv/csv_parser.dart';
@@ -28,7 +29,7 @@ class DeckRepository {
       FROM topics t
       LEFT JOIN cards c ON c.topic_id = t.id
       GROUP BY t.id
-      ORDER BY t.sort_order ASC
+      ORDER BY t.is_important DESC, t.sort_order ASC
     ''');
     return rows
         .map((row) => Topic.fromMap(row, cardCount: _asInt(row['card_count'])))
@@ -142,6 +143,19 @@ class DeckRepository {
     if (forceReplace) {
       await _setMeta(db, 'bundled_rev', bundledContentRev);
     }
+    await _ensureKlausurMark(db);
+  }
+
+  /// Klausurvorbereitung einmalig rot und als wichtig markieren.
+  Future<void> _ensureKlausurMark(Database db) async {
+    if (await _meta(db, 'klausur_mark_v1') == '1') return;
+    await db.update(
+      'topics',
+      {'is_important': 1, 'accent_color': TopicMarks.examKey},
+      where: 'name = ?',
+      whereArgs: ['Klausurvorbereitung'],
+    );
+    await _setMeta(db, 'klausur_mark_v1', '1');
   }
 
   Future<String?> _meta(Database db, String key) async {
@@ -202,12 +216,15 @@ class DeckRepository {
               ) ??
               -1;
           topicId = _uuid.v4();
+          final isKlausur = resolvedName == 'Klausurvorbereitung';
           await txn.insert('topics', {
             'id': topicId,
             'name': resolvedName,
             'source_filename': file.filename,
             'sort_order': sortOrder ?? maxOrder + 1,
             'imported_at': DateTime.now().millisecondsSinceEpoch,
+            'is_important': isKlausur ? 1 : 0,
+            'accent_color': isKlausur ? TopicMarks.examKey : null,
           });
         } else {
           topicId = existing.first['id'] as String;
@@ -293,6 +310,31 @@ class DeckRepository {
       if (QuestionNormalizer.areDuplicates(question, other)) return true;
     }
     return false;
+  }
+
+  Future<void> updateTopicMark(
+    String topicId, {
+    String? colorKey,
+    bool clearColor = false,
+    bool? isImportant,
+  }) async {
+    final db = await _db;
+    final values = <String, Object?>{};
+    if (clearColor) {
+      values['accent_color'] = null;
+    } else if (colorKey != null) {
+      values['accent_color'] = colorKey;
+    }
+    if (isImportant != null) {
+      values['is_important'] = isImportant ? 1 : 0;
+    }
+    if (values.isEmpty) return;
+    await db.update(
+      'topics',
+      values,
+      where: 'id = ?',
+      whereArgs: [topicId],
+    );
   }
 
   Future<void> deleteTopic(String topicId) async {

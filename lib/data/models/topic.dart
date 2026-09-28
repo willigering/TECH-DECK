@@ -6,6 +6,8 @@ class Topic {
     required this.sortOrder,
     required this.importedAt,
     this.cardCount = 0,
+    this.colorKey,
+    this.isImportant = false,
   });
 
   final String id;
@@ -14,6 +16,8 @@ class Topic {
   final int sortOrder;
   final DateTime importedAt;
   final int cardCount;
+  final String? colorKey;
+  final bool isImportant;
 
   Topic copyWith({
     String? id,
@@ -22,6 +26,9 @@ class Topic {
     int? sortOrder,
     DateTime? importedAt,
     int? cardCount,
+    String? colorKey,
+    bool clearColor = false,
+    bool? isImportant,
   }) {
     return Topic(
       id: id ?? this.id,
@@ -30,6 +37,8 @@ class Topic {
       sortOrder: sortOrder ?? this.sortOrder,
       importedAt: importedAt ?? this.importedAt,
       cardCount: cardCount ?? this.cardCount,
+      colorKey: clearColor ? null : (colorKey ?? this.colorKey),
+      isImportant: isImportant ?? this.isImportant,
     );
   }
 
@@ -39,6 +48,8 @@ class Topic {
     'source_filename': sourceFilename,
     'sort_order': sortOrder,
     'imported_at': importedAt.millisecondsSinceEpoch,
+    'accent_color': colorKey,
+    'is_important': isImportant ? 1 : 0,
   };
 
   factory Topic.fromMap(Map<String, Object?> map, {int cardCount = 0}) {
@@ -51,6 +62,20 @@ class Topic {
         map['imported_at'] as int,
       ),
       cardCount: cardCount,
+      colorKey: _colorKey(map['accent_color']),
+      isImportant: _asBool(map['is_important']),
     );
+  }
+
+  static String? _colorKey(Object? value) {
+    if (value is! String) return null;
+    final key = value.trim();
+    return key.isEmpty ? null : key;
+  }
+
+  static bool _asBool(Object? value) {
+    if (value == true || value == 1) return true;
+    if (value is num) return value != 0;
+    return false;
   }
 }

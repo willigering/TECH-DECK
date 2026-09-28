@@ -20,15 +20,48 @@ class GoldButton extends StatelessWidget {
 }
 
 class GoldPanel extends StatelessWidget {
-  const GoldPanel({super.key,required this.child,this.onTap,this.padding=const EdgeInsets.all(18),this.glow=true});
-  final Widget child; final VoidCallback? onTap; final EdgeInsets padding; final bool glow;
-  @override Widget build(BuildContext context) {
-    final cs=Theme.of(context).colorScheme;
-    final panel=Container(width:double.infinity,padding:padding,decoration:BoxDecoration(borderRadius:BorderRadius.circular(16),
-      color:cs.surface.withValues(alpha:.92),border:Border.all(color:cs.primary.withValues(alpha:.78),width:1.05),
-      boxShadow:glow?[BoxShadow(color:cs.primary.withValues(alpha:.13),blurRadius:16)]:null),child:child);
-    if(onTap==null)return panel;
-    return Material(color:Colors.transparent,child:InkWell(onTap:onTap,borderRadius:BorderRadius.circular(16),child:panel));
+  const GoldPanel({
+    super.key,
+    required this.child,
+    this.onTap,
+    this.onLongPress,
+    this.padding = const EdgeInsets.all(18),
+    this.glow = true,
+    this.accent,
+  });
+  final Widget child;
+  final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
+  final EdgeInsets padding;
+  final bool glow;
+  final Color? accent;
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final line = accent ?? cs.primary;
+    final panel = Container(
+      width: double.infinity,
+      padding: padding,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        color: cs.surface.withValues(alpha: .92),
+        border: Border.all(color: line.withValues(alpha: .78), width: 1.05),
+        boxShadow: glow
+            ? [BoxShadow(color: line.withValues(alpha: .13), blurRadius: 16)]
+            : null,
+      ),
+      child: child,
+    );
+    if (onTap == null && onLongPress == null) return panel;
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        onLongPress: onLongPress,
+        borderRadius: BorderRadius.circular(16),
+        child: panel,
+      ),
+    );
   }
 }
 

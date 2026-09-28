@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../state/deck_controller.dart';
 import '../widgets/brand.dart';
 import '../widgets/gold_button.dart';
+import '../widgets/topic_mark_sheet.dart';
 import '../widgets/topic_tile.dart';
 import 'learn_screen.dart';
 
@@ -33,6 +34,15 @@ class TopicPickerScreen extends StatelessWidget {
             const BrandHeader(compact: true),
             const SizedBox(height: 22),
             SectionLabel('THEMA FÜR $title'),
+            const SizedBox(height: 8),
+            Text(
+              'Lange drücken: Farbe und Wichtig markieren.',
+              style: TextStyle(
+                fontFamily: 'Rajdhani',
+                fontSize: 14,
+                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .65),
+              ),
+            ),
             const SizedBox(height: 14),
             if (deck.topics.isEmpty)
               GoldPanel(
@@ -64,6 +74,7 @@ class TopicPickerScreen extends StatelessWidget {
               for (final topic in deck.topics) ...[
                 TopicTile(
                   topic: topic,
+                  onLongPress: () => showTopicMarkSheet(context, topic),
                   onTap: topic.cardCount == 0
                       ? () {}
                       : () {

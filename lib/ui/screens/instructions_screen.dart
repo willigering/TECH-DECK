@@ -65,7 +65,8 @@ Keine Nummerierung, keine erfundenen Inhalte und keinen zusätzlichen Text auße
                   '3. Ersetze [ANZAHL] und [THEMA].\n'
                   '4. Lass die KI die Inhalte recherchieren.\n'
                   '5. Speichere das Ergebnis als .csv oder .md.\n'
-                  '6. Öffne Einstellungen → Lernkarten importieren.',
+                  '6. Öffne Einstellungen → Lernkarten importieren.\n'
+                  '7. Decks kannst du farblich und als wichtig markieren (lange drücken). Klausurvorbereitung ist vorausgewählt.',
                   style: TextStyle(fontFamily: 'Rajdhani', fontSize: 16, height: 1.45, color: Theme.of(context).colorScheme.onSurface),
                 ),
               ],
