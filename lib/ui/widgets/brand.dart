@@ -10,13 +10,44 @@ class TdLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final accent = Theme.of(context).colorScheme.primary;
     return SizedBox(
       width: size,
       height: size,
-      child: Image.asset(
-        'assets/logo.png',
-        fit: BoxFit.contain,
-        filterQuality: FilterQuality.high,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          Container(
+            width: size * .54,
+            height: size * .54,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                  color: accent.withValues(alpha: .24),
+                  blurRadius: size * .20,
+                  spreadRadius: size * .025,
+                ),
+              ],
+            ),
+          ),
+          Icon(
+            Icons.memory_rounded,
+            size: size * .62,
+            color: accent,
+            shadows: [
+              Shadow(
+                color: accent.withValues(alpha: .58),
+                blurRadius: size * .075,
+              ),
+            ],
+          ),
+          Icon(
+            Icons.school_rounded,
+            size: size * .27,
+            color: Theme.of(context).colorScheme.surface,
+          ),
+        ],
       ),
     );
   }
