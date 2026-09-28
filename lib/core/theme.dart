@@ -60,7 +60,3 @@ abstract final class TdTheme {
     );
   }
 }
-
-extension TdThemeContext on BuildContext {
-  TdPalette get td => TdTheme.palette(read<TdThemeChoice>());
-}
