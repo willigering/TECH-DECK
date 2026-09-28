@@ -1,0 +1,51 @@
+Frage;Antwort
+Was macht pwd?;Zeigt den vollständigen Pfad des aktuellen Verzeichnisses.
+Was macht ls?;Listet Dateien und Verzeichnisse im aktuellen Ordner auf.
+Was macht ls -l?;Zeigt Dateien mit Details wie Rechten, Besitzer, Größe und Datum.
+Was macht ls -a?;Zeigt auch versteckte Dateien und Verzeichnisse.
+Was macht cd <Ordner>?;Wechselt in das angegebene Verzeichnis.
+Was macht cd ..?;Wechselt eine Verzeichnisebene nach oben.
+Was macht cd ~?;Wechselt in das Home-Verzeichnis des aktuellen Benutzers.
+Was macht mkdir <Ordner>?;Erstellt ein neues Verzeichnis.
+Was macht rmdir <Ordner>?;Löscht ein leeres Verzeichnis.
+Was macht touch <Datei>?;Erstellt eine leere Datei oder aktualisiert ihren Zeitstempel.
+Was macht cp <Quelle> <Ziel>?;Kopiert eine Datei von der Quelle zum Ziel.
+Was macht cp -r?;Kopiert Verzeichnisse einschließlich ihres Inhalts rekursiv.
+Was macht mv <Quelle> <Ziel>?;Verschiebt oder benennt Dateien und Verzeichnisse um.
+Was macht rm <Datei>?;Löscht eine Datei.
+Was macht rm -r <Ordner>?;Löscht ein Verzeichnis und dessen Inhalt rekursiv.
+Was macht cat <Datei>?;Gibt den Inhalt einer Datei im Terminal aus.
+Was macht less <Datei>?;Zeigt längere Textdateien seitenweise und durchsuchbar an.
+Was macht head <Datei>?;Zeigt standardmäßig die ersten zehn Zeilen einer Datei.
+Was macht tail <Datei>?;Zeigt standardmäßig die letzten zehn Zeilen einer Datei.
+Was macht tail -f?;Zeigt neue Zeilen einer Datei fortlaufend an, z. B. bei Logs.
+Was macht nano <Datei>?;Öffnet eine Datei im Terminal-Texteditor Nano.
+Was macht clear?;Leert die sichtbare Terminalanzeige.
+Was macht history?;Zeigt zuvor eingegebene Shell-Befehle an.
+Was macht man <Befehl>?;Öffnet die Handbuchseite mit Hilfe zum angegebenen Befehl.
+Was macht whoami?;Zeigt den Namen des aktuell angemeldeten Benutzers.
+Was macht id?;Zeigt Benutzer-ID, Gruppen-ID und Gruppenmitgliedschaften.
+Was macht sudo <Befehl>?;Führt einen Befehl mit erhöhten Rechten aus, sofern erlaubt.
+Was macht su?;Wechselt zu einem anderen Benutzer, standardmäßig root.
+Wofür wird chmod verwendet?;Ändert Zugriffsrechte von Dateien und Verzeichnissen.
+Wofür wird chown verwendet?;Ändert Besitzer und optional die Gruppe einer Datei.
+Was macht ps?;Zeigt Prozesse der aktuellen Sitzung an.
+Was macht ps aux?;Zeigt eine ausführliche Liste laufender Prozesse.
+Was macht top?;Zeigt laufende Prozesse und Systemauslastung dynamisch an.
+Was macht kill <PID>?;Sendet einem Prozess ein Signal, standardmäßig SIGTERM zum Beenden.
+Was macht kill -9 <PID>?;Beendet einen Prozess sofort mit SIGKILL.
+Was macht df -h?;Zeigt belegten und freien Speicherplatz der Dateisysteme lesbar an.
+Was macht du -sh <Ordner>?;Zeigt die Gesamtgröße eines Ordners in gut lesbarer Form.
+Was macht free -h?;Zeigt belegten und freien Arbeitsspeicher lesbar an.
+Was macht uname -a?;Zeigt Kernel- und grundlegende Systeminformationen.
+Was macht hostname?;Zeigt den Hostnamen des Linux-Systems.
+Was macht ip addr?;Zeigt Netzwerkinterfaces und deren IP-Adressen.
+Was macht ip route?;Zeigt die IP-Routingtabelle einschließlich Standardroute.
+Was macht ip link?;Zeigt und verwaltet Netzwerkinterfaces auf Verbindungsebene.
+Was macht ping <Ziel>?;Prüft die Erreichbarkeit eines Hosts mit ICMP.
+Was macht traceroute <Ziel>?;Zeigt die Hops auf dem Netzwerkweg zum Ziel.
+Was zeigt ss -tulpen?;Zeigt u. a. lauschende TCP/UDP-Sockets, Ports und Prozesse.
+Was macht ip neigh?;Zeigt den Nachbar-Cache, z. B. IPv4-zu-MAC-Zuordnungen.
+Was macht dig <Domain>?;Fragt DNS-Informationen zu einer Domain ab.
+Was macht systemctl status <Dienst>?;Zeigt Zustand und Informationen eines systemd-Dienstes.
+Was macht journalctl?;Zeigt System- und Dienstprotokolle des systemd-Journals.
