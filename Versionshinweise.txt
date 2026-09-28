@@ -5,7 +5,10 @@
   Stand:      2026-09-28
 ================================================================================
 
-Aktuelle Version: 1.7.2 (Build 13) - 2026-09-28
+Aktuelle Version: 1.7.3 (Build 14) - 2026-09-28
+
+v1.7.3 (Build 14) - 2026-09-28
+- Zurück-Button in der Themenauswahl (Kartenauswahlmenü)
 
 v1.7.2 (Build 13) - 2026-09-28
 - Logo als sauberes Vektor-Gehirn-Chip-Zeichen, Farbe folgt dem Theme
