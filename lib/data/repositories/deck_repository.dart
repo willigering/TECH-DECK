@@ -13,7 +13,7 @@ class DeckRepository {
   DeckRepository({AppDatabase? database})
     : _dbProvider = database ?? AppDatabase.instance;
 
-  static const bundledContentRev = 'learn-only-2';
+  static const bundledContentRev = 'learn-only-3';
 
   final AppDatabase _dbProvider;
   final _uuid = const Uuid();
