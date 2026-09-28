@@ -43,7 +43,7 @@ class StartScreen extends StatelessWidget {
               ),
               if (empty) ...[
                 const SizedBox(height: 22),
-                const Text(
+                Text(
                   'Noch keine Themen.\nLernkarten unter Einstellungen importieren.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
