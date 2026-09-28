@@ -1,0 +1,51 @@
+Frage;Antwort
+Was zeigt ipconfig an?;Grundlegende IP-Konfiguration der Windows-Netzwerkadapter.
+Was zeigt ipconfig /all zusätzlich?;Details wie MAC-Adresse, DHCP, DNS, Gateway und Lease.
+Was bewirkt ipconfig /release?;Gibt die aktuelle per DHCP erhaltene IP-Konfiguration frei.
+Was bewirkt ipconfig /renew?;Fordert vom DHCP-Server eine neue IP-Konfiguration an.
+Was macht ipconfig /flushdns?;Leert den lokalen DNS-Auflösungscache.
+Wofür nutzt man ping <Ziel>?;Prüft Erreichbarkeit und Antwortzeit eines Hosts mit ICMP.
+Was macht tracert <Ziel>?;Zeigt die Router bzw. Hops auf dem Weg zum Ziel.
+Wofür dient nslookup <Name>?;Fragt DNS ab, z. B. um einen Namen in eine IP aufzulösen.
+Was zeigt arp -a?;Den ARP-Cache mit bekannten IPv4- und MAC-Zuordnungen.
+Was zeigt route print?;Die lokale IP-Routingtabelle des Rechners.
+Was zeigt netstat -ano?;Verbindungen, lauschende Ports, Adressen und Prozess-IDs.
+Was macht hostname?;Zeigt den Computernamen des aktuellen Windows-PCs.
+Was macht getmac?;Zeigt die MAC-Adressen der Netzwerkadapter.
+Wofür dient pathping <Ziel>?;Analysiert Route und Paketverluste entlang mehrerer Hops.
+Was macht netsh wlan show profiles?;Listet gespeicherte WLAN-Profile auf.
+Was macht cls?;Leert die Anzeige der Eingabeaufforderung.
+Was macht dir?;Zeigt Dateien und Unterordner des aktuellen Verzeichnisses.
+Was macht dir /a?;Zeigt auch Dateien mit speziellen Attributen, z. B. versteckte.
+Was macht cd <Ordner>?;Wechselt in das angegebene Verzeichnis.
+Was bewirkt cd ..?;Wechselt eine Verzeichnisebene nach oben.
+Was bewirkt cd \?;Wechselt ins Stammverzeichnis des aktuellen Laufwerks.
+Wie wechselt man in CMD auf Laufwerk D:?;D: eingeben und Enter drücken.
+Was macht mkdir Test?;Erstellt einen neuen Ordner namens Test.
+Was macht rmdir Test?;Löscht den leeren Ordner Test.
+Was macht rmdir /s Test?;Löscht den Ordner Test einschließlich seines Inhalts.
+Was macht copy a.txt b.txt?;Kopiert a.txt und legt die Kopie als b.txt ab.
+Was macht move Datei.txt C:\Temp?;Verschiebt die Datei in den Ordner C:\Temp.
+Was macht del Datei.txt?;Löscht die angegebene Datei.
+Was macht ren alt.txt neu.txt?;Benennt alt.txt in neu.txt um.
+Was macht type Datei.txt?;Gibt den Inhalt einer Textdatei im Terminal aus.
+Was macht tree?;Zeigt die Verzeichnisstruktur als Baum an.
+Was macht echo Hallo?;Gibt den Text Hallo im Terminal aus.
+Was bewirkt echo %PATH%?;Zeigt den Inhalt der Umgebungsvariable PATH.
+Was macht set?;Zeigt bzw. setzt Umgebungsvariablen in CMD.
+Was macht where python?;Sucht nach der ausführbaren Datei python im Suchpfad.
+Was macht whoami?;Zeigt das aktuell angemeldete Benutzerkonto.
+Was macht systeminfo?;Zeigt ausführliche Informationen über Windows und Hardware.
+Was zeigt tasklist?;Eine Liste der aktuell laufenden Prozesse.
+Was macht taskkill /PID 1234?;Beendet den Prozess mit der Prozess-ID 1234.
+Was bedeutet /F bei taskkill?;Erzwingt das Beenden des angegebenen Prozesses.
+Was macht shutdown /s /t 0?;Fährt Windows sofort herunter.
+Was macht shutdown /r /t 0?;Startet Windows sofort neu.
+Was macht sfc /scannow?;Prüft geschützte Windows-Systemdateien und repariert sie ggf.
+Wofür dient chkdsk?;Prüft ein Dateisystem bzw. Laufwerk auf Fehler.
+Was macht chkdsk C: /f?;Prüft Laufwerk C: und versucht Dateisystemfehler zu beheben.
+Was macht driverquery?;Listet installierte Gerätetreiber und Informationen dazu auf.
+Was macht sc query?;Zeigt Informationen über Windows-Dienste und deren Status.
+Was macht net user?;Listet lokale Benutzerkonten auf bzw. verwaltet Benutzer.
+Was macht net share?;Zeigt bzw. verwaltet freigegebene Ressourcen des Computers.
+Was macht help <Befehl>?;Zeigt die CMD-Hilfe zum angegebenen Befehl an.
