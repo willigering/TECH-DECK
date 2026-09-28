@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-import '../../core/colors.dart';
 
 /// Mainboard-Hintergrund: parallele Bus-Leitungen, Chips, Vias.
 /// Keine wandernden Punkte – nur ein minimales Schimmern.
@@ -39,13 +38,13 @@ class _PcbBackgroundState extends State<PcbBackground>
     return Stack(
       fit: StackFit.expand,
       children: [
-        const ColoredBox(color: TdColors.bg),
+        ColoredBox(color: Theme.of(context).scaffoldBackgroundColor),
         RepaintBoundary(
           child: AnimatedBuilder(
             animation: _shimmer,
             builder: (context, _) {
               return CustomPaint(
-                painter: _BoardPainter(t: _shimmer.value),
+                painter: _BoardPainter(t: _shimmer.value, accent: Theme.of(context).colorScheme.primary),
                 isComplex: true,
               );
             },
@@ -58,9 +57,10 @@ class _PcbBackgroundState extends State<PcbBackground>
 }
 
 class _BoardPainter extends CustomPainter {
-  _BoardPainter({required this.t});
+  _BoardPainter({required this.t, required this.accent});
 
   final double t;
+  final Color accent;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -78,12 +78,12 @@ class _BoardPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.square
       ..strokeJoin = StrokeJoin.miter
-      ..color = TdColors.gold.withValues(alpha: 0.16 * shimmer)
+      ..color = accent.withValues(alpha: 0.16 * shimmer)
       ..strokeWidth = 1.15;
     final thin = Paint()
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.square
-      ..color = TdColors.gold.withValues(alpha: 0.08 * shimmer)
+      ..color = accent.withValues(alpha: 0.08 * shimmer)
       ..strokeWidth = 0.7;
 
     for (final path in board.thin) {
@@ -97,14 +97,14 @@ class _BoardPainter extends CustomPainter {
   void _drawChips(Canvas canvas, _Board board, double shimmer) {
     final outline = Paint()
       ..style = PaintingStyle.stroke
-      ..color = TdColors.gold.withValues(alpha: 0.22 * shimmer)
+      ..color = accent.withValues(alpha: 0.22 * shimmer)
       ..strokeWidth = 1.1;
     final fill = Paint()
       ..style = PaintingStyle.fill
-      ..color = TdColors.gold.withValues(alpha: 0.035);
+      ..color = accent.withValues(alpha: 0.035);
     final pad = Paint()
       ..style = PaintingStyle.fill
-      ..color = TdColors.gold.withValues(alpha: 0.28 * shimmer);
+      ..color = accent.withValues(alpha: 0.28 * shimmer);
 
     for (final chip in board.chips) {
       canvas.drawRRect(chip.rect, fill);
@@ -119,10 +119,10 @@ class _BoardPainter extends CustomPainter {
     final ring = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 0.9
-      ..color = TdColors.gold.withValues(alpha: 0.22 * shimmer);
+      ..color = accent.withValues(alpha: 0.22 * shimmer);
     final core = Paint()
       ..style = PaintingStyle.fill
-      ..color = TdColors.gold.withValues(alpha: 0.10 * shimmer);
+      ..color = accent.withValues(alpha: 0.10 * shimmer);
     for (final v in board.vias) {
       canvas.drawCircle(v, 2.4, ring);
       canvas.drawCircle(v, 1.0, core);
