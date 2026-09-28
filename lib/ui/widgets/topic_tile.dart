@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../core/colors.dart';
 import '../../data/models/topic.dart';
 import 'gold_button.dart';
 
@@ -52,7 +51,7 @@ class TopicTile extends StatelessWidget {
         children: [
           Icon(
             _icon,
-            color: TdColors.gold,
+            color: Theme.of(context).colorScheme.primary,
             size: 24,
           ),
           const SizedBox(width: 12),
@@ -60,28 +59,28 @@ class TopicTile extends StatelessWidget {
             child: Text(
               _label,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
+              style: TextStyle(
                 fontFamily: 'Rajdhani',
                 fontSize: 17,
                 fontWeight: FontWeight.w600,
-                color: TdColors.text,
+                color: Theme.of(context).colorScheme.onSurface,
               ),
             ),
           ),
           Text(
             '${topic.cardCount} ${topic.cardCount == 1 ? 'Karte' : 'Karten'}',
-            style: const TextStyle(
+            style: TextStyle(
               fontFamily: 'Rajdhani',
               fontSize: 14,
               fontWeight: FontWeight.w600,
-              color: TdColors.gold,
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
           const SizedBox(width: 6),
           trailing ??
-              const Icon(
+              Icon(
                 Icons.chevron_right_rounded,
-                color: TdColors.gold,
+                color: Theme.of(context).colorScheme.primary,
                 size: 22,
               ),
         ],
