@@ -31,6 +31,10 @@ abstract final class TdTheme {
       bg: Color(0xFF00130C), surface: Color(0xFF001B11), panel: Color(0xFF03251A),
       accent: Color(0xFF21F39A), accentBright: Color(0xFF70FFC0), accentDim: Color(0xFF0A8A57),
       text: Color(0xFFE9FFF5), muted: Color(0xFFA1D8BE), dim: Color(0xFF548A70), isLight: false),
+    TdThemeChoice.violetNeon => const TdPalette(
+      bg: Color(0xFF100617), surface: Color(0xFF180A22), panel: Color(0xFF21102D),
+      accent: Color(0xFFD86BFF), accentBright: Color(0xFFF0A4FF), accentDim: Color(0xFF8C35B2),
+      text: Color(0xFFFFF4FF), muted: Color(0xFFD6B7DF), dim: Color(0xFF896A92), isLight: false),
     _ => const TdPalette(
       bg: Color(0xFF050505), surface: Color(0xFF0A0A0A), panel: Color(0xFF0C0C0C),
       accent: Color(0xFFFFD700), accentBright: Color(0xFFFFE566), accentDim: Color(0xFFB8860B),
