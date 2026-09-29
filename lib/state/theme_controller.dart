@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum TdThemeChoice { darkGold, lightGold, oledBlack, cyberBlue, terminalGreen }
+enum TdThemeChoice { darkGold, lightGold, oledBlack, cyberBlue, terminalGreen, violetNeon }
 
 class ThemeController extends ChangeNotifier {
   static const _key = 'theme_choice';
