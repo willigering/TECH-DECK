@@ -58,6 +58,7 @@ class SettingsScreen extends StatelessWidget {
               _ThemeChip(choice: TdThemeChoice.oledBlack, label: 'OLED Black', icon: Icons.phone_android, selected: themes.choice == TdThemeChoice.oledBlack),
               _ThemeChip(choice: TdThemeChoice.cyberBlue, label: 'Cyber Blue', icon: Icons.memory_outlined, selected: themes.choice == TdThemeChoice.cyberBlue),
               _ThemeChip(choice: TdThemeChoice.terminalGreen, label: 'Terminal Green', icon: Icons.terminal_rounded, selected: themes.choice == TdThemeChoice.terminalGreen),
+              _ThemeChip(choice: TdThemeChoice.violetNeon, label: 'Violet / Neon', icon: Icons.auto_awesome_outlined, selected: themes.choice == TdThemeChoice.violetNeon),
             ],
           ),
           const SizedBox(height: 8),
