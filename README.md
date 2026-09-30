@@ -87,7 +87,6 @@ file -i Netzwerk.csv
 ## Starten
 
 ```bash
-cd "D:\APP DEV GROK\TECH-DECK"
 flutter pub get
 flutter run
 ```
