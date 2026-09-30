@@ -36,30 +36,53 @@ TECH//DECK erkennt neben `;` auch Komma, Tab und `|` als Trennzeichen. UTF-8 wir
 
 ### Karteien mit KI erstellen
 
-Mit folgendem Prompt können ChatGPT oder andere KI-Tools eine direkt importierbare Kartei erzeugen:
+Mit ChatGPT oder einem anderen KI-Tool kannst du komplette Karteien für TECH//DECK erzeugen. Für möglichst hochwertige Karten empfiehlt sich dieser ausführlichere Prompt:
 
 ```text
-Erstelle eine Lernkartei für TECH//DECK zum Thema [THEMA] mit [ANZAHL] Karten.
+Erstelle eine hochwertige Lernkartei für TECH//DECK zum Thema [THEMA] mit [ANZAHL] Karten.
 
-Gib ausschließlich den Inhalt einer CSV-Datei aus. Keine Erklärung, keine Markdown-Codeblöcke und keinen zusätzlichen Text.
+Ziel:
+Die Karten sollen nicht nur Begriffe abfragen, sondern echtes Verständnis fördern und sich zur Prüfungsvorbereitung eignen. Decke die wichtigsten Grundlagen, Zusammenhänge, Funktionen, Unterschiede und typische Praxisbeispiele des Themas ab.
 
-Verwende exakt diese Spalten:
+Qualitätsregeln:
+- Jede Karte behandelt genau einen klaren Lerninhalt.
+- Formuliere eindeutige Fragen, die ohne zusätzlichen Kontext verständlich sind.
+- Antworten müssen fachlich korrekt, präzise und möglichst kurz sein.
+- Erkläre so einfach wie möglich, aber so ausführlich wie nötig.
+- Bevorzuge Verständnisfragen wie „Warum…?“, „Wie funktioniert…?“, „Was ist der Unterschied…?“ oder „Wofür wird… verwendet?“, wenn sie zum Thema passen.
+- Ergänze wichtige Definitionen, Abkürzungen und typische Prüfungsfragen.
+- Berücksichtige auch praktische Zusammenhänge und typische Anwendungsfälle.
+- Vermeide doppelte oder nahezu identische Fragen.
+- Vermeide Fragen, deren Antwort bereits in der Frage steckt.
+- Vermeide unnötige Detailfragen, exotisches Spezialwissen und Fangfragen.
+- Verwende keine Multiple-Choice-Antworten und erzeuge keine falschen Antworten.
+- Prüfe vor der Ausgabe gedanklich jede Karte auf fachliche Richtigkeit, Eindeutigkeit und Lernwert.
+- Verteile die Karten sinnvoll über das gesamte Thema, statt viele Karten zum selben Teilbereich zu erzeugen.
+- Falls [THEMA] zu umfangreich für [ANZAHL] Karten ist, priorisiere das prüfungs- und praxisrelevanteste Wissen.
+
+Ausgabeformat:
+Gib ausschließlich eine importierbare CSV-Datei aus.
+Keine Einleitung, keine Erklärung, keine Markdown-Codeblöcke und keinen zusätzlichen Text.
+
+Verwende exakt diese Kopfzeile:
 Frage;Antwort
 
-Regeln:
+CSV-Regeln:
 - Jede Zeile enthält genau eine Lernkarte.
-- Die Fragen müssen eindeutig und fachlich korrekt sein.
-- Die Antwort soll kurz, verständlich und vollständig sein.
-- Erstelle keine Multiple-Choice-Antworten und keine falschen Antworten.
 - Verwende ein Semikolon als Trennzeichen.
-- Wenn ein Feld selbst ein Semikolon oder einen Zeilenumbruch enthält, setze das gesamte Feld in doppelte Anführungszeichen.
-- Wiederhole keine Fragen.
+- Wenn ein Feld ein Semikolon, doppelte Anführungszeichen oder einen Zeilenumbruch enthält, setze das gesamte Feld in doppelte Anführungszeichen und maskiere enthaltene doppelte Anführungszeichen CSV-konform.
 - Verwende UTF-8 und normale deutsche Umlaute.
 
 Beginne direkt mit der Kopfzeile.
 ```
 
 Die Ausgabe anschließend als `Themenname.csv` in UTF-8 speichern und über den CSV-Import von TECH//DECK auswählen.
+
+### Eigenes Lernmaterial mit NotebookLM
+
+Du möchtest lieber mit deinen eigenen Unterlagen lernen? Auch dafür eignet sich [NotebookLM](https://notebooklm.google.com/). Dort kannst du eigene Quellen und Unterrichtsmaterialien hinzufügen und daraus Lernkarten erstellen lassen – von ordentlich aufbereiteten PDFs und Skripten bis hin zum wirren Gekritzel des Dozenten. :)
+
+NotebookLM kann die erzeugten Lernkarten als CSV herunterladen. Prüfe die Datei anschließend kurz und passe sie bei Bedarf an das TECH//DECK-Format `Frage;Antwort` an, bevor du sie importierst.
 
 
 ## Starten
