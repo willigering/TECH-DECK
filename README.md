@@ -61,28 +61,6 @@ Beginne direkt mit der Kopfzeile.
 
 Die Ausgabe anschließend als `Themenname.csv` in UTF-8 speichern und über den CSV-Import von TECH//DECK auswählen.
 
-### Kleine Bash-Helfer
-
-CSV-Datei schnell anlegen:
-
-```bash
-cat > Netzwerk.csv <<'EOF'
-Frage;Antwort
-Was macht DNS?;DNS übersetzt Domainnamen in IP-Adressen.
-EOF
-```
-
-Anzahl der Karten prüfen (Kopfzeile wird nicht mitgezählt):
-
-```bash
-echo "$(( $(wc -l < Netzwerk.csv) - 1 )) Karten"
-```
-
-Datei auf UTF-8 prüfen:
-
-```bash
-file -i Netzwerk.csv
-```
 
 ## Starten
 
