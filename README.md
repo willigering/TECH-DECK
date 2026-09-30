@@ -65,12 +65,15 @@ Qualitätsregeln:
 - Verteile die Karten sinnvoll über das gesamte Thema, statt viele Karten zum selben Teilbereich zu erzeugen.
 - Falls [THEMA] zu umfangreich für [ANZAHL] Karten ist, priorisiere das prüfungs- und praxisrelevanteste Wissen.
 
-Ausgabeformat:
-Gib ausschließlich eine importierbare CSV-Datei aus.
-Keine Einleitung, keine Erklärung, keine Markdown-Codeblöcke und keinen zusätzlichen Text.
-
-Verwende exakt diese Kopfzeile:
-Frage;Antwort
+Ausgabeformat – zwingend:
+- Das einzige Ergebnis deiner Antwort muss der fertige CSV-Inhalt sein.
+- Gib keine Einleitung, Erklärung, Zusammenfassung, Quellenliste oder sonstigen Begleittext aus.
+- Verwende keinen Markdown-Codeblock und keine ```-Markierungen.
+- Recherchiere und verifiziere notwendige Informationen vor der Ausgabe, gib die Recherche selbst aber nicht zusätzlich aus.
+- Die erste Zeile der Antwort muss exakt `Frage;Antwort` lauten.
+- Danach folgen ausschließlich die Lernkarten als CSV-Zeilen.
+- Erzeuge exakt [ANZAHL] Lernkarten zusätzlich zur Kopfzeile.
+- Die Ausgabe muss direkt als `.csv` gespeichert und in TECH//DECK importiert werden können.
 
 CSV-Regeln:
 - Jede Zeile enthält genau eine Lernkarte.
@@ -78,7 +81,7 @@ CSV-Regeln:
 - Wenn ein Feld ein Semikolon, doppelte Anführungszeichen oder einen Zeilenumbruch enthält, setze das gesamte Feld in doppelte Anführungszeichen und maskiere enthaltene doppelte Anführungszeichen CSV-konform.
 - Verwende UTF-8 und normale deutsche Umlaute.
 
-Beginne direkt mit der Kopfzeile.
+WICHTIG: Antworte ausschließlich mit dem CSV-Inhalt. Das erste Zeichen deiner Antwort muss zur Kopfzeile `Frage;Antwort` gehören. Nach der letzten CSV-Zeile darf kein Kommentar oder weiterer Text folgen.
 ```
 
 Die Ausgabe anschließend als `Themenname.csv` in UTF-8 speichern und über den CSV-Import von TECH//DECK auswählen.
