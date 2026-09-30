@@ -1,1 +1,1 @@
-Neue Lernkarten als CSV für den Import in TECH//DECK.
+Hier findest du zusätzliche Lernkartendecks für TECH//DECK zu verschiedenen Themen der IT und Klausurvorbereitung. Lade die gewünschte CSV-Datei herunter und importiere sie direkt in die App. Die Sammlung wird nach und nach um weitere Themen ergänzt.
