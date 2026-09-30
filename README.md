@@ -1,6 +1,6 @@
 # TECH//DECK
 
-Karteikarten-App für die Prüfungsvorbereitung von Fachinformatikern.
+Karteikarten-App zum Lernen, Wiederholen und Vertiefen.
 
 **Entwickler:** Willi Gering
 
