@@ -38,9 +38,10 @@ class TopicPickerScreen extends StatelessWidget {
             Text(
               'Lange drücken: Farbe und Wichtig markieren.',
               style: TextStyle(
-                fontFamily: 'Rajdhani',
+                fontFamily: 'Roboto',
                 fontSize: 14,
-                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .65),
+                color: Theme.of(context).colorScheme.onSurface
+                    .withValues(alpha: .65),
               ),
             ),
             const SizedBox(height: 14),
@@ -51,7 +52,7 @@ class TopicPickerScreen extends StatelessWidget {
                     Text(
                       'Keine Themen vorhanden.',
                       style: TextStyle(
-                        fontFamily: 'Rajdhani',
+                        fontFamily: 'Roboto',
                         fontSize: 18,
                         color: Theme.of(context).colorScheme.onSurface,
                       ),
@@ -61,9 +62,7 @@ class TopicPickerScreen extends StatelessWidget {
                       'Importiere zuerst CSV-Dateien unter Einstellungen.',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: Theme.of(context)
-                            .colorScheme
-                            .onSurface
+                        color: Theme.of(context).colorScheme.onSurface
                             .withValues(alpha: .65),
                       ),
                     ),

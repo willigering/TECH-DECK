@@ -2,20 +2,89 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class GoldButton extends StatelessWidget {
-  const GoldButton({super.key,required this.label,required this.onTap,this.icon,this.filled=true,this.expand=true,this.enabled=true,this.height=54});
-  final String label; final VoidCallback? onTap; final IconData? icon; final bool filled,expand,enabled; final double height;
-  @override Widget build(BuildContext context) {
-    final cs=Theme.of(context).colorScheme; final active=enabled&&onTap!=null; final radius=BorderRadius.circular(16);
-    final fg=filled&&active?cs.onPrimary:cs.primary;
-    final child=AnimatedContainer(duration:const Duration(milliseconds:180),height:height,padding:const EdgeInsets.symmetric(horizontal:18),
-      decoration:BoxDecoration(borderRadius:radius,color:filled&&active?cs.primary:cs.surface.withValues(alpha:.72),
-        border:Border.all(color:active?cs.primary:cs.outline.withValues(alpha:.45),width:1.2),
-        boxShadow:active?[BoxShadow(color:cs.primary.withValues(alpha:filled ? .28 : .14),blurRadius:filled?18:12)]:null),
-      child:Row(mainAxisAlignment:MainAxisAlignment.center,mainAxisSize:expand?MainAxisSize.max:MainAxisSize.min,children:[
-        if(icon!=null)...[Icon(icon,size:20,color:fg),const SizedBox(width:10)],
-        Flexible(child:Text(label,overflow:TextOverflow.ellipsis,style:TextStyle(fontFamily:'Orbitron',fontSize:13,letterSpacing:1.8,fontWeight:FontWeight.w600,color:fg)))
-      ]));
-    return Opacity(opacity:active?1:.38,child:Material(color:Colors.transparent,child:InkWell(onTap:active?(){HapticFeedback.selectionClick();onTap!();}:null,borderRadius:radius,child:child)));
+  const GoldButton({
+    super.key,
+    required this.label,
+    required this.onTap,
+    this.icon,
+    this.filled = true,
+    this.expand = true,
+    this.enabled = true,
+    this.height = 54,
+  });
+  final String label;
+  final VoidCallback? onTap;
+  final IconData? icon;
+  final bool filled, expand, enabled;
+  final double height;
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    final active = enabled && onTap != null;
+    final radius = BorderRadius.circular(16);
+    final fg = filled && active ? cs.onPrimary : cs.primary;
+    final child = AnimatedContainer(
+      duration: const Duration(milliseconds: 180),
+      height: height,
+      padding: const EdgeInsets.symmetric(horizontal: 18),
+      decoration: BoxDecoration(
+        borderRadius: radius,
+        color: filled && active
+            ? cs.primary
+            : cs.surface.withValues(alpha: .72),
+        border: Border.all(
+          color: active ? cs.primary : cs.outline.withValues(alpha: .45),
+          width: 1.2,
+        ),
+        boxShadow: active
+            ? [
+                BoxShadow(
+                  color: cs.primary.withValues(alpha: filled ? .06 : .03),
+                  blurRadius: filled ? 8 : 4,
+                ),
+              ]
+            : null,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: expand ? MainAxisSize.max : MainAxisSize.min,
+        children: [
+          if (icon != null) ...[
+            Icon(icon, size: 20, color: fg),
+            const SizedBox(width: 10),
+          ],
+          Flexible(
+            child: Text(
+              label,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontFamily: 'Roboto',
+                fontSize: 13,
+                letterSpacing: .4,
+                fontWeight: FontWeight.w600,
+                color: fg,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+    return Opacity(
+      opacity: active ? 1 : .38,
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: active
+              ? () {
+                  HapticFeedback.selectionClick();
+                  onTap!();
+                }
+              : null,
+          borderRadius: radius,
+          child: child,
+        ),
+      ),
+    );
   }
 }
 
@@ -45,9 +114,9 @@ class GoldPanel extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
         color: cs.surface.withValues(alpha: .92),
-        border: Border.all(color: line.withValues(alpha: .78), width: 1.05),
+        border: Border.all(color: line.withValues(alpha: .24), width: 1.05),
         boxShadow: glow
-            ? [BoxShadow(color: line.withValues(alpha: .13), blurRadius: 16)]
+            ? [BoxShadow(color: line.withValues(alpha: .035), blurRadius: 16)]
             : null,
       ),
       child: child,
@@ -66,11 +135,36 @@ class GoldPanel extends StatelessWidget {
 }
 
 class GoldProgressBar extends StatelessWidget {
-  const GoldProgressBar({super.key,required this.value}); final double value;
-  @override Widget build(BuildContext context) {
-    final cs=Theme.of(context).colorScheme;
-    return Container(height:6,decoration:BoxDecoration(borderRadius:BorderRadius.circular(99),color:cs.primary.withValues(alpha:.16),
-      boxShadow:[BoxShadow(color:cs.primary.withValues(alpha:.2),blurRadius:8)]),
-      child:ClipRRect(borderRadius:BorderRadius.circular(99),child:LinearProgressIndicator(value:value.clamp(0,1),minHeight:6,backgroundColor:Colors.transparent,color:cs.primary)));
+  const GoldProgressBar({super.key, required this.value});
+  final double value;
+  @override
+  Widget build(BuildContext context) {
+    final cs = Theme.of(context).colorScheme;
+    return Container(
+      height: 6,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(99),
+        color: cs.primary.withValues(alpha: .16),
+        boxShadow: [
+          BoxShadow(color: cs.primary.withValues(alpha: .03), blurRadius: 8),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(99),
+        child: TweenAnimationBuilder<double>(
+          tween: Tween<double>(begin: 0, end: value.clamp(0, 1).toDouble()),
+          duration: MediaQuery.disableAnimationsOf(context)
+              ? Duration.zero
+              : const Duration(milliseconds: 260),
+          curve: Curves.easeOutCubic,
+          builder: (context, progress, _) => LinearProgressIndicator(
+            value: progress,
+            minHeight: 6,
+            backgroundColor: Colors.transparent,
+            color: cs.primary,
+          ),
+        ),
+      ),
+    );
   }
 }

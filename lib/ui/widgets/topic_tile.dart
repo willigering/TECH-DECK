@@ -93,7 +93,7 @@ class TopicTile extends StatelessWidget {
               _label,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                fontFamily: 'Rajdhani',
+                fontFamily: 'Roboto',
                 fontSize: 17,
                 fontWeight: topic.isImportant
                     ? FontWeight.w700
@@ -109,14 +109,15 @@ class TopicTile extends StatelessWidget {
           Text(
             '${topic.cardCount} ${topic.cardCount == 1 ? 'Karte' : 'Karten'}',
             style: TextStyle(
-              fontFamily: 'Rajdhani',
+              fontFamily: 'Roboto',
               fontSize: 14,
               fontWeight: FontWeight.w600,
               color: accent,
             ),
           ),
           const SizedBox(width: 6),
-          trailing ?? Icon(Icons.chevron_right_rounded, color: accent, size: 22),
+          trailing ??
+              Icon(Icons.chevron_right_rounded, color: accent, size: 22),
         ],
       ),
     );

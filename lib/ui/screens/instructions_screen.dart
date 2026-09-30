@@ -39,9 +39,8 @@ Keine Nummerierung, keine erfundenen Inhalte und keinen zusätzlichen Text auße
   Future<void> _copy(BuildContext context) async {
     await Clipboard.setData(const ClipboardData(text: aiPrompt));
     if (!context.mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Prompt kopiert')),
-    );
+    ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text('Prompt kopiert')));
   }
 
   @override
@@ -56,8 +55,14 @@ Keine Nummerierung, keine erfundenen Inhalte und keinen zusätzlichen Text auße
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Eigene Lernkarten erstellen',
-                    style: TextStyle(fontFamily: 'Orbitron', fontSize: 16, color: Theme.of(context).colorScheme.primary)),
+                Text(
+                  'Eigene Lernkarten erstellen',
+                  style: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontSize: 16,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                ),
                 SizedBox(height: 12),
                 Text(
                   '1. Wähle eine KI deiner Wahl.\n'
@@ -67,7 +72,12 @@ Keine Nummerierung, keine erfundenen Inhalte und keinen zusätzlichen Text auße
                   '5. Speichere das Ergebnis als .csv oder .md.\n'
                   '6. Öffne Einstellungen → Lernkarten importieren.\n'
                   '7. Decks kannst du farblich und als wichtig markieren (lange drücken). Klausurvorbereitung ist vorausgewählt.',
-                  style: TextStyle(fontFamily: 'Rajdhani', fontSize: 16, height: 1.45, color: Theme.of(context).colorScheme.onSurface),
+                  style: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontSize: 16,
+                    height: 1.45,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
                 ),
               ],
             ),
@@ -79,12 +89,21 @@ Keine Nummerierung, keine erfundenen Inhalte und keinen zusätzlichen Text auße
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.surface,
-              border: Border.all(color: Theme.of(context).colorScheme.primary.withValues(alpha: .55)),
+              border: Border.all(
+                color: Theme.of(context).colorScheme.primary
+                    .withValues(alpha: .55),
+              ),
               borderRadius: BorderRadius.circular(12),
             ),
             child: SelectableText(
               aiPrompt,
-              style: TextStyle(fontFamily: 'Rajdhani', fontSize: 14, height: 1.4, color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .65)),
+              style: TextStyle(
+                fontFamily: 'Roboto',
+                fontSize: 14,
+                height: 1.4,
+                color: Theme.of(context).colorScheme.onSurface
+                    .withValues(alpha: .65),
+              ),
             ),
           ),
           const SizedBox(height: 10),
@@ -102,7 +121,13 @@ Keine Nummerierung, keine erfundenen Inhalte und keinen zusätzlichen Text auße
               'Markdown: Optional „# Themenname“. Jede Frage beginnt mit „## “; '
               'der Text bis zur nächsten Frage ist die Antwort.\n\n'
               'Der Dateiname wird beim Import als Themenname verwendet.',
-              style: TextStyle(fontFamily: 'Rajdhani', fontSize: 15, height: 1.4, color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .65)),
+              style: TextStyle(
+                fontFamily: 'Roboto',
+                fontSize: 15,
+                height: 1.4,
+                color: Theme.of(context).colorScheme.onSurface
+                    .withValues(alpha: .65),
+              ),
             ),
           ),
         ],

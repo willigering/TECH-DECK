@@ -123,7 +123,7 @@ class _LearnScreenState extends State<LearnScreen> {
                       Text(
                         '${_index + 1} / ${_cards.length}',
                         style: TextStyle(
-                          fontFamily: 'Orbitron',
+                          fontFamily: 'Roboto',
                           fontSize: 13,
                           letterSpacing: 2,
                           color: Theme.of(context).colorScheme.primary,
@@ -149,15 +149,17 @@ class _LearnScreenState extends State<LearnScreen> {
                             Icon(
                               Icons.rotate_right,
                               size: 16,
-                              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .45),
+                              color: Theme.of(context).colorScheme.onSurface
+                                  .withValues(alpha: .45),
                             ),
                             SizedBox(width: 8),
                             Text(
                               'Tippe zum Umdrehen',
                               style: TextStyle(
-                                fontFamily: 'Rajdhani',
+                                fontFamily: 'Roboto',
                                 fontSize: 15,
-                                color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .45),
+                                color: Theme.of(context).colorScheme.onSurface
+                                    .withValues(alpha: .45),
                               ),
                             ),
                           ],
@@ -226,21 +228,28 @@ class _RoundAction extends StatelessWidget {
                 height: 46,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: Theme.of(context).colorScheme.primary),
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                   boxShadow: [
                     BoxShadow(
-                      color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.18),
+                      color: Theme.of(context).colorScheme.primary
+                          .withValues(alpha: 0.025),
                       blurRadius: 10,
                     ),
                   ],
                 ),
-                child: Icon(icon, color: Theme.of(context).colorScheme.primary, size: 22),
+                child: Icon(
+                  icon,
+                  color: Theme.of(context).colorScheme.primary,
+                  size: 22,
+                ),
               ),
               const SizedBox(height: 6),
               Text(
                 label,
                 style: TextStyle(
-                  fontFamily: 'Orbitron',
+                  fontFamily: 'Roboto',
                   fontSize: 8,
                   letterSpacing: 1,
                   color: Theme.of(context).colorScheme.primary,

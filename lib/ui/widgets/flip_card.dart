@@ -3,7 +3,6 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-
 class FlipStudyCard extends StatefulWidget {
   const FlipStudyCard({
     super.key,
@@ -32,7 +31,7 @@ class _FlipStudyCardState extends State<FlipStudyCard>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 520),
+      duration: const Duration(milliseconds: 420),
       value: widget.flipped ? 1 : 0,
     );
     _anim = CurvedAnimation(parent: _controller, curve: Curves.easeInOutCubic);
@@ -47,11 +46,23 @@ class _FlipStudyCardState extends State<FlipStudyCard>
       return;
     }
     if (widget.flipped != oldWidget.flipped) {
+      if (MediaQuery.disableAnimationsOf(context)) {
+        _controller.value = widget.flipped ? 1 : 0;
+        return;
+      }
       if (widget.flipped) {
         _controller.forward();
       } else {
         _controller.reverse();
       }
+    }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (MediaQuery.disableAnimationsOf(context)) {
+      _controller.value = widget.flipped ? 1 : 0;
     }
   }
 
@@ -77,7 +88,7 @@ class _FlipStudyCardState extends State<FlipStudyCard>
           return Transform(
             alignment: Alignment.center,
             transform: Matrix4.identity()
-              ..setEntry(3, 2, 0.00135)
+              ..setEntry(3, 2, 0.0009)
               ..rotateY(angle),
             child: isBack
                 ? Transform(
@@ -108,11 +119,15 @@ class _Face extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(18),
         color: Theme.of(context).colorScheme.surface.withValues(alpha: .96),
-        border: Border.all(color: Theme.of(context).colorScheme.primary, width: 1.15),
+        border: Border.all(
+          color: Theme.of(context).colorScheme.primary.withValues(alpha: .25),
+          width: 1,
+        ),
         boxShadow: [
           BoxShadow(
-            color: Theme.of(context).colorScheme.primary.withValues(alpha: back ? 0.32 : 0.22),
-            blurRadius: 26,
+            color: Colors.black.withValues(alpha: back ? .18 : .12),
+            blurRadius: 18,
+            offset: const Offset(0, 8),
           ),
         ],
       ),
@@ -122,7 +137,7 @@ class _Face extends StatelessWidget {
             body,
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontFamily: 'Rajdhani',
+              fontFamily: 'Roboto',
               fontWeight: FontWeight.w600,
               fontSize: back ? 20 : 26,
               height: 1.35,

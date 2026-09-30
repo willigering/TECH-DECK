@@ -2,9 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
-
 /// Mainboard-Hintergrund: parallele Bus-Leitungen, Chips, Vias.
-/// Keine wandernden Punkte – nur ein minimales Schimmern.
+/// Dezente Leiterbahnen mit langsamen, kurzen Lichtimpulsen.
 class PcbBackground extends StatefulWidget {
   const PcbBackground({super.key, required this.child});
 
@@ -23,8 +22,18 @@ class _PcbBackgroundState extends State<PcbBackground>
     super.initState();
     _shimmer = AnimationController(
       vsync: this,
-      duration: const Duration(seconds: 8),
-    )..repeat();
+      duration: const Duration(seconds: 12),
+    );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (MediaQuery.disableAnimationsOf(context) || !TickerMode.of(context)) {
+      _shimmer.stop();
+    } else if (!_shimmer.isAnimating) {
+      _shimmer.repeat();
+    }
   }
 
   @override
@@ -39,15 +48,17 @@ class _PcbBackgroundState extends State<PcbBackground>
       fit: StackFit.expand,
       children: [
         ColoredBox(color: Theme.of(context).scaffoldBackgroundColor),
-        RepaintBoundary(
-          child: AnimatedBuilder(
-            animation: _shimmer,
-            builder: (context, _) {
-              return CustomPaint(
-                painter: _BoardPainter(t: _shimmer.value, accent: Theme.of(context).colorScheme.primary),
-                isComplex: true,
-              );
-            },
+        IgnorePointer(
+          child: RepaintBoundary(
+            child: CustomPaint(
+              painter: _BoardPainter(
+                animation: _shimmer,
+                animate: !MediaQuery.disableAnimationsOf(context),
+                accent: Theme.of(context).colorScheme.primary,
+              ),
+              isComplex: true,
+              willChange: _shimmer.isAnimating,
+            ),
           ),
         ),
         widget.child,
@@ -57,9 +68,15 @@ class _PcbBackgroundState extends State<PcbBackground>
 }
 
 class _BoardPainter extends CustomPainter {
-  _BoardPainter({required this.t, required this.accent});
+  _BoardPainter({
+    required this.animation,
+    required this.animate,
+    required this.accent,
+  }) : super(repaint: animation);
 
-  final double t;
+  final Animation<double> animation;
+  final bool animate;
+  double get t => animate ? animation.value : 0;
   final Color accent;
 
   @override
@@ -71,6 +88,7 @@ class _BoardPainter extends CustomPainter {
     _drawBuses(canvas, board, shimmer);
     _drawChips(canvas, board, shimmer);
     _drawVias(canvas, board, shimmer);
+    if (animate) _drawImpulses(canvas, board);
   }
 
   void _drawBuses(Canvas canvas, _Board board, double shimmer) {
@@ -78,12 +96,12 @@ class _BoardPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.square
       ..strokeJoin = StrokeJoin.miter
-      ..color = accent.withValues(alpha: 0.16 * shimmer)
+      ..color = accent.withValues(alpha: 0.045 * shimmer)
       ..strokeWidth = 1.15;
     final thin = Paint()
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.square
-      ..color = accent.withValues(alpha: 0.08 * shimmer)
+      ..color = accent.withValues(alpha: 0.022 * shimmer)
       ..strokeWidth = 0.7;
 
     for (final path in board.thin) {
@@ -94,17 +112,33 @@ class _BoardPainter extends CustomPainter {
     }
   }
 
+  void _drawImpulses(Canvas canvas, _Board board) {
+    final paint = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = 1.25;
+    // Only two paths carry an impulse; everything else stays quiet.
+    for (var i = 0; i < 2 && i * 6 < board.buses.length; i++) {
+      final phase = (t + i * .5) % 1;
+      paint.color = accent.withValues(alpha: .13 * sin(phase * pi));
+      for (final metric in board.buses[i * 6].computeMetrics()) {
+        final head = phase * metric.length;
+        canvas.drawPath(metric.extractPath(max(0, head - 32), head), paint);
+      }
+    }
+  }
+
   void _drawChips(Canvas canvas, _Board board, double shimmer) {
     final outline = Paint()
       ..style = PaintingStyle.stroke
-      ..color = accent.withValues(alpha: 0.22 * shimmer)
+      ..color = accent.withValues(alpha: 0.06 * shimmer)
       ..strokeWidth = 1.1;
     final fill = Paint()
       ..style = PaintingStyle.fill
-      ..color = accent.withValues(alpha: 0.035);
+      ..color = accent.withValues(alpha: 0.008);
     final pad = Paint()
       ..style = PaintingStyle.fill
-      ..color = accent.withValues(alpha: 0.28 * shimmer);
+      ..color = accent.withValues(alpha: 0.07 * shimmer);
 
     for (final chip in board.chips) {
       canvas.drawRRect(chip.rect, fill);
@@ -119,10 +153,10 @@ class _BoardPainter extends CustomPainter {
     final ring = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = 0.9
-      ..color = accent.withValues(alpha: 0.22 * shimmer);
+      ..color = accent.withValues(alpha: 0.06 * shimmer);
     final core = Paint()
       ..style = PaintingStyle.fill
-      ..color = accent.withValues(alpha: 0.10 * shimmer);
+      ..color = accent.withValues(alpha: 0.025 * shimmer);
     for (final v in board.vias) {
       canvas.drawCircle(v, 2.4, ring);
       canvas.drawCircle(v, 1.0, core);
@@ -293,7 +327,10 @@ class _BoardPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _BoardPainter oldDelegate) => oldDelegate.t != t;
+  bool shouldRepaint(covariant _BoardPainter oldDelegate) =>
+      oldDelegate.accent != accent ||
+      oldDelegate.animate != animate ||
+      oldDelegate.animation != animation;
 }
 
 class _Board {

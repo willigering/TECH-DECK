@@ -2,7 +2,6 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-
 class TdLogo extends StatelessWidget {
   const TdLogo({super.key, this.size = 180});
 
@@ -42,7 +41,28 @@ class _TdLogoPainter extends CustomPainter {
 
     canvas.drawCircle(c, r, line);
 
-    const angles = [-110,-98,-86,-74,-62,-24,-12,0,12,24,62,74,86,98,110,156,168,180,192,204];
+    const angles = [
+      -110,
+      -98,
+      -86,
+      -74,
+      -62,
+      -24,
+      -12,
+      0,
+      12,
+      24,
+      62,
+      74,
+      86,
+      98,
+      110,
+      156,
+      168,
+      180,
+      192,
+      204,
+    ];
     for (final deg in angles) {
       final a = deg * math.pi / 180;
       final p1 = Offset(c.dx + math.cos(a) * r, c.dy + math.sin(a) * r);
@@ -55,41 +75,89 @@ class _TdLogoPainter extends CustomPainter {
       final x = left ? 1.0 : -1.0;
       Offset p(double dx, double dy) => Offset(50 - x * dx, dy);
       return Path()
-        ..moveTo(p(4,31).dx,p(4,31).dy)
-        ..cubicTo(p(10,27).dx,p(10,27).dy,p(14,31).dx,p(14,31).dy,p(14,36).dx,p(14,36).dy)
-        ..cubicTo(p(22,34).dx,p(22,34).dy,p(25,40).dx,p(25,40).dy,p(23,45).dx,p(23,45).dy)
-        ..cubicTo(p(29,49).dx,p(29,49).dy,p(26,57).dx,p(26,57).dy,p(22,58).dx,p(22,58).dy)
-        ..cubicTo(p(25,65).dx,p(25,65).dy,p(19,70).dx,p(19,70).dy,p(14,67).dx,p(14,67).dy)
-        ..cubicTo(p(14,74).dx,p(14,74).dy,p(7,76).dx,p(7,76).dy,p(4,70).dx,p(4,70).dy)
+        ..moveTo(p(4, 31).dx, p(4, 31).dy)
+        ..cubicTo(
+          p(10, 27).dx,
+          p(10, 27).dy,
+          p(14, 31).dx,
+          p(14, 31).dy,
+          p(14, 36).dx,
+          p(14, 36).dy,
+        )
+        ..cubicTo(
+          p(22, 34).dx,
+          p(22, 34).dy,
+          p(25, 40).dx,
+          p(25, 40).dy,
+          p(23, 45).dx,
+          p(23, 45).dy,
+        )
+        ..cubicTo(
+          p(29, 49).dx,
+          p(29, 49).dy,
+          p(26, 57).dx,
+          p(26, 57).dy,
+          p(22, 58).dx,
+          p(22, 58).dy,
+        )
+        ..cubicTo(
+          p(25, 65).dx,
+          p(25, 65).dy,
+          p(19, 70).dx,
+          p(19, 70).dy,
+          p(14, 67).dx,
+          p(14, 67).dy,
+        )
+        ..cubicTo(
+          p(14, 74).dx,
+          p(14, 74).dy,
+          p(7, 76).dx,
+          p(7, 76).dy,
+          p(4, 70).dx,
+          p(4, 70).dy,
+        )
         ..close();
     }
+
     canvas.drawPath(brain(true), line);
     canvas.drawPath(brain(false), line);
-    canvas.drawLine(const Offset(46,32), const Offset(46,69), line);
-    canvas.drawLine(const Offset(54,32), const Offset(54,69), line);
+    canvas.drawLine(const Offset(46, 32), const Offset(46, 69), line);
+    canvas.drawLine(const Offset(54, 32), const Offset(54, 69), line);
 
     void trace(List<Offset> pts) {
       final p = Path()..moveTo(pts.first.dx, pts.first.dy);
-      for (var i=1;i<pts.length;i++) {
-        final prev=pts[i-1], cur=pts[i];
-        p.quadraticBezierTo((prev.dx+cur.dx)/2, prev.dy, cur.dx, cur.dy);
+      for (var i = 1; i < pts.length; i++) {
+        final prev = pts[i - 1], cur = pts[i];
+        p.quadraticBezierTo((prev.dx + cur.dx) / 2, prev.dy, cur.dx, cur.dy);
       }
-      canvas.drawPath(p,line);
-      canvas.drawCircle(pts.first,1.25,dot);
-      canvas.drawCircle(pts.last,1.25,dot);
+      canvas.drawPath(p, line);
+      canvas.drawCircle(pts.first, 1.25, dot);
+      canvas.drawCircle(pts.last, 1.25, dot);
     }
-    trace(const [Offset(42,38),Offset(38,40),Offset(37,44),Offset(41,46)]);
-    trace(const [Offset(34,48),Offset(37,52),Offset(42,52)]);
-    trace(const [Offset(42,59),Offset(38,60),Offset(37,64)]);
-    trace(const [Offset(58,38),Offset(62,40),Offset(63,44),Offset(59,46)]);
-    trace(const [Offset(66,48),Offset(63,52),Offset(58,52)]);
-    trace(const [Offset(58,59),Offset(62,60),Offset(63,64)]);
+
+    trace(const [
+      Offset(42, 38),
+      Offset(38, 40),
+      Offset(37, 44),
+      Offset(41, 46),
+    ]);
+    trace(const [Offset(34, 48), Offset(37, 52), Offset(42, 52)]);
+    trace(const [Offset(42, 59), Offset(38, 60), Offset(37, 64)]);
+    trace(const [
+      Offset(58, 38),
+      Offset(62, 40),
+      Offset(63, 44),
+      Offset(59, 46),
+    ]);
+    trace(const [Offset(66, 48), Offset(63, 52), Offset(58, 52)]);
+    trace(const [Offset(58, 59), Offset(62, 60), Offset(63, 64)]);
 
     canvas.restore();
   }
 
   @override
-  bool shouldRepaint(covariant _TdLogoPainter oldDelegate) => oldDelegate.color != color;
+  bool shouldRepaint(covariant _TdLogoPainter oldDelegate) =>
+      oldDelegate.color != color;
 }
 
 class BrandHeader extends StatelessWidget {
@@ -109,11 +177,12 @@ class BrandHeader extends StatelessWidget {
             fontFamily: 'Orbitron',
             fontWeight: FontWeight.w700,
             fontSize: compact ? 22 : 28,
-            letterSpacing: compact ? 3 : 5,
+            letterSpacing: compact ? 1.8 : 2.5,
             color: Theme.of(context).colorScheme.primary,
             shadows: [
               Shadow(
-                color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.55),
+                color: Theme.of(context).colorScheme.primary
+                    .withValues(alpha: 0.0),
                 blurRadius: 22,
               ),
             ],
@@ -127,7 +196,8 @@ class BrandHeader extends StatelessWidget {
             fontFamily: 'Orbitron',
             fontSize: compact ? 9 : 10,
             letterSpacing: compact ? 2.2 : 3.4,
-            color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .65),
+            color: Theme.of(context).colorScheme.onSurface
+                .withValues(alpha: .65),
           ),
         ),
         if (showLogo) ...[
@@ -183,7 +253,10 @@ class PercentRing extends StatelessWidget {
       width: size,
       height: size,
       child: CustomPaint(
-        painter: _RingPainter(percent / 100, Theme.of(context).colorScheme.primary),
+        painter: _RingPainter(
+          percent / 100,
+          Theme.of(context).colorScheme.primary,
+        ),
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -194,17 +267,23 @@ class PercentRing extends StatelessWidget {
                   fontFamily: 'Orbitron',
                   fontSize: 36,
                   color: Theme.of(context).colorScheme.primary,
-                  shadows: [Shadow(color: Theme.of(context).colorScheme.primary, blurRadius: 16)],
+                  shadows: [
+                    Shadow(
+                      color: Theme.of(context).colorScheme.primary,
+                      blurRadius: 0,
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 4),
               Text(
                 caption,
                 style: TextStyle(
-                  fontFamily: 'Rajdhani',
+                  fontFamily: 'Roboto',
                   fontSize: 14,
                   fontWeight: FontWeight.w600,
-                  color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .65),
+                  color: Theme.of(context).colorScheme.onSurface
+                      .withValues(alpha: .65),
                 ),
               ),
             ],
@@ -233,7 +312,7 @@ class _RingPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 7
       ..strokeCap = StrokeCap.round
-      ..color = accent.withValues(alpha: 0.28)
+      ..color = accent.withValues(alpha: 0.0)
       ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 6);
     final fill = Paint()
       ..style = PaintingStyle.stroke

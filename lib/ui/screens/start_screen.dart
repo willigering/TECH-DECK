@@ -31,15 +31,15 @@ class StartScreen extends StatelessWidget {
             const BrandHeader(showLogo: true),
             const Spacer(),
             if (deck.loading)
-              CircularProgressIndicator(color: Theme.of(context).colorScheme.primary)
+              CircularProgressIndicator(
+                color: Theme.of(context).colorScheme.primary,
+              )
             else ...[
               _ModeButton(
                 title: 'LERNKARTEN',
                 subtitle: 'Thema auswählen und lernen',
                 icon: Icons.menu_book_outlined,
-                onTap: empty
-                    ? null
-                    : () => _open(context),
+                onTap: empty ? null : () => _open(context),
               ),
               if (empty) ...[
                 const SizedBox(height: 22),
@@ -47,9 +47,10 @@ class StartScreen extends StatelessWidget {
                   'Noch keine Themen.\nLernkarten unter Einstellungen importieren.',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    fontFamily: 'Rajdhani',
+                    fontFamily: 'Roboto',
                     fontSize: 16,
-                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .65),
+                    color: Theme.of(context).colorScheme.onSurface
+                        .withValues(alpha: .65),
                     height: 1.35,
                   ),
                 ),
@@ -93,7 +94,7 @@ class _ModeButton extends StatelessWidget {
                 Text(
                   title,
                   style: TextStyle(
-                    fontFamily: 'Orbitron',
+                    fontFamily: 'Roboto',
                     fontSize: 20,
                     letterSpacing: 2.4,
                     color: Theme.of(context).colorScheme.primary,
@@ -103,9 +104,10 @@ class _ModeButton extends StatelessWidget {
                 Text(
                   subtitle,
                   style: TextStyle(
-                    fontFamily: 'Rajdhani',
+                    fontFamily: 'Roboto',
                     fontSize: 15,
-                    color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .65),
+                    color: Theme.of(context).colorScheme.onSurface
+                        .withValues(alpha: .65),
                   ),
                 ),
               ],

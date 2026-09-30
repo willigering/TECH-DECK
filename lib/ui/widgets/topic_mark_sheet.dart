@@ -24,7 +24,10 @@ class _TopicMarkSheet extends StatelessWidget {
     final deck = context.watch<DeckController>();
     final topic = deck.topicById(topicId);
     if (topic == null) {
-      return const SizedBox(height: 80, child: Center(child: Text('Thema nicht gefunden.')));
+      return const SizedBox(
+        height: 80,
+        child: Center(child: Text('Thema nicht gefunden.')),
+      );
     }
     final cs = Theme.of(context).colorScheme;
     return SafeArea(
@@ -37,7 +40,7 @@ class _TopicMarkSheet extends StatelessWidget {
             Text(
               topic.name,
               style: TextStyle(
-                fontFamily: 'Orbitron',
+                fontFamily: 'Roboto',
                 fontSize: 15,
                 letterSpacing: 1.6,
                 color: cs.primary,
@@ -50,9 +53,15 @@ class _TopicMarkSheet extends StatelessWidget {
               activeThumbColor: cs.primary,
               title: const Text(
                 'Als wichtig markieren',
-                style: TextStyle(fontFamily: 'Rajdhani', fontSize: 17, fontWeight: FontWeight.w600),
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 17,
+                  fontWeight: FontWeight.w600,
+                ),
               ),
-              subtitle: const Text('Wichtige Decks stehen oben und tragen einen Stern.'),
+              subtitle: const Text(
+                'Wichtige Decks stehen oben und tragen einen Stern.',
+              ),
               onChanged: (value) {
                 HapticFeedback.selectionClick();
                 deck.setTopicMark(topic.id, isImportant: value);
@@ -62,7 +71,7 @@ class _TopicMarkSheet extends StatelessWidget {
             Text(
               'FARBE',
               style: TextStyle(
-                fontFamily: 'Orbitron',
+                fontFamily: 'Roboto',
                 fontSize: 12,
                 letterSpacing: 2.2,
                 color: cs.primary,
@@ -134,7 +143,12 @@ class _ColorDot extends StatelessWidget {
             ),
           ),
           child: empty
-              ? Icon(Icons.block, size: 16, color: Theme.of(context).colorScheme.onSurface.withValues(alpha: .55))
+              ? Icon(
+                  Icons.block,
+                  size: 16,
+                  color: Theme.of(context).colorScheme.onSurface
+                      .withValues(alpha: .55),
+                )
               : selected
               ? const Icon(Icons.check, size: 18, color: Colors.white)
               : null,

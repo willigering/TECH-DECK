@@ -18,8 +18,8 @@ class _MainShellState extends State<MainShell> {
   int _index = 0;
 
   Widget _tabNav(Widget child) => Navigator(
-        onGenerateRoute: (_) => MaterialPageRoute(builder: (_) => child),
-      );
+    onGenerateRoute: (_) => MaterialPageRoute(builder: (_) => child),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +62,11 @@ class _BottomBar extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
-        border: Border(top: BorderSide(color: Theme.of(context).colorScheme.primary.withValues(alpha: .55))),
+        border: Border(
+          top: BorderSide(
+            color: Theme.of(context).colorScheme.primary.withValues(alpha: .18),
+          ),
+        ),
       ),
       child: SafeArea(
         top: false,
@@ -88,7 +92,12 @@ class _BottomBar extends StatelessWidget {
 }
 
 class _NavItem extends StatelessWidget {
-  const _NavItem({required this.icon, required this.label, required this.selected, required this.onTap});
+  const _NavItem({
+    required this.icon,
+    required this.label,
+    required this.selected,
+    required this.onTap,
+  });
   final IconData icon;
   final String label;
   final bool selected;
@@ -114,14 +123,29 @@ class _NavItem extends StatelessWidget {
               decoration: BoxDecoration(
                 color: cs.primary,
                 borderRadius: BorderRadius.circular(2),
-                boxShadow: selected ? [BoxShadow(color: cs.primary.withValues(alpha: 0.6), blurRadius: 8)] : null,
+                boxShadow: selected
+                    ? [
+                        BoxShadow(
+                          color: cs.primary.withValues(alpha: 0.0),
+                          blurRadius: 8,
+                        ),
+                      ]
+                    : null,
               ),
             ),
             Icon(icon, size: 22, color: color),
             const SizedBox(height: 4),
-            Text(label, maxLines: 1, overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontFamily: 'Rajdhani', fontSize: 11,
-                fontWeight: selected ? FontWeight.w700 : FontWeight.w500, color: color)),
+            Text(
+              label,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                fontFamily: 'Roboto',
+                fontSize: 11,
+                fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+                color: color,
+              ),
+            ),
           ],
         ),
       ),
