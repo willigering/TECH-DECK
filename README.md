@@ -13,9 +13,9 @@ Mitgeliefert sind 16 IT-Themen mit je 50 Karten (800 insgesamt). Zusätzlich kan
 - CSV-Import (UTF-8, Umlaute, Quotes, große Dateien)
 - Themenübersicht in Importreihenfolge
 - Lernmodus mit echter Card-Flip-Animation
-- Quizmodus **noch in Entwicklung**
+- ~~Quizmodus~~ — **in Entwicklung, aktuell nicht in der App verfügbar**
 - Lernmodus zeigt nur die korrekte Lösung, keine Distraktoren
-- Optional: KI-Distraktoren über ein eigenes Backend (SpaceXAI), nie mit Schlüssel in der App
+- ~~KI-Distraktoren~~ — **in Entwicklung, aktuell nicht in der App verfügbar**
 - Lokale Statistiken, vollständig offline
 
 ## Eigene Karteien erstellen
@@ -30,7 +30,7 @@ Was macht DNS?;DNS übersetzt Domainnamen in IP-Adressen.
 Was macht DHCP?;DHCP vergibt automatisch Netzwerkkonfigurationen an Clients.
 ```
 
-Für den Lernmodus werden nur Frage und Antwort benötigt. Der Quizmodus befindet sich noch in Entwicklung; deshalb müssen beim Erstellen eigener Karteien derzeit keine falschen Antworten angegeben werden.
+Für den Lernmodus werden nur Frage und Antwort benötigt. **Quizmodus und KI-Distraktoren befinden sich noch in Entwicklung und sind aktuell nicht in der App implementiert.** Deshalb müssen beim Erstellen eigener Karteien keine falschen Antworten angegeben werden.
 
 TECH//DECK erkennt neben `;` auch Komma, Tab und `|` als Trennzeichen. UTF-8 wird empfohlen. Felder mit dem verwendeten Trennzeichen oder Zeilenumbrüchen sollten in doppelte Anführungszeichen gesetzt werden.
 
@@ -98,22 +98,6 @@ Release-APK:
 flutter build apk --release
 ```
 
-## KI-Distraktoren (optional)
+## ~~KI-Distraktoren~~ — In Entwicklung
 
-Die App ruft **kein** xAI direkt auf. Ablauf: App → `backend/` → SpaceXAI (`https://api.x.ai/v1`).
-
-Einrichtung: siehe `backend/README.md`.
-
-Umgebungsvariablen (nur Backend, Datei `backend/.env`):
-
-| Variable | Zweck |
-|---|---|
-| `XAI_API_KEY` | SpaceXAI-Schlüssel, **nie** in der App |
-| `XAI_MODEL` | Standard `grok-4.6` |
-| `XAI_BASE_URL` | Standard `https://api.x.ai/v1` |
-| `TECHDECK_API_TOKEN` | optional, App muss denselben Wert senden |
-| `RATE_LIMIT_PER_MINUTE` | Standard 30 |
-
-In der App unter Einstellungen die Backend-URL setzen, z. B. `http://10.0.2.2:8787` im Emulator.
-
-Ohne Backend bleiben Lernen und gespeicherte Quizkarten offline nutzbar. KI wird nur nach ausdrücklicher Bestätigung im Import ausgeführt.
+> **Noch nicht in TECH//DECK implementiert.** Diese Funktion ist für eine zukünftige Version vorgesehen. Der aktuelle Lernmodus benötigt ausschließlich Frage und Antwort.
