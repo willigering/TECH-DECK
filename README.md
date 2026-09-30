@@ -13,8 +13,7 @@ Mitgeliefert sind 16 IT-Themen mit je 50 Karten (800 insgesamt). Zusätzlich kan
 - CSV-Import (UTF-8, Umlaute, Quotes, große Dateien)
 - Themenübersicht in Importreihenfolge
 - Lernmodus mit echter Card-Flip-Animation
-- Quiz mit 10 / 15 / 20 Fragen: eine richtige und drei **gespeicherte**, zur Frage passende falsche Antworten derselben Karte
-- Karten ohne fachlich passende Distraktoren erscheinen nicht im Quiz, bleiben aber im Lernmodus
+- Quizmodus **noch in Entwicklung**
 - Lernmodus zeigt nur die korrekte Lösung, keine Distraktoren
 - Optional: KI-Distraktoren über ein eigenes Backend (SpaceXAI), nie mit Schlüssel in der App
 - Lokale Statistiken, vollständig offline
@@ -26,12 +25,12 @@ Eigene Lernkarten können als CSV-Datei importiert werden. Der Dateiname ohne `.
 Empfohlenes Format:
 
 ```csv
-Frage;Antwort;FalscheAntwort1;FalscheAntwort2;FalscheAntwort3
-Was macht DNS?;DNS übersetzt Domainnamen in IP-Adressen.;DNS vergibt automatisch IP-Adressen.;DNS verschlüsselt Netzwerkverkehr.;DNS verbindet zwei Netzwerke.
-Was macht DHCP?;DHCP vergibt automatisch Netzwerkkonfigurationen an Clients.;DHCP löst Domainnamen auf.;DHCP verschlüsselt Webseiten.;DHCP prüft Dateien auf Schadsoftware.
+Frage;Antwort
+Was macht DNS?;DNS übersetzt Domainnamen in IP-Adressen.
+Was macht DHCP?;DHCP vergibt automatisch Netzwerkkonfigurationen an Clients.
 ```
 
-Die drei falschen Antworten sind für den Quizmodus wichtig. Sie sollten fachlich zum jeweiligen Thema passen und plausibel sein. Karten ohne drei geeignete gespeicherte Falschantworten bleiben im Lernmodus nutzbar, können aber im Quiz fehlen.
+Für den Lernmodus werden nur Frage und Antwort benötigt. Der Quizmodus befindet sich noch in Entwicklung; deshalb müssen beim Erstellen eigener Karteien derzeit keine falschen Antworten angegeben werden.
 
 TECH//DECK erkennt neben `;` auch Komma, Tab und `|` als Trennzeichen. UTF-8 wird empfohlen. Felder mit dem verwendeten Trennzeichen oder Zeilenumbrüchen sollten in doppelte Anführungszeichen gesetzt werden.
 
@@ -45,16 +44,13 @@ Erstelle eine Lernkartei für TECH//DECK zum Thema [THEMA] mit [ANZAHL] Karten.
 Gib ausschließlich den Inhalt einer CSV-Datei aus. Keine Erklärung, keine Markdown-Codeblöcke und keinen zusätzlichen Text.
 
 Verwende exakt diese Spalten:
-Frage;Antwort;FalscheAntwort1;FalscheAntwort2;FalscheAntwort3
+Frage;Antwort
 
 Regeln:
 - Jede Zeile enthält genau eine Lernkarte.
 - Die Fragen müssen eindeutig und fachlich korrekt sein.
-- Die richtige Antwort soll kurz, verständlich und vollständig sein.
-- Erstelle zu jeder Frage genau drei plausible, aber eindeutig falsche Antworten.
-- Die falschen Antworten müssen fachlich zur jeweiligen Frage passen. Keine zufälligen oder offensichtlich unsinnigen Antworten.
-- Die falschen Antworten dürfen nicht nur minimale Umformulierungen voneinander sein.
-- Verwende keine Multiple-Choice-Buchstaben wie A, B, C oder D.
+- Die Antwort soll kurz, verständlich und vollständig sein.
+- Erstelle keine Multiple-Choice-Antworten und keine falschen Antworten.
 - Verwende ein Semikolon als Trennzeichen.
 - Wenn ein Feld selbst ein Semikolon oder einen Zeilenumbruch enthält, setze das gesamte Feld in doppelte Anführungszeichen.
 - Wiederhole keine Fragen.
@@ -71,8 +67,8 @@ CSV-Datei schnell anlegen:
 
 ```bash
 cat > Netzwerk.csv <<'EOF'
-Frage;Antwort;FalscheAntwort1;FalscheAntwort2;FalscheAntwort3
-Was macht DNS?;DNS übersetzt Domainnamen in IP-Adressen.;DNS vergibt automatisch IP-Adressen.;DNS verschlüsselt Netzwerkverkehr.;DNS verbindet zwei Netzwerke.
+Frage;Antwort
+Was macht DNS?;DNS übersetzt Domainnamen in IP-Adressen.
 EOF
 ```
 
