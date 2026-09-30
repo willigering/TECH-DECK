@@ -56,7 +56,12 @@ Qualitätsregeln:
 - Vermeide Fragen, deren Antwort bereits in der Frage steckt.
 - Vermeide unnötige Detailfragen, exotisches Spezialwissen und Fangfragen.
 - Verwende keine Multiple-Choice-Antworten und erzeuge keine falschen Antworten.
-- Prüfe vor der Ausgabe gedanklich jede Karte auf fachliche Richtigkeit, Eindeutigkeit und Lernwert.
+- Prüfe jede fachliche Aussage vor der Ausgabe auf Richtigkeit. Erfinde keine Fakten, Fachbegriffe, Standards, Befehle, Grenzwerte oder Definitionen.
+- Recherchiere bei Themen, die sich ändern können, vor der Kartenerstellung den aktuellen Stand anhand verlässlicher und möglichst offizieller Quellen. Dazu gehören insbesondere Software, Betriebssysteme, IT-Standards, Protokolle, Gesetze, Richtlinien, Produktversionen und technische Empfehlungen.
+- Bevorzuge Primärquellen und offizielle Dokumentationen gegenüber Foren, Blogs oder ungeprüften Zusammenfassungen.
+- Verwende bei zeitabhängigen Aussagen den aktuell gültigen Stand. Wenn ältere und aktuelle Regelungen oder Standards voneinander abweichen, formuliere die Frage so, dass eindeutig erkennbar ist, auf welchen Stand sie sich bezieht.
+- Wenn eine Information nicht zuverlässig verifiziert werden kann, erstelle daraus keine Lernkarte. Rate nicht und fülle Wissenslücken nicht mit plausibel klingenden Annahmen.
+- Prüfe vor der Ausgabe jede Karte noch einmal auf fachliche Richtigkeit, Aktualität, Eindeutigkeit und Lernwert.
 - Verteile die Karten sinnvoll über das gesamte Thema, statt viele Karten zum selben Teilbereich zu erzeugen.
 - Falls [THEMA] zu umfangreich für [ANZAHL] Karten ist, priorisiere das prüfungs- und praxisrelevanteste Wissen.
 
