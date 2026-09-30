@@ -29,7 +29,8 @@ class _PcbBackgroundState extends State<PcbBackground>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if (MediaQuery.disableAnimationsOf(context) || !TickerMode.of(context)) {
+    if (MediaQuery.disableAnimationsOf(context) ||
+        !TickerMode.valuesOf(context).enabled) {
       _shimmer.stop();
     } else if (!_shimmer.isAnimating) {
       _shimmer.repeat();

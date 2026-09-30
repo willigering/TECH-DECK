@@ -45,8 +45,9 @@ class SettingsScreen extends StatelessWidget {
         ],
       ),
     );
-    if (ok == true && context.mounted)
+    if (ok == true && context.mounted) {
       await context.read<DeckController>().deleteTopic(id);
+    }
   }
 
   @override
