@@ -3,45 +3,10 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 /// Mainboard-Hintergrund: parallele Bus-Leitungen, Chips, Vias.
-/// Dezente Leiterbahnen mit langsamen, kurzen Lichtimpulsen.
-class PcbBackground extends StatefulWidget {
+/// Statische Leiterbahnen ohne Animation oder laufenden Ticker.
+class PcbBackground extends StatelessWidget {
   const PcbBackground({super.key, required this.child});
-
   final Widget child;
-
-  @override
-  State<PcbBackground> createState() => _PcbBackgroundState();
-}
-
-class _PcbBackgroundState extends State<PcbBackground>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _shimmer;
-
-  @override
-  void initState() {
-    super.initState();
-    _shimmer = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 12),
-    );
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (MediaQuery.disableAnimationsOf(context) ||
-        !TickerMode.valuesOf(context).enabled) {
-      _shimmer.stop();
-    } else if (!_shimmer.isAnimating) {
-      _shimmer.repeat();
-    }
-  }
-
-  @override
-  void dispose() {
-    _shimmer.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -52,47 +17,32 @@ class _PcbBackgroundState extends State<PcbBackground>
         IgnorePointer(
           child: RepaintBoundary(
             child: CustomPaint(
-              painter: _BoardPainter(
-                animation: _shimmer,
-                animate: !MediaQuery.disableAnimationsOf(context),
-                accent: Theme.of(context).colorScheme.primary,
-                shine: Theme.of(context).colorScheme.secondary,
-              ),
+              painter: _BoardPainter(accent: Theme.of(context).colorScheme.primary),
               isComplex: true,
-              willChange: _shimmer.isAnimating,
+              willChange: false,
             ),
           ),
         ),
-        widget.child,
+        child,
       ],
     );
   }
 }
 
 class _BoardPainter extends CustomPainter {
-  _BoardPainter({
-    required this.animation,
-    required this.animate,
-    required this.accent,
-    required this.shine,
-  }) : super(repaint: animation);
+  _BoardPainter({required this.accent});
 
-  final Animation<double> animation;
-  final bool animate;
-  double get t => animate ? animation.value : 0;
   final Color accent;
-  final Color shine;
 
   @override
   void paint(Canvas canvas, Size size) {
     if (size.width < 8 || size.height < 8) return;
     final board = _layout(size);
-    final shimmer = 0.78 + 0.22 * (0.5 + 0.5 * sin(t * 2 * pi));
+    const shimmer = 1.0;
 
     _drawBuses(canvas, board, shimmer);
     _drawChips(canvas, board, shimmer);
     _drawVias(canvas, board, shimmer);
-    if (animate) _drawImpulses(canvas, board);
   }
 
   void _drawBuses(Canvas canvas, _Board board, double shimmer) {
@@ -113,39 +63,6 @@ class _BoardPainter extends CustomPainter {
     }
     for (final path in board.buses) {
       canvas.drawPath(path, bus);
-    }
-  }
-
-  void _drawImpulses(Canvas canvas, _Board board) {
-    final glow = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round
-      ..strokeWidth = 4
-      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 7);
-    final light = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round
-      ..strokeWidth = 2
-      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 2);
-    // A broad Gaussian envelope fades in both directions along each trace.
-    // No bright head, endpoint or solid trail is drawn.
-    for (var i = 0; i < 3 && i * 6 < board.buses.length; i++) {
-      final phase = (t + i / 3) % 1;
-      for (final metric in board.buses[i * 6].computeMetrics()) {
-        final center = -180 + phase * (metric.length + 360);
-        final step = metric.length / 48;
-        for (var segment = 0; segment < 48; segment++) {
-          final start = segment * step;
-          final distance = (start + step / 2 - center) / 60;
-          final strength = exp(-.5 * distance * distance);
-          if (strength < .002) continue;
-          glow.color = accent.withValues(alpha: .32 * strength);
-          light.color = shine.withValues(alpha: .42 * strength);
-          final piece = metric.extractPath(start, min(metric.length, start + step));
-          canvas.drawPath(piece, glow);
-          canvas.drawPath(piece, light);
-        }
-      }
     }
   }
 
@@ -349,10 +266,7 @@ class _BoardPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _BoardPainter oldDelegate) =>
-      oldDelegate.accent != accent ||
-      oldDelegate.shine != shine ||
-      oldDelegate.animate != animate ||
-      oldDelegate.animation != animation;
+      oldDelegate.accent != accent;
 }
 
 class _Board {

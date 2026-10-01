@@ -66,13 +66,17 @@ class TopicTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cs = Theme.of(context).colorScheme;
-    final mark = TopicMarks.colorOf(topic.colorKey);
+    final isNew = topic.isNew;
+    final newColor = Theme.of(context).brightness == Brightness.light
+        ? const Color(0xFFC45408)
+        : const Color(0xFFFF9B45);
+    final mark = isNew ? newColor : TopicMarks.colorOf(topic.colorKey);
     final accent = mark ?? cs.primary;
     return GoldPanel(
       onTap: onTap,
       onLongPress: onLongPress,
-      accent: topic.isNew ? cs.secondary : mark,
-      highlight: topic.isNew,
+      accent: mark,
+      highlight: isNew,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       child: Row(
         children: [
@@ -103,14 +107,14 @@ class TopicTile extends StatelessWidget {
               ),
             ),
           ),
-          if (topic.isNew) ...[
+          if (isNew) ...[
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
               decoration: BoxDecoration(
-                color: cs.primary.withValues(alpha: .14),
+                color: newColor.withValues(alpha: .14),
                 borderRadius: BorderRadius.circular(6),
               ),
-              child: Text('Neu', style: TextStyle(color: cs.primary, fontSize: 11, fontWeight: FontWeight.w700)),
+              child: Text('Neu', style: TextStyle(color: newColor, fontSize: 11, fontWeight: FontWeight.w700)),
             ),
             const SizedBox(width: 6),
           ],
