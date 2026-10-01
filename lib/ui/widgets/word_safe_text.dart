@@ -9,6 +9,31 @@ class WordSafeText extends StatelessWidget {
   final TextStyle style;
   static final _german = Hyphenator(Language_de_1996());
 
+  // Explicit component boundaries supplement German syllable patterns.
+  static const _compoundFamilies = <String, List<String>>{
+    'datenschutz': ['behörd', 'beauftragt', 'grundverordnung', 'gesetz', 'pflicht', 'regel', 'verletzung', 'konzept', 'maßnahme'],
+    'informations': ['sicherheit', 'system', 'technik'],
+    'netzwerk': ['adapter', 'adresse', 'anschluss', 'dienst', 'gerät', 'karte', 'protokoll', 'schnittstelle', 'sicherheit', 'verbindung'],
+    'betriebssystem': ['kernel', 'komponente', 'funktion', 'version'],
+    'zugriffs': ['kontrolle', 'recht', 'schutz', 'berechtigung'],
+    'zugangs': ['kontrolle', 'schutz', 'berechtigung'],
+    'daten': ['bank', 'schutz', 'sicherung', 'träger', 'übertragung', 'verarbeitung', 'verschlüsselung'],
+    'speicher': ['adresse', 'bereich', 'kapazität', 'verwaltung'],
+    'sicherheits': ['beauftragt', 'konzept', 'maßnahme', 'richtlinie', 'lücke'],
+  };
+
+  static List<int> preferredBreaks(String word) {
+    final lower = word.toLowerCase();
+    final result = <int>[];
+    for (final family in _compoundFamilies.entries) {
+      if (lower.startsWith(family.key) &&
+          family.value.any((part) => lower.substring(family.key.length).startsWith(part))) {
+        result.add(family.key.length);
+      }
+    }
+    return result..sort();
+  }
+
   @override
   Widget build(BuildContext context) {
     final effectiveStyle = DefaultTextStyle.of(context).style.merge(style);
@@ -43,6 +68,15 @@ class WordSafeText extends StatelessWidget {
           }
           var remainder = word;
           while (width(remainder) > constraints.maxWidth) {
+            final preferred = preferredBreaks(remainder)
+                .where((position) => width('${remainder.substring(0, position)}-') <= constraints.maxWidth)
+                .toList();
+            if (preferred.isNotEmpty) {
+              final position = preferred.last;
+              lines.add('${remainder.substring(0, position)}-');
+              remainder = remainder.substring(position);
+              continue;
+            }
             final parts = _german.syllablesWord(remainder);
             var splitAt = 0;
             var prefix = '';
