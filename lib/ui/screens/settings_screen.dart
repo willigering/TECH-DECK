@@ -80,10 +80,10 @@ class SettingsScreen extends StatelessWidget {
                 selected: themes.choice == TdThemeChoice.lightGold,
               ),
               _ThemeChip(
-                choice: TdThemeChoice.cyberBlue,
-                label: 'Cyber Blue',
+                choice: TdThemeChoice.midnightSilver,
+                label: 'Midnight / Silver',
                 icon: Icons.memory_outlined,
-                selected: themes.choice == TdThemeChoice.cyberBlue,
+                selected: themes.choice == TdThemeChoice.midnightSilver,
               ),
             ],
           ),

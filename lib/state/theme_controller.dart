@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-enum TdThemeChoice { darkGold, lightGold, cyberBlue }
+enum TdThemeChoice { darkGold, lightGold, midnightSilver }
 
 class ThemeController extends ChangeNotifier {
   static const _key = 'theme_choice';
@@ -12,7 +12,7 @@ class ThemeController extends ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     final saved = prefs.getString(_key);
     _choice = TdThemeChoice.values.firstWhere(
-      (e) => e.name == saved,
+      (e) => e.name == (saved == 'cyberBlue' ? 'midnightSilver' : saved),
       orElse: () => TdThemeChoice.darkGold,
     );
     notifyListeners();

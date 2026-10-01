@@ -56,6 +56,7 @@ class _PcbBackgroundState extends State<PcbBackground>
                 animation: _shimmer,
                 animate: !MediaQuery.disableAnimationsOf(context),
                 accent: Theme.of(context).colorScheme.primary,
+                shine: Theme.of(context).colorScheme.secondary,
               ),
               isComplex: true,
               willChange: _shimmer.isAnimating,
@@ -73,12 +74,14 @@ class _BoardPainter extends CustomPainter {
     required this.animation,
     required this.animate,
     required this.accent,
+    required this.shine,
   }) : super(repaint: animation);
 
   final Animation<double> animation;
   final bool animate;
   double get t => animate ? animation.value : 0;
   final Color accent;
+  final Color shine;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -97,12 +100,12 @@ class _BoardPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.square
       ..strokeJoin = StrokeJoin.miter
-      ..color = accent.withValues(alpha: 0.045 * shimmer)
+      ..color = accent.withValues(alpha: 0.09 * shimmer)
       ..strokeWidth = 1.15;
     final thin = Paint()
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.square
-      ..color = accent.withValues(alpha: 0.022 * shimmer)
+      ..color = accent.withValues(alpha: 0.045 * shimmer)
       ..strokeWidth = 0.7;
 
     for (final path in board.thin) {
@@ -114,17 +117,32 @@ class _BoardPainter extends CustomPainter {
   }
 
   void _drawImpulses(Canvas canvas, _Board board) {
-    final paint = Paint()
+    final core = Paint()
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
-      ..strokeWidth = 1.25;
-    // Only two paths carry an impulse; everything else stays quiet.
-    for (var i = 0; i < 2 && i * 6 < board.buses.length; i++) {
-      final phase = (t + i * .5) % 1;
-      paint.color = accent.withValues(alpha: .13 * sin(phase * pi));
+      ..strokeWidth = 1.6;
+    final glow = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = 4
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4);
+    final point = Paint();
+    // Three slow highlights, with blur confined to their short trails.
+    for (var i = 0; i < 3 && i * 6 < board.buses.length; i++) {
+      final phase = (t + i / 3) % 1;
+      final intensity = sin(phase * pi);
+      core.color = shine.withValues(alpha: .58 * intensity);
+      glow.color = accent.withValues(alpha: .30 * intensity);
+      point.color = shine.withValues(alpha: .76 * intensity);
       for (final metric in board.buses[i * 6].computeMetrics()) {
         final head = phase * metric.length;
-        canvas.drawPath(metric.extractPath(max(0, head - 32), head), paint);
+        final trail = metric.extractPath(max(0, head - 48), head);
+        canvas.drawPath(trail, glow);
+        canvas.drawPath(trail, core);
+        final tangent = metric.getTangentForOffset(head);
+        if (tangent != null) {
+          canvas.drawCircle(tangent.position, 2.0, point);
+        }
       }
     }
   }
@@ -132,7 +150,7 @@ class _BoardPainter extends CustomPainter {
   void _drawChips(Canvas canvas, _Board board, double shimmer) {
     final outline = Paint()
       ..style = PaintingStyle.stroke
-      ..color = accent.withValues(alpha: 0.06 * shimmer)
+      ..color = accent.withValues(alpha: 0.10 * shimmer)
       ..strokeWidth = 1.1;
     final fill = Paint()
       ..style = PaintingStyle.fill
@@ -330,6 +348,7 @@ class _BoardPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant _BoardPainter oldDelegate) =>
       oldDelegate.accent != accent ||
+      oldDelegate.shine != shine ||
       oldDelegate.animate != animate ||
       oldDelegate.animation != animation;
 }
