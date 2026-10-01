@@ -15,11 +15,21 @@ class SettingsScreen extends StatelessWidget {
   Future<void> _import(BuildContext context) async {
     final summary = await context.read<DeckController>().importCsv();
     if (!context.mounted || summary == null) return;
-    final message = summary.outcomes.any((o) => !o.ok)
-        ? 'Import mit Fehlern.'
-        : '${summary.filesOk} Datei(en) · ${summary.cardsImported} Karten neu · ${summary.duplicates} Duplikate übersprungen';
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(message)));
+    await showDialog<void>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Importergebnis'),
+        content: SingleChildScrollView(
+          child: Text(summary.outcomes.isEmpty
+              ? 'Keine Dateien verarbeitet.'
+              : summary.outcomes.map((o) =>
+                  '${o.filename.isEmpty ? "Import" : o.filename}:\n'
+                  '${o.error ?? "${o.imported} Karten neu · ${o.duplicates} identische Karten · ${o.skipped} ungültige Zeilen übersprungen"}'
+                ).join('\n\n')),
+        ),
+        actions: [TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('OK'))],
+      ),
+    );
   }
 
   Future<void> _deleteTopic(
@@ -46,7 +56,15 @@ class SettingsScreen extends StatelessWidget {
       ),
     );
     if (ok == true && context.mounted) {
-      await context.read<DeckController>().deleteTopic(id);
+      try {
+        await context.read<DeckController>().deleteTopic(id);
+      } catch (_) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+            content: Text('Das Thema konnte nicht gelöscht werden. Bitte erneut versuchen.'),
+          ));
+        }
+      }
     }
   }
 
@@ -94,7 +112,8 @@ class SettingsScreen extends StatelessWidget {
           ),
           const SizedBox(height: 28),
           GoldButton(
-            label: 'LERNKARTEN IMPORTIEREN',
+            label: deck.importing ? 'IMPORT LÄUFT …' : 'LERNKARTEN IMPORTIEREN',
+            enabled: !deck.importing,
             icon: Icons.file_upload_outlined,
             onTap: () => _import(context),
           ),

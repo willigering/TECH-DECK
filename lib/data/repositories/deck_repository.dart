@@ -3,7 +3,6 @@ import 'package:sqflite/sqflite.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../core/topic_marks.dart';
-import '../../logic/question_normalizer.dart';
 import '../csv/csv_importer.dart';
 import '../csv/csv_parser.dart';
 import '../db/app_database.dart';
@@ -148,8 +147,12 @@ class DeckRepository {
     }
     final currentRev = await _meta(db, 'bundled_rev');
     final forceReplace = currentRev != bundledContentRev;
+    // One additive pass restores cards wrongly discarded by fuzzy matching.
+    if (!forceReplace && await _meta(db, 'bundled_exact_pairs_v2') == '1') return;
     for (var i = 0; i < bundled.length; i++) {
       final item = bundled[i];
+      final filename = item.$1.split('/').last;
+      if (await _meta(db, 'deleted_bundled_$filename') == '1') continue;
       final data = await rootBundle.load(item.$1);
       final bytes = data.buffer.asUint8List(
         data.offsetInBytes,
@@ -169,6 +172,7 @@ class DeckRepository {
       await _setMeta(db, 'bundled_rev', bundledContentRev);
     }
     await _ensureKlausurMark(db);
+    await _setMeta(db, 'bundled_exact_pairs_v2', '1');
   }
 
   /// Klausurvorbereitung einmalig rot und als wichtig markieren.
@@ -222,6 +226,9 @@ class DeckRepository {
 
     try {
       final parsed = _importer.parseFile(file);
+      if (parsed.cards.isEmpty) {
+        throw const FormatException('Die Datei enthält keine gültigen Lernkarten.');
+      }
       final db = await _db;
       var imported = 0;
       var duplicates = 0;
@@ -263,50 +270,65 @@ class DeckRepository {
           }
         }
 
+        if (sortOrder != null) {
+          await txn.insert('app_meta', {
+            'key': 'bundled_topic_$topicId',
+            'value': file.filename,
+          }, conflictAlgorithm: ConflictAlgorithm.replace);
+        }
+
+        // Only replace cards whose bundled origin is known. Legacy cards are
+        // preserved rather than risking deletion of personal additions.
         if (forceReplace) {
           await txn.delete(
             'cards',
-            where: 'topic_id = ?',
-            whereArgs: [topicId],
+            where: "topic_id = ? AND id IN (SELECT substr(key, 14) FROM app_meta WHERE key LIKE 'bundled_card_%' AND value = ?)",
+            whereArgs: [topicId, file.filename],
           );
+          await txn.delete('app_meta',
+            where: "key LIKE 'bundled_card_%' AND value = ?",
+            whereArgs: [file.filename]);
         }
 
-        final known = <String, String>{};
+        final known = <(String, String), String>{};
         final current = await txn.query(
           'cards',
           columns: ['id', 'question', 'answer'],
           where: 'topic_id = ?',
           whereArgs: [topicId],
         );
-        final existingQuestions = <String>[];
         for (final row in current) {
           final question = row['question'] as String;
           final answer = row['answer'] as String;
-          existingQuestions.add(question);
-          known['${CsvParser.normalizeKey(question)}||${CsvParser.normalizeKey(answer)}'] =
+          known[CsvParser.cardKey(question, answer)] =
               row['id'] as String;
         }
 
         for (final card in parsed.cards) {
           final key =
-              '${CsvParser.normalizeKey(card.question)}||${CsvParser.normalizeKey(card.answer)}';
+              CsvParser.cardKey(card.question, card.answer);
           final existingId = known[key];
           if (existingId != null) {
-            duplicates++;
-            continue;
-          }
-          if (_nearDuplicateQuestion(card.question, existingQuestions)) {
+            if (sortOrder != null) {
+              await txn.insert('app_meta', {
+                'key': 'bundled_card_$existingId', 'value': file.filename,
+              }, conflictAlgorithm: ConflictAlgorithm.replace);
+            }
             duplicates++;
             continue;
           }
           known[key] = _uuid.v4();
-          existingQuestions.add(card.question);
           await txn.insert('cards', {
             'id': known[key],
             'topic_id': topicId,
             'question': card.question,
             'answer': card.answer,
           });
+          if (sortOrder != null) {
+            await txn.insert('app_meta', {
+              'key': 'bundled_card_${known[key]}', 'value': file.filename,
+            }, conflictAlgorithm: ConflictAlgorithm.replace);
+          }
           imported++;
         }
       });
@@ -328,13 +350,6 @@ class DeckRepository {
         error: 'Import fehlgeschlagen: $e',
       );
     }
-  }
-
-  bool _nearDuplicateQuestion(String question, List<String> existing) {
-    for (final other in existing) {
-      if (QuestionNormalizer.areDuplicates(question, other)) return true;
-    }
-    return false;
   }
 
   Future<void> dismissNewBadge(String topicId) async {
@@ -372,7 +387,20 @@ class DeckRepository {
 
   Future<void> deleteTopic(String topicId) async {
     final db = await _db;
-    await db.delete('topics', where: 'id = ?', whereArgs: [topicId]);
+    await db.transaction((txn) async {
+      final rows = await txn.query('topics', where: 'id = ?', whereArgs: [topicId]);
+      if (rows.isEmpty) return;
+      final origin = await txn.query('app_meta', where: 'key = ?',
+        whereArgs: ['bundled_topic_$topicId']);
+      if (origin.isNotEmpty) {
+        await txn.insert('app_meta', {
+          'key': 'deleted_bundled_${origin.first['value']}', 'value': '1',
+        }, conflictAlgorithm: ConflictAlgorithm.replace);
+      }
+      await txn.delete('app_meta', where: "key IN (SELECT 'bundled_card_' || id FROM cards WHERE topic_id = ?)", whereArgs: [topicId]);
+      await txn.delete('app_meta', where: 'key = ?', whereArgs: ['bundled_topic_$topicId']);
+      await txn.delete('topics', where: 'id = ?', whereArgs: [topicId]);
+    });
   }
 
   static int _asInt(Object? value) {

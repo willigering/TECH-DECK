@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tech_deck/core/app_info.dart';
 import 'package:tech_deck/data/csv/csv_parser.dart';
@@ -6,8 +8,12 @@ void main() {
   test('App-Metadaten sind gesetzt', () {
     expect(AppInfo.name, 'TECH//DECK');
     expect(AppInfo.developer, 'Willi Gering');
-    expect(AppInfo.version, '1.7.4');
-    expect(AppInfo.buildNumber, 15);
+    final pubspec = File('pubspec.yaml').readAsStringSync();
+    expect(
+      pubspec,
+      contains('version: ${AppInfo.version}+${AppInfo.buildNumber}'),
+    );
+
     expect(AppInfo.tagline, 'LERNE. VERSTEHE. VERBINDE.');
   });
 
