@@ -43,3 +43,26 @@ kotlin {
 flutter {
     source = "../.."
 }
+
+// Keep Flutter's standard APK for its tooling and add a versioned release copy.
+val apkVersion = flutter.versionName
+val apkBuildNumber = flutter.versionCode
+val releaseApkDirectory = layout.buildDirectory.dir("outputs/apk/release")
+val namedApkDirectory = layout.buildDirectory.dir("outputs/flutter-apk")
+
+tasks.matching { it.name == "assembleRelease" }.configureEach {
+    doLast {
+        val destination = namedApkDirectory.get().asFile
+        destination.mkdirs()
+        releaseApkDirectory.get().asFile.listFiles()
+            ?.filter { it.isFile && it.extension == "apk" }
+            ?.forEach { apk ->
+                val abi = apk.name.removePrefix("app-").removeSuffix("-release.apk")
+                val suffix = if (apk.name == "app-release.apk") "" else "-$abi"
+                apk.copyTo(
+                    destination.resolve("TECH-DECK-$apkVersion+$apkBuildNumber$suffix.apk"),
+                    overwrite = true,
+                )
+            }
+    }
+}
