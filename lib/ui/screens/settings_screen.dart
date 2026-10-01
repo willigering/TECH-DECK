@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../core/app_info.dart';
 import '../../state/deck_controller.dart';
 import '../../state/theme_controller.dart';
+import '../../state/welcome_controller.dart';
 import '../widgets/brand.dart';
 import '../widgets/gold_button.dart';
 import '../widgets/topic_mark_sheet.dart';
@@ -18,8 +19,9 @@ class SettingsScreen extends StatelessWidget {
     final message = summary.outcomes.any((o) => !o.ok)
         ? 'Import mit Fehlern.'
         : '${summary.filesOk} Datei(en) · ${summary.cardsImported} Karten neu · ${summary.duplicates} Duplikate übersprungen';
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(message)));
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
   }
 
   Future<void> _deleteTopic(
@@ -61,6 +63,12 @@ class SettingsScreen extends StatelessWidget {
         children: [
           const SectionLabel('EINSTELLUNGEN'),
           const SizedBox(height: 20),
+          GoldButton(
+            label: 'WILLKOMMEN ANZEIGEN',
+            icon: Icons.waving_hand_outlined,
+            onTap: () => context.read<WelcomeController>().show(),
+          ),
+          const SizedBox(height: 28),
           const SectionLabel('ERSCHEINUNGSBILD'),
           const SizedBox(height: 12),
           Wrap(
@@ -197,7 +205,7 @@ class _ThemeChip extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 220),
         width: 104,
-        height: 86,
+        height: 90,
         padding: const EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: selected

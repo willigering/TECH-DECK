@@ -6,6 +6,7 @@ import 'core/app_info.dart';
 import 'core/theme.dart';
 import 'state/deck_controller.dart';
 import 'state/theme_controller.dart';
+import 'state/welcome_controller.dart';
 import 'ui/screens/shell.dart';
 
 class TechDeckApp extends StatelessWidget {
@@ -17,11 +18,14 @@ class TechDeckApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => DeckController()..load()),
         ChangeNotifierProvider(create: (_) => ThemeController()..load()),
+        ChangeNotifierProvider(create: (_) => WelcomeController()..load()),
       ],
       child: Consumer<ThemeController>(
         builder: (context, themes, _) {
           final palette = TdTheme.palette(themes.choice);
-          final brightness = palette.isLight ? Brightness.dark : Brightness.light;
+          final brightness = palette.isLight
+              ? Brightness.dark
+              : Brightness.light;
           return MaterialApp(
             title: AppInfo.name,
             debugShowCheckedModeBanner: false,

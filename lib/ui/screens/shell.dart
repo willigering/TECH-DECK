@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../state/deck_controller.dart';
+import '../../state/welcome_controller.dart';
 import '../widgets/pcb_background.dart';
 import 'instructions_screen.dart';
 import 'settings_screen.dart';
 import 'start_screen.dart';
+import 'welcome_screen.dart';
 
 class MainShell extends StatefulWidget {
   const MainShell({super.key});
@@ -16,32 +18,70 @@ class MainShell extends StatefulWidget {
 
 class _MainShellState extends State<MainShell> {
   int _index = 0;
+  final _mainNavigatorKey = GlobalKey<NavigatorState>();
 
-  Widget _tabNav(Widget child) => Navigator(
+  Widget _tabNav(Widget child, {Key? key}) => Navigator(
+    key: key,
     onGenerateRoute: (_) => MaterialPageRoute(builder: (_) => child),
   );
 
   @override
   Widget build(BuildContext context) {
-    return PcbBackground(
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: IndexedStack(
-          index: _index,
-          children: [
-            _tabNav(const StartScreen()),
-            _tabNav(const SettingsScreen()),
-            _tabNav(const InstructionsScreen()),
-          ],
+    final welcome = context.watch<WelcomeController>();
+    return Stack(
+      children: [
+        PcbBackground(
+          child: Scaffold(
+            backgroundColor: Colors.transparent,
+            body: IndexedStack(
+              index: _index,
+              children: [
+                _tabNav(const StartScreen(), key: _mainNavigatorKey),
+                _tabNav(const SettingsScreen()),
+                _tabNav(const InstructionsScreen()),
+              ],
+            ),
+            bottomNavigationBar: _BottomBar(
+              index: _index,
+              onChanged: (i) {
+                setState(() => _index = i);
+                if (i == 1) context.read<DeckController>().load();
+              },
+            ),
+          ),
         ),
-        bottomNavigationBar: _BottomBar(
-          index: _index,
-          onChanged: (i) {
-            setState(() => _index = i);
-            if (i == 1) context.read<DeckController>().load();
-          },
-        ),
-      ),
+        if (welcome.loading)
+          Positioned.fill(
+            child: ColoredBox(
+              color: Theme.of(context).scaffoldBackgroundColor,
+              child: const Center(child: CircularProgressIndicator()),
+            ),
+          )
+        else if (welcome.visible)
+          Positioned.fill(
+            child: WelcomeScreen(
+              onContinue: (doNotShowAgain) async {
+                setState(() => _index = 0);
+                _mainNavigatorKey.currentState?.popUntil(
+                  (route) => route.isFirst,
+                );
+                try {
+                  await welcome.dismiss(doNotShowAgain: doNotShowAgain);
+                } catch (_) {
+                  if (!context.mounted) return;
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text(
+                        'Die Auswahl konnte nicht gespeichert werden. '
+                        'Du kannst trotzdem weiterlernen.',
+                      ),
+                    ),
+                  );
+                }
+              },
+            ),
+          ),
+      ],
     );
   }
 }
