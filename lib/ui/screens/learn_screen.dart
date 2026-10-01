@@ -144,8 +144,10 @@ class _LearnScreenState extends State<LearnScreen> {
                         ),
                       ),
                       const SizedBox(height: 14),
-                      if (!_flipped)
-                        Row(
+                      SizedBox(
+                        height: 54,
+                        child: !_flipped
+                        ? Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Icon(
@@ -166,14 +168,14 @@ class _LearnScreenState extends State<LearnScreen> {
                             ),
                           ],
                         )
-                      else
-                        GoldButton(
+                      : GoldButton(
                           label: 'NÄCHSTE KARTE',
                           enabled: _index < _cards.length - 1,
                           onTap: _index < _cards.length - 1
                               ? () => _go(1)
                               : null,
                         ),
+                      ),
                       const SizedBox(height: 16),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

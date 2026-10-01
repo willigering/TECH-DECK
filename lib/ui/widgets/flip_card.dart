@@ -3,6 +3,8 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'word_safe_text.dart';
+
 class FlipStudyCard extends StatefulWidget {
   const FlipStudyCard({
     super.key,
@@ -114,7 +116,6 @@ class _Face extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      constraints: const BoxConstraints(minHeight: 300, maxHeight: 440),
       padding: const EdgeInsets.fromLTRB(24, 28, 24, 24),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(18),
@@ -133,9 +134,8 @@ class _Face extends StatelessWidget {
       ),
       child: Center(
         child: SingleChildScrollView(
-          child: Text(
-            body,
-            textAlign: TextAlign.center,
+          child: WordSafeText(
+            text: body,
             style: TextStyle(
               fontFamily: 'Roboto',
               fontWeight: FontWeight.w600,
