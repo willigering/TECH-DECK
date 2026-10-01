@@ -99,7 +99,7 @@ NotebookLM kann die erzeugten Lernkarten als CSV herunterladen. Prüfe die Datei
 
 ## Aktuelle Version
 
-**1.7.8+19**
+**1.7.10+21**
 
 ## Starten
 

@@ -1,12 +1,13 @@
 name: tech_deck
 description: "TECH//DECK – Karteikarten-App für Fachinformatiker. Entwickler: Willi Gering."
 publish_to: "none"
-version: 1.7.9+20
+version: 1.7.10+21
 
 environment:
   sdk: ^3.12.2
 
 dependencies:
+  hyphenatorx: ^1.5.11
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.8
