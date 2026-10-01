@@ -6,17 +6,21 @@ Karteikarten-App zum Lernen, Wiederholen und Vertiefen.
 
 ## Idee
 
-Mitgeliefert sind 16 IT-Themen mit je 50 Karten (800 insgesamt). Zusätzlich kann eine CSV-Datei als eigenes Thema importiert werden: Der Dateiname (ohne `.csv`) wird zum Themennamen. Die Reihenfolge der importierten Dateien ist die Reihenfolge der Themen — ohne alphabetische Umsortierung.
+Mitgeliefert sind **22 Decks** mit unterschiedlichen Kartenanzahlen. Dazu gehören IT-Grundlagen, Hardware, Betriebssysteme, Netzwerke, Windows- und Linux-Terminal, IT-Abkürzungen, IHK-Prüfung und Datenschutz. Zusätzlich kann eine CSV-Datei als eigenes Thema importiert werden: Der Dateiname (ohne `.csv`) wird zum Themennamen. Die Reihenfolge der importierten Dateien ist die Reihenfolge der Themen — ohne alphabetische Umsortierung.
 
 ## Funktionen
 
-- CSV-Import (UTF-8, Umlaute, Quotes, große Dateien)
+- Ausschließlich CSV-Import (UTF-8, Umlaute und Anführungszeichen); mehrere Dateien gleichzeitig
 - Themenübersicht in Importreihenfolge
 - Lernmodus mit echter Card-Flip-Animation
 - ~~Quizmodus~~ — **in Entwicklung, aktuell nicht in der App verfügbar**
 - Lernmodus zeigt nur die korrekte Lösung, keine Distraktoren
 - ~~KI-Distraktoren~~ — **in Entwicklung, aktuell nicht in der App verfügbar**
-- Lokale Statistiken, vollständig offline
+- Lernkarten lokal auf dem Gerät, ohne Konto nutzbar
+- Themen per langem Druck farbig und als wichtig markieren
+- Drei Designs: Dark/Gold, Light/Gold und Midnight/Silver
+- Statischer Platinenhintergrund ohne laufende Animation
+- Neue mitgelieferte Decks sind orange und mit „Neu“ gekennzeichnet. Die Markierung verschwindet beim ersten Öffnen, beim Farbwechsel, beim Markieren als wichtig oder spätestens sieben Tage nach dem ersten Start der Version.
 
 ## Eigene Karteien erstellen
 
@@ -93,6 +97,10 @@ Du möchtest lieber mit deinen eigenen Unterlagen lernen? Auch dafür eignet sic
 NotebookLM kann die erzeugten Lernkarten als CSV herunterladen. Prüfe die Datei anschließend kurz und passe sie bei Bedarf an das TECH//DECK-Format `Frage;Antwort` an, bevor du sie importierst.
 
 
+## Aktuelle Version
+
+**1.7.8+19**
+
 ## Starten
 
 ```bash
@@ -100,11 +108,15 @@ flutter pub get
 flutter run
 ```
 
+Nach Änderungen auf GitHub zunächst `git pull origin main` ausführen, dann `flutter pub get`.
+
 Release-APK:
 
 ```bash
 flutter build apk --release
 ```
+
+Die APK liegt unter `build/app/outputs/flutter-apk/`. Zusätzlich zur Flutter-Standarddatei entsteht automatisch `TECH-DECK-<Version>+<Buildnummer>.apk`.
 
 ## ~~KI-Distraktoren~~ — In Entwicklung
 

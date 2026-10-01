@@ -19,20 +19,11 @@ Regeln:
 - Verwende etablierte Fachbegriffe.
 - Bei widersprüchlichen oder nicht sicher belegbaren Informationen keine Lernkarte erstellen.
 
-Gib das Ergebnis wahlweise als CSV oder Markdown aus.
+Gib ausschließlich CSV-Inhalt aus, ohne Einleitung, Codeblock oder Begleittext.
 
 CSV:
 Frage;Antwort
 Was ist ...?;...
-
-Markdown:
-# [THEMA]
-
-## Was ist ...?
-Die fachlich korrekte Antwort.
-
-## Wofür wird ... verwendet?
-Die fachlich korrekte Antwort.
 
 Keine Nummerierung, keine erfundenen Inhalte und keinen zusätzlichen Text außerhalb der Lernkarten.''';
 
@@ -69,7 +60,7 @@ Keine Nummerierung, keine erfundenen Inhalte und keinen zusätzlichen Text auße
                   '2. Kopiere den Prompt unten.\n'
                   '3. Ersetze [ANZAHL] und [THEMA].\n'
                   '4. Lass die KI die Inhalte recherchieren.\n'
-                  '5. Speichere das Ergebnis als .csv oder .md.\n'
+                  '5. Speichere das Ergebnis als .csv.\n'
                   '6. Öffne Einstellungen → Lernkarten importieren.\n'
                   '7. Decks kannst du farblich und als wichtig markieren (lange drücken). Klausurvorbereitung ist vorausgewählt.',
                   style: TextStyle(
@@ -118,8 +109,6 @@ Keine Nummerierung, keine erfundenen Inhalte und keinen zusätzlichen Text auße
           GoldPanel(
             child: Text(
               'CSV: Erste Zeile „Frage;Antwort“, danach eine Karte pro Zeile.\n\n'
-              'Markdown: Optional „# Themenname“. Jede Frage beginnt mit „## “; '
-              'der Text bis zur nächsten Frage ist die Antwort.\n\n'
               'Der Dateiname wird beim Import als Themenname verwendet.',
               style: TextStyle(
                 fontFamily: 'Roboto',

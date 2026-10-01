@@ -3,7 +3,6 @@ import 'dart:typed_data';
 
 import 'package:file_picker/file_picker.dart';
 
-import '../markdown/markdown_card_parser.dart';
 import 'csv_parser.dart';
 
 class PickedCsvFile {
@@ -42,7 +41,7 @@ class CsvImporter {
   Future<List<PickedCsvFile>?> pickFiles() async {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: const ['csv', 'md'],
+      allowedExtensions: const ['csv'],
       allowMultiple: true,
       withData: true,
     );
@@ -65,10 +64,10 @@ class CsvImporter {
   }
 
   CsvParseResult parseFile(PickedCsvFile file) {
-    final text = CsvParser.decodeBytes(file.bytes);
-    if (file.filename.toLowerCase().endsWith('.md')) {
-      return MarkdownCardParser.parseCards(text);
+    if (!file.filename.toLowerCase().endsWith('.csv')) {
+      throw const FormatException('Nur CSV-Dateien werden unterstützt.');
     }
+    final text = CsvParser.decodeBytes(file.bytes);
     return CsvParser.parseCards(text);
   }
 }

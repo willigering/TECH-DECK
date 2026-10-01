@@ -100,7 +100,7 @@ class SettingsScreen extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           Text(
-            'Importiere eigene Lernkarten als .csv oder .md. Eine Datei entspricht einem Thema. Die Anleitung findest du im Tab „Anleitung“.',
+            'Importiere eigene Lernkarten als .csv. Eine Datei entspricht einem Thema. Die Anleitung findest du im Tab „Anleitung“.',
             style: Theme.of(context).textTheme.bodyMedium,
           ),
           const SizedBox(height: 28),

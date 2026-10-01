@@ -204,8 +204,6 @@ abstract final class CsvParser {
     final lower = name.toLowerCase();
     if (lower.endsWith('.csv')) {
       name = name.substring(0, name.length - 4);
-    } else if (lower.endsWith('.md')) {
-      name = name.substring(0, name.length - 3);
     }
     return name.trim();
   }
