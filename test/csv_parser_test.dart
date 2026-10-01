@@ -120,12 +120,18 @@ void main() {
               .where((f) => f.path.toLowerCase().endsWith('.csv'))
               .toList()
             ..sort((a, b) => a.path.compareTo(b.path));
-      expect(files, hasLength(19));
+      expect(files, hasLength(22));
       var total = 0;
       for (final file in files) {
         final name = file.uri.pathSegments.last;
         final result = CsvParser.parseCards(file.readAsStringSync());
-        final expected = name.contains('Klausurvorbereitung') ? 100 : 50;
+        final expected =
+            name.contains('Klausurvorbereitung') ||
+                name.contains('Abkuerzungen')
+            ? 100
+            : name.contains('IHK_Pruefung')
+            ? 82
+            : 50;
         expect(
           result.cards,
           hasLength(expected),
@@ -136,7 +142,7 @@ void main() {
         }
         total += result.cards.length;
       }
-      expect(total, 1000);
+      expect(total, 1232);
     });
   });
 }

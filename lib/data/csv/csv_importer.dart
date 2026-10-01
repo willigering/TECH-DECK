@@ -57,7 +57,7 @@ class CsvImporter {
           bytes = null;
         }
       }
-      if (bytes == null || bytes.isEmpty) continue;
+      bytes ??= Uint8List(0);
       picked.add(PickedCsvFile(filename: file.name, bytes: Uint8List.fromList(bytes)));
     }
     return picked;

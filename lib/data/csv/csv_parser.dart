@@ -146,6 +146,10 @@ abstract final class CsvParser {
       qi = qIndex;
       ai = aIndex;
       dataRows = doc.rows;
+    } else if (qIndex != null || aIndex != null) {
+      throw const FormatException(
+        'Die Kopfzeile muss Frage und Antwort enthalten.',
+      );
     } else if (doc.headers.length >= 2) {
       qi = 0;
       ai = 1;
@@ -208,6 +212,10 @@ abstract final class CsvParser {
     return name.trim();
   }
 
+  /// Exact pairs preserve case-sensitive commands and cannot collide on separators.
+  static (String, String) cardKey(String question, String answer) =>
+      (question.trim(), answer.trim());
+
   static String normalizeKey(String value) {
     return value.toLowerCase().replaceAll(RegExp(r'\s+'), ' ').trim();
   }
@@ -256,6 +264,11 @@ abstract final class CsvParser {
       } else {
         buf.write(ch);
       }
+    }
+    if (inQuotes) {
+      throw const FormatException(
+        'Nicht geschlossenes Anführungszeichen in der CSV-Datei.',
+      );
     }
     if (buf.isNotEmpty) records.add(buf.toString());
     return records;

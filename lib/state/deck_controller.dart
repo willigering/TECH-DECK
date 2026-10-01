@@ -13,20 +13,30 @@ class DeckController extends ChangeNotifier {
 
   final DeckRepository _repo;
   Timer? _newBadgeTimer;
+  bool _disposed = false;
+  bool _importing = false;
+  bool get importing => _importing;
+  Future<void> _loadTail = Future.value();
+
+  void _notify() {
+    if (!_disposed) notifyListeners();
+  }
 
   void _scheduleNewBadgeExpiry() {
     _newBadgeTimer?.cancel();
+    if (_disposed) return;
     final deadlines = _topics.where((t) => t.isNew).map((t) => t.newUntil!).toList()..sort();
     if (deadlines.isEmpty) return;
     final delay = deadlines.first.difference(DateTime.now());
     _newBadgeTimer = Timer(delay.isNegative ? Duration.zero : delay, () {
-      notifyListeners();
+      _notify();
       _scheduleNewBadgeExpiry();
     });
   }
 
   @override
   void dispose() {
+    _disposed = true;
     _newBadgeTimer?.cancel();
     super.dispose();
   }
@@ -51,10 +61,17 @@ class DeckController extends ChangeNotifier {
     return null;
   }
 
-  Future<void> load() async {
+  Future<void> load() {
+    final next = _loadTail.then((_) => _load());
+    _loadTail = next;
+    return next;
+  }
+
+  Future<void> _load() async {
+    if (_disposed) return;
     _loading = true;
     _error = null;
-    notifyListeners();
+    _notify();
     try {
       await _repo.ensureBundledTopics();
       _topics = await _repo.loadTopics();
@@ -67,7 +84,7 @@ class DeckController extends ChangeNotifier {
       _error = '$e';
     } finally {
       _loading = false;
-      notifyListeners();
+      _notify();
     }
   }
 
@@ -76,22 +93,25 @@ class DeckController extends ChangeNotifier {
     await _repo.dismissNewBadge(id);
     _topics = await _repo.loadTopics();
     _scheduleNewBadgeExpiry();
-    notifyListeners();
+    _notify();
   }
 
   void selectTopic(String? id) {
     _selectedTopicId = id;
-    notifyListeners();
+    _notify();
   }
 
   Future<ImportSummary?> importCsv() async {
+    if (_importing || _disposed) return null;
+    _importing = true;
+    _notify();
     try {
       final summary = await _repo.importCsvFiles();
       if (summary != null) await load();
       return summary;
     } catch (e) {
       _error = '$e';
-      notifyListeners();
+      _notify();
       return ImportSummary(
         outcomes: [
           ImportFileOutcome(
@@ -104,6 +124,9 @@ class DeckController extends ChangeNotifier {
           ),
         ],
       );
+    } finally {
+      _importing = false;
+      _notify();
     }
   }
 
