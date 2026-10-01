@@ -117,31 +117,33 @@ class _BoardPainter extends CustomPainter {
   }
 
   void _drawImpulses(Canvas canvas, _Board board) {
-    final core = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeCap = StrokeCap.round
-      ..strokeWidth = 1.6;
     final glow = Paint()
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.round
       ..strokeWidth = 4
-      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 4);
-    final point = Paint();
-    // Three slow highlights, with blur confined to their short trails.
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 7);
+    final light = Paint()
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
+      ..strokeWidth = 2
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 2);
+    // A broad Gaussian envelope fades in both directions along each trace.
+    // No bright head, endpoint or solid trail is drawn.
     for (var i = 0; i < 3 && i * 6 < board.buses.length; i++) {
       final phase = (t + i / 3) % 1;
-      final intensity = sin(phase * pi);
-      core.color = shine.withValues(alpha: .58 * intensity);
-      glow.color = accent.withValues(alpha: .30 * intensity);
-      point.color = shine.withValues(alpha: .76 * intensity);
       for (final metric in board.buses[i * 6].computeMetrics()) {
-        final head = phase * metric.length;
-        final trail = metric.extractPath(max(0, head - 48), head);
-        canvas.drawPath(trail, glow);
-        canvas.drawPath(trail, core);
-        final tangent = metric.getTangentForOffset(head);
-        if (tangent != null) {
-          canvas.drawCircle(tangent.position, 2.0, point);
+        final center = -180 + phase * (metric.length + 360);
+        final step = metric.length / 48;
+        for (var segment = 0; segment < 48; segment++) {
+          final start = segment * step;
+          final distance = (start + step / 2 - center) / 60;
+          final strength = exp(-.5 * distance * distance);
+          if (strength < .002) continue;
+          glow.color = accent.withValues(alpha: .32 * strength);
+          light.color = shine.withValues(alpha: .42 * strength);
+          final piece = metric.extractPath(start, min(metric.length, start + step));
+          canvas.drawPath(piece, glow);
+          canvas.drawPath(piece, light);
         }
       }
     }

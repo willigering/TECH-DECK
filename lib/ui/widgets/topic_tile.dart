@@ -71,7 +71,8 @@ class TopicTile extends StatelessWidget {
     return GoldPanel(
       onTap: onTap,
       onLongPress: onLongPress,
-      accent: mark,
+      accent: topic.isNew ? cs.secondary : mark,
+      highlight: topic.isNew,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       child: Row(
         children: [

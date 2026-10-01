@@ -96,6 +96,7 @@ class GoldPanel extends StatelessWidget {
     this.onLongPress,
     this.padding = const EdgeInsets.all(18),
     this.glow = true,
+    this.highlight = false,
     this.accent,
   });
   final Widget child;
@@ -103,6 +104,7 @@ class GoldPanel extends StatelessWidget {
   final VoidCallback? onLongPress;
   final EdgeInsets padding;
   final bool glow;
+  final bool highlight;
   final Color? accent;
   @override
   Widget build(BuildContext context) {
@@ -113,10 +115,10 @@ class GoldPanel extends StatelessWidget {
       padding: padding,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
-        color: cs.surface.withValues(alpha: .92),
-        border: Border.all(color: line.withValues(alpha: .24), width: 1.05),
+        color: highlight ? Color.alphaBlend(line.withValues(alpha: .09), cs.surface) : cs.surface.withValues(alpha: .92),
+        border: Border.all(color: line.withValues(alpha: highlight ? .65 : .24), width: 1.05),
         boxShadow: glow
-            ? [BoxShadow(color: line.withValues(alpha: .035), blurRadius: 16)]
+            ? [BoxShadow(color: line.withValues(alpha: highlight ? .22 : .035), blurRadius: highlight ? 22 : 16)]
             : null,
       ),
       child: child,

@@ -42,6 +42,8 @@ class _LearnScreenState extends State<LearnScreen> {
         widget.topicId,
       );
       if (!mounted) return;
+      await context.read<DeckController>().markTopicOpened(widget.topicId);
+      if (!mounted) return;
       setState(() {
         _cards = shuffledCopy(cards, Random());
         _loading = false;

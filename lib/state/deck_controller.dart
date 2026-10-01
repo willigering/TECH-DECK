@@ -71,6 +71,14 @@ class DeckController extends ChangeNotifier {
     }
   }
 
+  Future<void> markTopicOpened(String id) async {
+    if (topicById(id)?.isNew != true) return;
+    await _repo.dismissNewBadge(id);
+    _topics = await _repo.loadTopics();
+    _scheduleNewBadgeExpiry();
+    notifyListeners();
+  }
+
   void selectTopic(String? id) {
     _selectedTopicId = id;
     notifyListeners();

@@ -337,6 +337,11 @@ class DeckRepository {
     return false;
   }
 
+  Future<void> dismissNewBadge(String topicId) async {
+    final db = await _db;
+    await _setMeta(db, 'new_deck_dismissed_$topicId', '1');
+  }
+
   Future<void> updateTopicMark(
     String topicId, {
     String? colorKey,
