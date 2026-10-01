@@ -1,0 +1,101 @@
+Frage;Antwort
+Wofür steht DORA?;Discover, Offer, Request, Acknowledge
+Wofür steht DHCP?;Dynamic Host Configuration Protocol
+Wofür steht APIPA?;Automatic Private IP Addressing
+Wofür steht DNS?;Domain Name System
+Wofür steht BIOS?;Basic Input/Output System
+Wofür steht UEFI?;Unified Extensible Firmware Interface
+Wofür steht IP?;Internet Protocol
+Wofür steht IPv4?;Internet Protocol Version 4
+Wofür steht IPv6?;Internet Protocol Version 6
+Wofür steht TCP?;Transmission Control Protocol
+Wofür steht UDP?;User Datagram Protocol
+Wofür steht ICMP?;Internet Control Message Protocol
+Wofür steht ARP?;Address Resolution Protocol
+Wofür steht NAT?;Network Address Translation
+Wofür steht PAT?;Port Address Translation
+Wofür steht MAC?;Media Access Control
+Wofür steht LAN?;Local Area Network
+Wofür steht WAN?;Wide Area Network
+Wofür steht WLAN?;Wireless Local Area Network
+Wofür steht VLAN?;Virtual Local Area Network
+Wofür steht VPN?;Virtual Private Network
+Wofür steht NIC?;Network Interface Card
+Wofür steht SSID?;Service Set Identifier
+Wofür steht BSSID?;Basic Service Set Identifier
+Wofür steht WPA?;Wi-Fi Protected Access
+Wofür steht WEP?;Wired Equivalent Privacy
+Wofür steht PoE?;Power over Ethernet
+Wofür steht MTU?;Maximum Transmission Unit
+Wofür steht TTL?;Time To Live
+Wofür steht QoS?;Quality of Service
+Wofür steht HTTP?;Hypertext Transfer Protocol
+Wofür steht HTTPS?;Hypertext Transfer Protocol Secure
+Wofür steht FTP?;File Transfer Protocol
+Wofür steht SFTP?;SSH File Transfer Protocol
+Wofür steht SSH?;Secure Shell
+Wofür steht SMTP?;Simple Mail Transfer Protocol
+Wofür steht POP3?;Post Office Protocol Version 3
+Wofür steht IMAP?;Internet Message Access Protocol
+Wofür steht SNMP?;Simple Network Management Protocol
+Wofür steht NTP?;Network Time Protocol
+Wofür steht LDAP?;Lightweight Directory Access Protocol
+Wofür steht RDP?;Remote Desktop Protocol
+Wofür steht SMB?;Server Message Block
+Wofür steht TLS?;Transport Layer Security
+Wofür steht SSL?;Secure Sockets Layer
+Wofür steht CPU?;Central Processing Unit
+Wofür steht GPU?;Graphics Processing Unit
+Wofür steht RAM?;Random Access Memory
+Wofür steht ROM?;Read-Only Memory
+Wofür steht HDD?;Hard Disk Drive
+Wofür steht SSD?;Solid-State Drive
+Wofür steht NVMe?;Non-Volatile Memory Express
+Wofür steht SATA?;Serial ATA
+Wofür steht PCIe?;Peripheral Component Interconnect Express
+Wofür steht USB?;Universal Serial Bus
+Wofür steht HDMI?;High-Definition Multimedia Interface
+Wofür steht PSU?;Power Supply Unit
+Wofür stehen UPS und USV?;Uninterruptible Power Supply / Unterbrechungsfreie Stromversorgung
+Wofür steht RAID?;Redundant Array of Independent Disks
+Wofür steht NAS?;Network Attached Storage
+Wofür steht SAN?;Storage Area Network
+Wofür steht OS?;Operating System
+Wofür steht GUI?;Graphical User Interface
+Wofür steht CLI?;Command-Line Interface
+Wofür steht VM?;Virtual Machine
+Wofür steht VMM?;Virtual Machine Monitor
+Wofür steht PXE?;Preboot Execution Environment
+Wofür steht MBR?;Master Boot Record
+Wofür steht GPT bei Partitionstabellen?;GUID Partition Table
+Wofür steht GUID?;Globally Unique Identifier
+Wofür steht NTFS?;New Technology File System
+Wofür steht FAT?;File Allocation Table
+Wofür steht API?;Application Programming Interface
+Wofür steht SDK?;Software Development Kit
+Wofür steht IDE?;Integrated Development Environment
+Wofür steht SQL?;Structured Query Language
+Wofür steht DBMS?;Database Management System
+Wofür steht HTML?;Hypertext Markup Language
+Wofür steht CSS?;Cascading Style Sheets
+Wofür steht JSON?;JavaScript Object Notation
+Wofür steht XML?;Extensible Markup Language
+Wofür steht URL?;Uniform Resource Locator
+Wofür steht URI?;Uniform Resource Identifier
+Wofür steht ASCII?;American Standard Code for Information Interchange
+Wofür steht ACL?;Access Control List
+Wofür steht MFA?;Multi-Factor Authentication
+Wofür steht 2FA?;Two-Factor Authentication
+Wofür steht PKI?;Public Key Infrastructure
+Wofür steht CA im Zertifikatswesen?;Certificate Authority
+Wofür steht AES?;Advanced Encryption Standard
+Wofür steht RSA?;Rivest, Shamir und Adleman
+Wofür steht SHA?;Secure Hash Algorithm
+Wofür steht DoS?;Denial of Service
+Wofür steht DDoS?;Distributed Denial of Service
+Wofür steht XSS?;Cross-Site Scripting
+Wofür steht CIA in der IT-Sicherheit?;Confidentiality, Integrity, Availability
+Wofür steht IaaS?;Infrastructure as a Service
+Wofür steht PaaS?;Platform as a Service
+Wofür steht SaaS?;Software as a Service
+Wofür steht OSI?;Open Systems Interconnection
