@@ -8,6 +8,7 @@ class Topic {
     this.cardCount = 0,
     this.colorKey,
     this.isImportant = false,
+    this.newUntil,
   });
 
   final String id;
@@ -18,6 +19,9 @@ class Topic {
   final int cardCount;
   final String? colorKey;
   final bool isImportant;
+  final DateTime? newUntil;
+  bool get isNew => isNewAt(DateTime.now());
+  bool isNewAt(DateTime now) => newUntil != null && now.isBefore(newUntil!);
 
   Topic copyWith({
     String? id,
@@ -29,6 +33,7 @@ class Topic {
     String? colorKey,
     bool clearColor = false,
     bool? isImportant,
+    DateTime? newUntil,
   }) {
     return Topic(
       id: id ?? this.id,
@@ -39,6 +44,7 @@ class Topic {
       cardCount: cardCount ?? this.cardCount,
       colorKey: clearColor ? null : (colorKey ?? this.colorKey),
       isImportant: isImportant ?? this.isImportant,
+      newUntil: newUntil ?? this.newUntil,
     );
   }
 

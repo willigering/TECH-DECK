@@ -16,6 +16,12 @@ class DeckRepository {
 
   static const bundledContentRev = 'learn-only-3';
 
+  static const newDeckNames = {
+    'IT-Abkürzungen und Akronyme',
+    'IHK-Prüfung',
+    'Datenschutz: Privacy by Design und Default',
+  };
+
   final AppDatabase _dbProvider;
   final _uuid = const Uuid();
   final _importer = CsvImporter();
@@ -31,9 +37,18 @@ class DeckRepository {
       GROUP BY t.id
       ORDER BY t.is_important DESC, t.sort_order ASC
     ''');
-    return rows
-        .map((row) => Topic.fromMap(row, cardCount: _asInt(row['card_count'])))
-        .toList();
+    final start = int.tryParse(await _meta(db, 'new_decks_started_1.7.5+16') ?? '');
+    final deadline = start == null ? null : DateTime.fromMillisecondsSinceEpoch(start).add(const Duration(days: 7));
+    final dismissals = await db.query('app_meta', where: "key LIKE 'new_deck_dismissed_%'");
+    final dismissed = dismissals.map((row) => row['key']).toSet();
+    return rows.map((row) {
+      final topic = Topic.fromMap(row, cardCount: _asInt(row['card_count']));
+      if (newDeckNames.contains(topic.name) &&
+          !dismissed.contains('new_deck_dismissed_${topic.id}')) {
+        return topic.copyWith(newUntil: deadline);
+      }
+      return topic;
+    }).toList();
   }
 
   Future<Topic?> getTopic(String id) async {
@@ -122,8 +137,15 @@ class DeckRepository {
       ('assets/decks/17_Klausurvorbereitung.csv', 'Klausurvorbereitung'),
       ('assets/decks/18_Windows_Terminal.csv', 'Windows Terminal'),
       ('assets/decks/19_Linux_Terminal.csv', 'Linux Terminal'),
+      ('assets/decks/20_IT_Abkuerzungen_und_Akronyme.csv', 'IT-Abkürzungen und Akronyme'),
+      ('assets/decks/21_IHK_Pruefung.csv', 'IHK-Prüfung'),
+      ('assets/decks/22_Datenschutz_Privacy.csv', 'Datenschutz: Privacy by Design und Default'),
     ];
     final db = await _db;
+    const newDeckStartKey = 'new_decks_started_1.7.5+16';
+    if (await _meta(db, newDeckStartKey) == null) {
+      await _setMeta(db, newDeckStartKey, DateTime.now().millisecondsSinceEpoch.toString());
+    }
     final currentRev = await _meta(db, 'bundled_rev');
     final forceReplace = currentRev != bundledContentRev;
     for (var i = 0; i < bundled.length; i++) {
@@ -133,12 +155,15 @@ class DeckRepository {
         data.offsetInBytes,
         data.lengthInBytes,
       );
-      await _importOne(
+      final outcome = await _importOne(
         PickedCsvFile(filename: item.$1.split('/').last, bytes: bytes),
         topicName: item.$2,
         sortOrder: i,
         forceReplace: forceReplace,
       );
+      if (outcome.error != null) {
+        throw StateError(outcome.error!);
+      }
     }
     if (forceReplace) {
       await _setMeta(db, 'bundled_rev', bundledContentRev);
@@ -329,6 +354,9 @@ class DeckRepository {
       values['is_important'] = isImportant ? 1 : 0;
     }
     if (values.isEmpty) return;
+    if (clearColor || colorKey != null || isImportant == true) {
+      await _setMeta(db, 'new_deck_dismissed_$topicId', '1');
+    }
     await db.update(
       'topics',
       values,

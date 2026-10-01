@@ -102,6 +102,17 @@ class TopicTile extends StatelessWidget {
               ),
             ),
           ),
+          if (topic.isNew) ...[
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
+              decoration: BoxDecoration(
+                color: cs.primary.withValues(alpha: .14),
+                borderRadius: BorderRadius.circular(6),
+              ),
+              child: Text('Neu', style: TextStyle(color: cs.primary, fontSize: 11, fontWeight: FontWeight.w700)),
+            ),
+            const SizedBox(width: 6),
+          ],
           if (topic.isImportant) ...[
             Icon(Icons.star_rounded, color: accent, size: 20),
             const SizedBox(width: 6),

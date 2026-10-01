@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 
 import '../data/csv/csv_importer.dart';
@@ -10,6 +12,24 @@ class DeckController extends ChangeNotifier {
     : _repo = repository ?? DeckRepository();
 
   final DeckRepository _repo;
+  Timer? _newBadgeTimer;
+
+  void _scheduleNewBadgeExpiry() {
+    _newBadgeTimer?.cancel();
+    final deadlines = _topics.where((t) => t.isNew).map((t) => t.newUntil!).toList()..sort();
+    if (deadlines.isEmpty) return;
+    final delay = deadlines.first.difference(DateTime.now());
+    _newBadgeTimer = Timer(delay.isNegative ? Duration.zero : delay, () {
+      notifyListeners();
+      _scheduleNewBadgeExpiry();
+    });
+  }
+
+  @override
+  void dispose() {
+    _newBadgeTimer?.cancel();
+    super.dispose();
+  }
 
   List<Topic> _topics = const [];
   bool _loading = true;
@@ -38,6 +58,7 @@ class DeckController extends ChangeNotifier {
     try {
       await _repo.ensureBundledTopics();
       _topics = await _repo.loadTopics();
+      _scheduleNewBadgeExpiry();
       if (_selectedTopicId != null &&
           !_topics.any((t) => t.id == _selectedTopicId)) {
         _selectedTopicId = null;

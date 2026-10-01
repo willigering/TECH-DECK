@@ -1,0 +1,51 @@
+﻿Frage;Antwort
+Was bedeutet Privacy by Design?;Datenschutz wird bereits bei der Planung und Entwicklung von Systemen und Prozessen technisch und organisatorisch berücksichtigt.
+Was bedeutet Privacy by Default?;Die Voreinstellungen eines Systems sind so gestaltet, dass grundsätzlich nur die für den jeweiligen Zweck erforderlichen personenbezogenen Daten verarbeitet werden.
+Wo ist Privacy by Design und Privacy by Default in der DSGVO geregelt?;In Art. 25 DSGVO.
+Was ist der zentrale Unterschied zwischen Privacy by Design und Privacy by Default?;Privacy by Design betrifft die datenschutzgerechte Gestaltung, Privacy by Default die datenschutzfreundlichen Voreinstellungen.
+Warum sollte Datenschutz bereits bei der Entwicklung eines Systems berücksichtigt werden?;Damit Datenschutzanforderungen von Anfang an in Prozesse und Technik integriert werden und nicht erst nachträglich ergänzt werden müssen.
+Wer ist nach Art. 25 DSGVO für die Umsetzung von Privacy by Design und Privacy by Default verantwortlich?;Der Verantwortliche für die Verarbeitung.
+Welche Faktoren müssen bei Privacy by Design berücksichtigt werden?;Unter anderem Stand der Technik, Implementierungskosten, Art und Zweck der Verarbeitung sowie die Risiken für die Rechte und Freiheiten natürlicher Personen.
+Was ist ein typisches Beispiel für Privacy by Default?;Ein Benutzerprofil ist standardmäßig nicht öffentlich sichtbar und gibt nur notwendige Daten frei.
+Wie unterstützt Datenminimierung Privacy by Design?;Es werden nur personenbezogene Daten verarbeitet, die für den jeweiligen Zweck erforderlich sind.
+Welche Bereiche einer Verarbeitung berücksichtigt Privacy by Default?;Datenmenge, Verarbeitungsumfang, Speicherfrist und Zugänglichkeit.
+Was bedeutet Pseudonymisierung nach der DSGVO?;Personenbezogene Daten werden so verarbeitet, dass sie ohne zusätzliche, getrennt aufbewahrte Informationen keiner bestimmten Person zugeordnet werden können.
+Sind pseudonymisierte Daten noch personenbezogene Daten?;Ja, wenn eine Zuordnung zu einer Person mithilfe zusätzlicher Informationen weiterhin möglich ist.
+Was ist der Zweck einer Pseudonymisierung?;Das Risiko für betroffene Personen zu reduzieren, indem die direkte Zuordnung der Daten erschwert wird.
+Was ist ein einfaches Beispiel für Pseudonymisierung?;Ein Name wird durch eine Kennnummer ersetzt und die Zuordnungstabelle wird getrennt geschützt gespeichert.
+Warum muss die Zuordnungsinformation bei einer Pseudonymisierung getrennt aufbewahrt werden?;Damit die pseudonymisierten Daten nicht ohne Weiteres wieder einer Person zugeordnet werden können.
+Was bedeutet Anonymisierung?;Personenbezüge werden so entfernt, dass eine Person nicht mehr identifiziert oder identifizierbar ist.
+Was ist der wichtigste Unterschied zwischen Pseudonymisierung und Anonymisierung?;Pseudonymisierte Daten können mit Zusatzinformationen wieder zugeordnet werden, wirksam anonymisierte Daten nicht.
+Fallen wirksam anonymisierte Daten unter die DSGVO?;Nein, wenn eine natürliche Person nicht mehr identifiziert oder identifizierbar ist.
+Warum reicht das Entfernen eines Namens nicht automatisch zur Anonymisierung?;Andere Merkmale oder Kombinationen von Daten können weiterhin eine Identifizierung ermöglichen.
+Was ist Re-Identifikation?;Die erneute Zuordnung zuvor pseudonymisierter oder vermeintlich anonymisierter Daten zu einer Person.
+Warum kann Pseudonymisierung eine sinnvolle Sicherheitsmaßnahme sein?;Bei einem Datenabfluss ist die direkte Zuordnung zu Personen erschwert, wenn die Zusatzinformationen getrennt geschützt sind.
+Was bedeutet Zutrittskontrolle?;Sie verhindert, dass Unbefugte geschützte Gebäude, Räume oder Bereiche betreten.
+Was ist ein Beispiel für eine technische Zutrittskontrolle?;Eine elektronische Zugangskarte für einen Serverraum.
+Was ist ein Beispiel für eine organisatorische Zutrittskontrolle?;Eine Regelung, nach der Besucher sensible Bereiche nur in Begleitung betreten dürfen.
+Was bedeutet Zugangskontrolle bei IT-Systemen?;Sie verhindert, dass Unbefugte IT-Systeme oder Anwendungen benutzen können.
+Welche Maßnahmen dienen typischerweise der Zugangskontrolle?;Zum Beispiel Benutzerkonten, Passwörter und Mehrfaktor-Authentisierung.
+Was bedeutet Zugriffskontrolle?;Sie stellt sicher, dass berechtigte Nutzer nur auf die Daten und Funktionen zugreifen können, für die sie eine Berechtigung besitzen.
+Was ist der Unterschied zwischen Zugangskontrolle und Zugriffskontrolle?;Zugangskontrolle regelt die Nutzung eines IT-Systems, Zugriffskontrolle die erlaubten Daten und Funktionen innerhalb des Systems.
+Was ist der Unterschied zwischen Zutrittskontrolle und Zugangskontrolle?;Zutrittskontrolle schützt physische Bereiche, Zugangskontrolle schützt IT-Systeme vor unberechtigter Nutzung.
+Was bedeutet das Need-to-Know-Prinzip bei Zugriffsrechten?;Eine Person erhält nur Zugriff auf Informationen, die sie für ihre Aufgaben tatsächlich benötigt.
+Warum sollten Zugriffsrechte regelmäßig überprüft werden?;Damit nicht mehr benötigte oder unzulässige Berechtigungen erkannt und entfernt werden.
+Was sollte mit Zugriffsrechten geschehen, wenn ein Mitarbeiter das Unternehmen verlässt?;Nicht mehr benötigte Zugangs- und Zugriffsberechtigungen müssen zeitnah entzogen werden.
+Was ist das Prinzip der minimalen Rechtevergabe?;Benutzer erhalten nur die Rechte, die sie zur Erfüllung ihrer Aufgaben benötigen.
+Warum sind gemeinsam genutzte Benutzerkonten problematisch?;Aktionen lassen sich schlechter einzelnen Personen zuordnen und Berechtigungen schwieriger kontrollieren.
+Warum sind Rollen für die Rechteverwaltung sinnvoll?;Berechtigungen können passend zu Aufgaben einheitlich vergeben und leichter verwaltet werden.
+Wofür steht die Abkürzung DSB im Datenschutz?;Für Datenschutzbeauftragter beziehungsweise Datenschutzbeauftragte.
+Was ist eine zentrale Aufgabe eines Datenschutzbeauftragten?;Den Verantwortlichen oder Auftragsverarbeiter über Datenschutzpflichten zu informieren und zu beraten sowie deren Einhaltung zu überwachen.
+Welche Artikel der DSGVO regeln insbesondere Datenschutzbeauftragte?;Art. 37 bis 39 DSGVO.
+Wer trägt trotz eines Datenschutzbeauftragten die Verantwortung für die Einhaltung der DSGVO?;Der Verantwortliche beziehungsweise im jeweiligen Pflichtenbereich der Auftragsverarbeiter, nicht der Datenschutzbeauftragte.
+Warum muss ein Datenschutzbeauftragter seine Aufgaben unabhängig wahrnehmen können?;Damit er Datenschutzfragen ohne fachliche Weisungen und Interessenkonflikte beurteilen kann.
+Darf ein Datenschutzbeauftragter wegen der Erfüllung seiner Aufgaben benachteiligt werden?;Nein, wegen der Erfüllung seiner Aufgaben darf er nicht abberufen oder benachteiligt werden.
+Welche Rolle hat der Datenschutzbeauftragte bei einer Datenschutz-Folgenabschätzung?;Er berät auf Anfrage zur Durchführung und überwacht ihre Durchführung.
+Mit welcher Behörde arbeitet der Datenschutzbeauftragte im Rahmen seiner Aufgaben zusammen?;Mit der zuständigen Datenschutzaufsichtsbehörde.
+Kann ein Datenschutzbeauftragter auch Ansprechpartner für betroffene Personen sein?;Ja, Betroffene können ihn zu Fragen der Verarbeitung ihrer personenbezogenen Daten und ihrer Rechte kontaktieren.
+Wann müssen nichtöffentliche Stellen in Deutschland nach § 38 BDSG grundsätzlich einen Datenschutzbeauftragten benennen?;Wenn in der Regel mindestens 20 Personen ständig mit der automatisierten Verarbeitung personenbezogener Daten beschäftigt sind.
+Muss unabhängig von der Beschäftigtenzahl immer geprüft werden, ob bereits die DSGVO eine Benennung des Datenschutzbeauftragten verlangt?;Ja, insbesondere die Voraussetzungen des Art. 37 DSGVO gelten unabhängig von der deutschen 20-Personen-Regel.
+Was ist die Hauptaufgabe eines Informationssicherheitsbeauftragten?;Die Informationssicherheit einer Organisation zu koordinieren und die Umsetzung geeigneter Sicherheitsmaßnahmen zu unterstützen.
+Was ist der grundlegende Unterschied zwischen Datenschutzbeauftragtem und Informationssicherheitsbeauftragtem?;Der Datenschutzbeauftragte konzentriert sich auf den Schutz personenbezogener Daten und Datenschutzrecht, der Informationssicherheitsbeauftragte auf die Sicherheit von Informationen und IT-Systemen insgesamt.
+Welche grundlegenden Schutzziele stehen bei der Informationssicherheit im Mittelpunkt?;Vertraulichkeit, Integrität und Verfügbarkeit.
+Warum überschneiden sich Datenschutz und Informationssicherheit häufig?;Weil technische und organisatorische Sicherheitsmaßnahmen zugleich personenbezogene Daten schützen können.
