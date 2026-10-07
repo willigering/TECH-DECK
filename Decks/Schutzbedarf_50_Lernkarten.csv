@@ -1,0 +1,51 @@
+﻿Frage;Antwort
+Was ist eine Schutzbedarfsfeststellung?;Dabei wird bewertet, welche Schäden bei einer Beeinträchtigung von Vertraulichkeit, Integrität oder Verfügbarkeit entstehen könnten.
+Welche drei Schutzbedarfskategorien verwendet der BSI-IT-Grundschutz?;Normal, hoch und sehr hoch.
+Was bedeutet die Schutzbedarfskategorie normal?;Die möglichen Schadensauswirkungen sind begrenzt und überschaubar.
+Was bedeutet die Schutzbedarfskategorie hoch?;Die möglichen Schadensauswirkungen können beträchtlich sein.
+Was bedeutet die Schutzbedarfskategorie sehr hoch?;Die möglichen Schadensauswirkungen können ein existenziell bedrohliches oder katastrophales Ausmaß erreichen.
+Auf welche drei Grundwerte wird der Schutzbedarf bezogen?;Vertraulichkeit, Integrität und Verfügbarkeit.
+Was bedeutet Vertraulichkeit bei der Schutzbedarfsfeststellung?;Informationen dürfen nur den Personen oder Systemen bekannt werden, für die sie bestimmt sind.
+Was bedeutet Integrität bei der Schutzbedarfsfeststellung?;Informationen und Systeme müssen korrekt, vollständig und vor unbefugter Veränderung geschützt sein.
+Was bedeutet Verfügbarkeit bei der Schutzbedarfsfeststellung?;Informationen, Anwendungen und Systeme müssen innerhalb des benötigten Zeitraums nutzbar sein.
+Warum wird der Schutzbedarf für Vertraulichkeit, Integrität und Verfügbarkeit getrennt bestimmt?;Weil dieselbe Information für die drei Grundwerte unterschiedlich kritisch sein kann.
+Welche typischen Schadensszenarien werden bei der Schutzbedarfsfeststellung betrachtet?;Rechts- und Vertragsverstöße, informationelle Selbstbestimmung, persönliche Unversehrtheit, Aufgabenerfüllung, Innen- oder Außenwirkung und finanzielle Auswirkungen.
+Wie beeinflussen mögliche Gesetzes- oder Vertragsverstöße den Schutzbedarf?;Je schwerwiegender die möglichen rechtlichen oder vertraglichen Folgen sind, desto höher kann der Schutzbedarf sein.
+Was bedeutet eine Beeinträchtigung des informationellen Selbstbestimmungsrechts?;Personen werden durch den Umgang mit ihren Daten in ihrer Kontrolle über persönliche Informationen beeinträchtigt.
+Warum kann die persönliche Unversehrtheit zu sehr hohem Schutzbedarf führen?;Weil gravierende Sicherheitsverletzungen im Extremfall Leib, Leben oder persönliche Freiheit gefährden können.
+Wie beeinflusst die Aufgabenerfüllung den Schutzbedarf?;Je weniger ein Ausfall oder Fehler für die Betroffenen tolerierbar ist, desto höher kann der Schutzbedarf sein.
+Was ist mit negativer Innen- oder Außenwirkung gemeint?;Ein Sicherheitsvorfall kann Ansehen, Vertrauen oder Reputation innerhalb oder außerhalb der Institution schädigen.
+Wie beeinflussen finanzielle Auswirkungen den Schutzbedarf?;Je schwerwiegender die finanziellen Folgen für die Institution sind, desto höher kann der Schutzbedarf sein.
+Warum gibt es keine allgemeingültige Eurogrenze für hohen Schutzbedarf?;Weil derselbe finanzielle Schaden für verschiedene Institutionen unterschiedlich schwer wiegen kann.
+Warum entscheidet nicht der Anschaffungspreis eines IT-Systems über seinen Schutzbedarf?;Entscheidend sind die möglichen Folgen einer Beeinträchtigung, nicht der Kaufpreis des Systems.
+Warum können personenbezogene Daten einen hohen Schutzbedarf bei der Vertraulichkeit besitzen?;Weil eine Offenlegung die Rechte, wirtschaftlichen Verhältnisse oder gesellschaftliche Stellung Betroffener erheblich beeinträchtigen kann.
+Sind personenbezogene Daten automatisch immer sehr hoch schutzbedürftig?;Nein. Entscheidend sind die konkreten möglichen Schadensfolgen.
+Wann kann bei personenbezogenen Daten ein sehr hoher Vertraulichkeitsbedarf vorliegen?;Wenn eine Offenlegung beispielsweise Leib, Leben oder persönliche Freiheit Betroffener gefährden könnte.
+Warum kann dieselbe Information in zwei Unternehmen unterschiedlich eingestuft werden?;Weil Auswirkungen und Schadenshöhe von den Aufgaben, der Größe und den Rahmenbedingungen der jeweiligen Institution abhängen.
+Was bedeutet Schutzbedarfsvererbung?;Der Schutzbedarf von Informationen, Geschäftsprozessen oder Anwendungen wird auf die dafür benötigten Systeme, Verbindungen und Räume übertragen.
+Warum kann ein Server den Schutzbedarf einer Anwendung erben?;Weil die Anwendung vom Server abhängt und dessen Beeinträchtigung die Anwendung ebenfalls beeinträchtigen kann.
+Was bedeutet das Maximumprinzip bei der Schutzbedarfsvererbung?;Grundsätzlich wird der höchste relevante Schutzbedarf der abhängigen Objekte übernommen.
+Warum wird beim Maximumprinzip kein Durchschnitt gebildet?;Ein Durchschnitt könnte einen besonders kritischen Schutzbedarf unzulässig abschwächen.
+Eine Anwendung hat normale Vertraulichkeit, hohe Integrität und sehr hohe Verfügbarkeit. Welche Einstufung ist für den höchsten Schutzbedarf maßgeblich?;Sehr hoch, weil mindestens ein Grundwert mit sehr hoch bewertet wurde.
+Was ist der Kumulationseffekt?;Durch die Bündelung mehrerer Informationen oder Anwendungen auf einem Objekt kann der mögliche Gesamtschaden steigen.
+Nennen Sie ein typisches Beispiel für den Kumulationseffekt.;Viele einzeln normal schutzbedürftige Dienste laufen auf einem Server. Ihr gemeinsamer Ausfall kann insgesamt einen hohen Schaden verursachen.
+Was ist der Verteilungseffekt?;Durch Verteilung auf unabhängige Komponenten kann die Beeinträchtigung einer einzelnen Komponente geringere Auswirkungen haben.
+Nennen Sie ein typisches Beispiel für den Verteilungseffekt.;Ein Dienst läuft redundant auf mehreren unabhängigen Servern, sodass der Ausfall eines Servers nicht den gesamten Dienst stoppt.
+Warum muss bei der Schutzbedarfsvererbung auch der Kumulationseffekt geprüft werden?;Weil die gemeinsame Beeinträchtigung mehrerer Objekte einen höheren Gesamtschaden verursachen kann.
+Warum muss bei der Schutzbedarfsvererbung auch der Verteilungseffekt geprüft werden?;Weil Redundanz oder Verteilung die Auswirkung des Ausfalls einer einzelnen Komponente verringern kann.
+Warum werden Abhängigkeiten zwischen Geschäftsprozessen und IT-Systemen betrachtet?;Damit erkennbar ist, welche technischen Objekte für kritische Prozesse oder Anwendungen erforderlich sind.
+Warum wird der Schutzbedarf von Geschäftsprozessen auf Anwendungen übertragen?;Anwendungen unterstützen die Geschäftsprozesse und müssen deshalb deren erforderliches Schutzniveau angemessen berücksichtigen.
+Warum können Räume einen Schutzbedarf besitzen?;Weil darin schutzbedürftige IT-Systeme, Informationen oder Datenträger betrieben oder aufbewahrt werden.
+Wie wird der Schutzbedarf eines Serverraums grundsätzlich abgeleitet?;Aus dem Schutzbedarf der darin befindlichen Systeme, Informationen und Datenträger unter Berücksichtigung von Maximum- und Kumulationseffekten.
+Warum kann ein Backup einen hohen Vertraulichkeitsbedarf haben?;Weil es große Mengen schutzbedürftiger Informationen bündeln kann.
+Warum kann ein öffentlich erreichbarer Webserver einen normalen Vertraulichkeitsbedarf haben?;Wenn die dort veröffentlichten Informationen ohnehin für die Öffentlichkeit bestimmt sind.
+Warum kann derselbe Webserver trotzdem einen hohen Integritätsbedarf haben?;Manipulierte Inhalte können falsche Informationen verbreiten und erhebliche Vertrauens- oder Geschäftsschäden verursachen.
+Warum kann ein Onlineshop einen hohen Verfügbarkeitsbedarf besitzen?;Ein längerer Ausfall kann erhebliche Umsatzeinbußen und Störungen wichtiger Geschäftsprozesse verursachen.
+Warum kann ein medizinisches System einen sehr hohen Verfügbarkeitsbedarf besitzen?;Wenn sein Ausfall gravierende Auswirkungen auf die Behandlung und möglicherweise auf Leib oder Leben haben kann.
+Warum kann eine interne Telefonliste einen normalen Schutzbedarf besitzen?;Wenn eine Beeinträchtigung nur begrenzte und überschaubare Schäden verursachen würde.
+Muss ein Objekt bei hohem Schutzbedarf automatisch mit einer ganz bestimmten Maßnahme geschützt werden?;"Nein. Der Schutzbedarf beschreibt das notwendige Schutzniveau; konkrete Maßnahmen werden passend zu Risiken und Rahmenbedingungen ausgewählt."
+Was bedeutet erhöhter Schutzbedarf im IT-Grundschutz?;Ein Schutzbedarf der Kategorie hoch oder sehr hoch.
+Warum kann bei erhöhtem Schutzbedarf eine zusätzliche Risikoanalyse erforderlich sein?;Weil die Standard-Absicherung allein möglicherweise nicht ausreicht und zusätzliche Maßnahmen bewertet werden müssen.
+Warum sollte jede Schutzbedarfseinstufung begründet werden?;Damit die Entscheidung nachvollziehbar, überprüfbar und später erneut bewertbar ist.
+Warum sollte der Schutzbedarf regelmäßig überprüft werden?;Weil sich Prozesse, Daten, Systeme, Abhängigkeiten und mögliche Schadensfolgen verändern können.
+Was ist der wichtigste Grundsatz bei der Schutzbedarfsfeststellung?;Maßgeblich ist der mögliche Schaden bei einer Beeinträchtigung von Vertraulichkeit, Integrität oder Verfügbarkeit.

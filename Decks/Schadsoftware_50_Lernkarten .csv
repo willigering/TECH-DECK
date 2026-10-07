@@ -1,0 +1,51 @@
+﻿Frage;Antwort
+Was ist Schadsoftware oder Malware?;Malware ist der Oberbegriff für Software oder Firmware, die absichtlich unerwünschte oder schädliche Funktionen ausführt.
+Welche Schutzziele kann Schadsoftware beeinträchtigen?;Vertraulichkeit, Integrität und Verfügbarkeit.
+Was ist ein Computervirus?;Ein Virus ist Schadsoftware, die sich durch das Infizieren anderer Programme oder Dateien vermehrt.
+Warum benötigt ein Virus normalerweise einen Wirt?;Weil er an eine Datei oder ein Programm gebunden ist und durch dessen Ausführung aktiv wird.
+Was geschieht typischerweise, wenn eine mit einem Virus infizierte Datei ausgeführt wird?;Der Viruscode wird aktiv und kann weitere geeignete Dateien oder Programme infizieren.
+Was ist ein Computerwurm?;Ein Wurm ist ein eigenständig lauffähiges Schadprogramm, das sich selbstständig auf weitere Systeme verbreiten kann.
+Was ist der wichtigste Unterschied zwischen Virus und Wurm?;Ein Virus benötigt einen Wirt. Ein Wurm kann sich als eigenständiges Programm verbreiten.
+Warum können Würmer besonders schnell viele Systeme erreichen?;Weil sie ihre Verbreitung automatisieren und dafür nicht zwingend eine infizierte Wirtsdatei benötigen.
+Welche zusätzliche Schadwirkung kann ein Wurm neben seiner Verbreitung besitzen?;Zum Beispiel Daten stehlen, weitere Malware nachladen, Systeme manipulieren oder Ressourcen überlasten.
+Warum ist die Aussage falsch, ein Wurm diene nur zum Lahmlegen von Netzwerken?;Die selbstständige Verbreitung kennzeichnet den Wurm. Seine eigentliche Schadfunktion kann sehr unterschiedlich sein.
+Was ist ein Trojanisches Pferd?;Ein Trojaner ist ein scheinbar nützliches oder harmloses Programm mit einer versteckten schädlichen Funktion.
+Was unterscheidet einen Trojaner von einem Virus?;Ein Trojaner muss sich nicht selbst vermehren. Ein Virus verbreitet sich durch das Infizieren anderer Dateien oder Programme.
+Warum ist Social Engineering bei Trojanern häufig wichtig?;Der Benutzer soll dazu gebracht werden, die scheinbar legitime Datei selbst zu installieren oder auszuführen.
+Was ist ein Remote-Access-Trojaner?;Ein Trojaner, der einem Angreifer die unbefugte Fernsteuerung eines kompromittierten Systems ermöglicht.
+Was ist Ransomware?;Ransomware sperrt Systeme oder verschlüsselt Daten und fordert anschließend häufig Lösegeld.
+Welches Schutzziel wird durch verschlüsselnde Ransomware besonders beeinträchtigt?;Die Verfügbarkeit, weil berechtigte Benutzer nicht mehr auf ihre Daten zugreifen können.
+Warum kann Ransomware auch die Vertraulichkeit verletzen?;Angreifer können Daten vor der Verschlüsselung kopieren und mit ihrer Veröffentlichung drohen.
+Was bedeutet Double Extortion bei Ransomware?;Die Angreifer verschlüsseln Daten und drohen zusätzlich mit der Veröffentlichung zuvor gestohlener Daten.
+Warum garantiert eine Lösegeldzahlung keine Wiederherstellung?;Es gibt keine Garantie für einen funktionierenden Schlüssel, vollständige Datenwiederherstellung oder Löschung gestohlener Daten.
+Was ist Spyware?;Spyware sammelt heimlich Informationen über Benutzer, Aktivitäten oder Systeme und gibt sie unbefugt weiter.
+Welches Schutzziel wird durch Spyware besonders gefährdet?;Die Vertraulichkeit.
+Was ist ein Keylogger?;Ein Keylogger zeichnet Tastatureingaben auf und kann dadurch beispielsweise Zugangsdaten erfassen.
+Warum ist ein Keylogger für Passwörter gefährlich?;Weil er eingegebene Zeichen direkt mitschneiden kann.
+Was ist ein Banking-Trojaner?;Ein Trojaner, der insbesondere Zugangsdaten oder Transaktionsinformationen beim Online-Banking ausspäht oder manipuliert.
+Was ist eine Backdoor?;Eine Backdoor ist ein versteckter Zugang, über den reguläre Sicherheits- oder Zugriffskontrollen umgangen werden können.
+Warum ist eine Backdoor für einen Angreifer nützlich?;Sie kann einen späteren unbefugten Zugriff auf das kompromittierte System ermöglichen.
+Was ist ein Rootkit?;Ein Rootkit ist eine Sammlung von Werkzeugen oder Manipulationen, die Angreiferaktivitäten verbergen und dauerhaften privilegierten Zugriff unterstützen können.
+Warum sind Rootkits besonders problematisch?;Weil sie Systemfunktionen manipulieren und dadurch Schadaktivitäten vor Benutzer und Sicherheitssoftware verbergen können.
+Was ist ein Bot?;Ein Bot ist ein kompromittiertes Gerät, das durch Schadsoftware ferngesteuert werden kann.
+Was ist ein Botnetz?;Ein Botnetz ist ein Verbund kompromittierter Geräte, die von einem Angreifer koordiniert gesteuert werden.
+Was ist ein Command-and-Control-Server?;Eine Infrastruktur, über die Angreifer kompromittierte Systeme steuern oder ihnen Befehle übermitteln.
+Wofür können Botnetze missbraucht werden?;Zum Beispiel für DDoS-Angriffe, Spamversand, Datendiebstahl, Cryptomining oder die Verteilung weiterer Malware.
+Was ist ein Dropper?;Ein Schadprogramm, dessen Hauptaufgabe darin besteht, weitere Schadsoftware auf einem System abzulegen oder zu installieren.
+Was ist ein Downloader im Zusammenhang mit Malware?;Ein Programm, das weitere Schadsoftware aus dem Netzwerk nachlädt.
+Was ist Scareware?;Software, die mit alarmierenden oder falschen Warnungen Angst erzeugt und Benutzer zu einer unerwünschten Handlung drängt.
+Was ist Cryptojacking?;Der unbefugte Missbrauch fremder Rechenleistung zum Berechnen von Kryptowährungen.
+Welche typischen Hinweise kann Cryptojacking verursachen?;Hohe CPU- oder GPU-Auslastung, Leistungsabfall, erhöhte Wärmeentwicklung und höheren Energieverbrauch.
+Was ist ein Drive-by-Download?;Das Herunterladen oder Ausführen von Schadcode beim Besuch einer manipulierten oder kompromittierten Webseite.
+Welche typischen Infektionswege nutzt Schadsoftware?;Zum Beispiel schädliche Anhänge, manipulierte Links oder Webseiten, infizierte Datenträger, kompromittierte Software und ausgenutzte Schwachstellen.
+Warum können Makros in Dokumenten ein Sicherheitsrisiko sein?;Makros können Code ausführen und dadurch Schadfunktionen starten oder weitere Malware nachladen.
+Warum sind Sicherheitsupdates ein wichtiger Schutz vor Malware?;Sie schließen bekannte Schwachstellen, die Schadsoftware oder Angreifer sonst ausnutzen könnten.
+Warum reduziert das Prinzip der geringsten Rechte mögliche Malware-Schäden?;Benutzer und Programme besitzen nur notwendige Rechte, sodass Schadsoftware weniger weitreichende Aktionen ausführen kann.
+Warum kann Netzwerksegmentierung die Ausbreitung von Schadsoftware begrenzen?;Getrennte Netzbereiche und Zugriffskontrollen erschweren die ungehinderte Bewegung auf weitere Systeme.
+Welche Aufgabe hat Antimalware-Software?;Sie soll Schadsoftware erkennen, blockieren, isolieren oder entfernen.
+Warum reicht Antimalware-Software allein nicht als Schutz aus?;Keine Erkennung ist vollständig. Zusätzlich sind Updates, sichere Konfiguration, eingeschränkte Rechte, Backups und geschulte Benutzer nötig.
+Warum sind getrennte Backups wichtig gegen Ransomware?;Damit Sicherungen nicht gemeinsam mit den Produktivdaten verschlüsselt oder gelöscht werden.
+Warum sollten Backups regelmäßig auf Wiederherstellbarkeit geprüft werden?;Ein vorhandenes Backup hilft nur, wenn die benötigten Daten tatsächlich vollständig und funktionsfähig wiederhergestellt werden können.
+Was sollte bei Verdacht auf eine Malware-Infektion mit dem betroffenen System geschehen?;Es sollte nach dem vorgesehenen Incident-Response-Verfahren behandelt und gegebenenfalls kontrolliert vom Netzwerk isoliert werden.
+Was ist der Unterschied zwischen Infektionsweg und Schadfunktion?;Der Infektionsweg beschreibt, wie Malware auf ein System gelangt. Die Schadfunktion beschreibt, was sie dort bewirkt.
+Warum kann eine einzelne Schadsoftware mehreren Kategorien zugeordnet werden?;Moderne Malware kann mehrere Funktionen kombinieren, etwa Trojaner-Tarnung, Datendiebstahl, Wurm-Verbreitung und Ransomware.
