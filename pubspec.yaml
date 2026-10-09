@@ -40,6 +40,7 @@ flutter:
     - assets/app_icon.png
     - assets/logo.png
     - assets/decks/
+    - assets/overview_cards/
   fonts:
     - family: Orbitron
       fonts:

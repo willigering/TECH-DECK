@@ -20,10 +20,18 @@ class _MainShellState extends State<MainShell> {
   int _index = 0;
   final _mainNavigatorKey = GlobalKey<NavigatorState>();
 
-  Widget _tabNav(Widget child, {Key? key}) => Navigator(
-    key: key,
-    onGenerateRoute: (_) => MaterialPageRoute(builder: (_) => child),
-  );
+  Widget _tabNav(Widget child, {GlobalKey<NavigatorState>? key}) {
+    final navigator = Navigator(
+      key: key,
+      onGenerateRoute: (_) => MaterialPageRoute(builder: (_) => child),
+    );
+    if (key == null) return navigator;
+    return NavigatorPopHandler<Object?>(
+      enabled: _index == 0,
+      onPopWithResult: (result) => key.currentState?.pop(result),
+      child: navigator,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +100,7 @@ class _BottomBar extends StatelessWidget {
   final ValueChanged<int> onChanged;
 
   static const _items = [
-    (Icons.menu_book_outlined, Icons.menu_book_rounded, 'Lernkarten'),
+    (Icons.menu_book_outlined, Icons.menu_book_rounded, 'Karten'),
     (Icons.settings_outlined, Icons.settings, 'Einstellungen'),
     (Icons.help_outline_rounded, Icons.help_rounded, 'Anleitung'),
   ];

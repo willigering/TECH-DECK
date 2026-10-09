@@ -11,6 +11,9 @@ Mitgeliefert sind **22 Decks** mit unterschiedlichen Kartenanzahlen. Dazu gehör
 ## Funktionen
 
 - Ausschließlich CSV-Import (UTF-8, Umlaute und Anführungszeichen); mehrere Dateien gleichzeitig
+- Haupttab mit Auswahl zwischen Lernkarten und Übersichtskarten
+- Übersichtskarten: bebildertes Menü mit Suche nach Titel, Beschreibung und Stichwörtern
+- Bildansicht mit Vergrößern, Verschieben, Zurück und Ansicht zurücksetzen
 - Themenübersicht in Importreihenfolge
 - Lernmodus mit echter Card-Flip-Animation
 - ~~Quizmodus~~ — **in Entwicklung, aktuell nicht in der App verfügbar**
@@ -121,3 +124,7 @@ Die APK liegt unter `build/app/outputs/flutter-apk/`. Zusätzlich zur Flutter-St
 ## ~~KI-Distraktoren~~ — In Entwicklung
 
 > **Noch nicht in TECH//DECK implementiert.** Diese Funktion ist für eine zukünftige Version vorgesehen. Der aktuelle Lernmodus benötigt ausschließlich Frage und Antwort.
+
+## Übersichtskarten ergänzen
+
+Bilddateien (bevorzugt Hochformat) unter `assets/overview_cards/` ablegen. In `lib/data/models/overview_card.dart` einen Eintrag mit Titel, Beschreibung, Asset-Pfad und Suchstichwörtern ergänzen. Die Bilder werden offline mitgeliefert. Aktuell enthalten: APIPA, DNS-Hierarchie und OSI-Modell.
