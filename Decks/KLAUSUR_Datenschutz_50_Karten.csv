@@ -1,0 +1,51 @@
+﻿Frage;Antwort
+Welche vier Schutzziele werden in der IT-Sicherheit häufig betrachtet?;Vertraulichkeit, Integrität, Verfügbarkeit und Authentizität.
+Was bedeutet Vertraulichkeit in der IT-Sicherheit?;Nur berechtigte Personen dürfen auf vertrauliche Informationen zugreifen.
+Warum ist Integrität bei Daten wichtig?;Sie stellt sicher, dass Daten nicht unbemerkt oder unbefugt verändert werden.
+Was bedeutet Verfügbarkeit bei IT-Systemen?;Systeme und Daten müssen bei Bedarf zuverlässig nutzbar sein.
+Was versteht man unter Authentizität?;Die Echtheit einer Identität oder Information kann überprüft werden.
+Wann benötigen Cookies grundsätzlich eine Einwilligung?;Wenn Informationen auf dem Endgerät gespeichert oder ausgelesen werden und keine gesetzliche Ausnahme greift, beispielsweise bei Werbetracking.
+Warum benötigen technisch notwendige Cookies nicht immer eine Einwilligung?;Wenn sie unbedingt erforderlich sind, um einen ausdrücklich gewünschten digitalen Dienst bereitzustellen, greift eine gesetzliche Ausnahme.
+Was ist der Unterschied zwischen Datenschutz und Datensicherheit?;Datenschutz regelt den rechtmäßigen Umgang mit personenbezogenen Daten. Datensicherheit schützt Daten durch technische und organisatorische Maßnahmen.
+Warum umfasst Informationssicherheit auch Papierdokumente?;Weil sie Informationen unabhängig davon schützt, ob diese digital oder analog vorliegen.
+Was bedeutet das Verbotsprinzip mit Erlaubnisvorbehalt im Datenschutz?;Personenbezogene Daten dürfen nur verarbeitet werden, wenn eine gültige Rechtsgrundlage besteht.
+Was versteht man unter informationeller Selbstbestimmung?;Das Grundrecht, grundsätzlich selbst über die Preisgabe und Verwendung personenbezogener Daten mitzubestimmen.
+Welche sechs Rechtsgrundlagen nennt Art. 6 Abs. 1 DSGVO?;Einwilligung, Vertragserfüllung, rechtliche Verpflichtung, lebenswichtige Interessen, öffentliche Aufgabe und berechtigte Interessen.
+Welche Voraussetzungen muss eine datenschutzrechtliche Einwilligung erfüllen?;Sie muss freiwillig, informiert, eindeutig und für einen bestimmten Zweck erfolgen. Sie muss nachweisbar und widerrufbar sein.
+Welche wichtigen Rechte haben betroffene Personen nach der DSGVO?;Unter anderem Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit, Widerspruch und Beschwerde.
+Wie schnell muss ein Unternehmen grundsätzlich auf einen DSGVO-Auskunftsantrag reagieren?;Unverzüglich und grundsätzlich spätestens innerhalb eines Monats. Unter bestimmten Voraussetzungen ist eine Verlängerung möglich.
+Was bedeutet Zweckbindung nach Art. 5 DSGVO?;Personenbezogene Daten dürfen nur für festgelegte, eindeutige und legitime Zwecke erhoben und grundsätzlich nur zweckvereinbar weiterverarbeitet werden.
+Warum ist Datenminimierung ein wichtiger Datenschutzgrundsatz?;Es dürfen nur personenbezogene Daten verarbeitet werden, die für den jeweiligen Zweck erforderlich sind.
+Was bedeutet Rechenschaftspflicht nach Art. 5 Abs. 2 DSGVO?;Der Verantwortliche muss die Einhaltung der Datenschutzgrundsätze nachweisen können.
+Was ist der Unterschied zwischen Pseudonymisierung und Anonymisierung?;Pseudonymisierte Daten können mit zusätzlichen Informationen wieder zugeordnet werden. Bei wirksamer Anonymisierung ist eine Identifizierung nicht mehr möglich.
+Warum gilt die DSGVO weiterhin für pseudonymisierte Daten?;Weil Personen mithilfe zusätzlicher Informationen weiterhin identifizierbar sein können.
+Was ist der Unterschied zwischen Zutritt, Zugang und Zugriff?;Zutritt betrifft Räume, Zugang betrifft IT-Systeme und Zugriff betrifft Berechtigungen auf Daten und Funktionen.
+Was bedeutet das Least-Privilege-Prinzip?;Benutzer und Prozesse erhalten nur die Berechtigungen, die sie für ihre Aufgaben benötigen.
+Was bedeutet Privacy by Design?;Datenschutz wird bereits bei der Planung und Entwicklung eines Systems technisch und organisatorisch berücksichtigt.
+Was bedeutet Privacy by Default?;Systeme sind standardmäßig so eingestellt, dass nur die für den jeweiligen Zweck erforderlichen personenbezogenen Daten verarbeitet werden.
+Welche vier Bereiche berücksichtigt Privacy by Default nach Art. 25 Abs. 2 DSGVO?;Datenmenge, Verarbeitungsumfang, Speicherfrist und Zugänglichkeit.
+Was sind typische Aufgaben eines Datenschutzbeauftragten?;Er berät, überwacht die Einhaltung der Datenschutzvorschriften und arbeitet mit der Datenschutzaufsichtsbehörde zusammen.
+Was ist der Unterschied zwischen einem Datenschutzbeauftragten und einem Informationssicherheitsbeauftragten?;Der Datenschutzbeauftragte überwacht und berät zum Datenschutz. Der Informationssicherheitsbeauftragte koordiniert die Informationssicherheit.
+Was unterscheidet einen Computervirus von einem Computerwurm?;Ein Virus benötigt einen Wirt wie eine Datei oder ein Programm. Ein Wurm kann sich selbstständig verbreiten.
+Was ist ein Trojaner?;Eine Schadsoftware, die sich als legitimes oder nützliches Programm tarnt.
+Wie funktioniert ein typischer Ransomware-Angriff?;Angreifer verschlüsseln Daten oder sperren Systeme und verlangen häufig Lösegeld für deren Freigabe.
+Was ist das Ziel einer Schutzbedarfsanalyse?;Die möglichen Schäden bei Verletzung der Schutzziele bewerten und daraus den erforderlichen Schutzbedarf ableiten.
+Welche drei Schutzbedarfskategorien verwendet der BSI-IT-Grundschutz?;Normal, hoch und sehr hoch.
+Was bedeutet das Maximumprinzip bei der Schutzbedarfsanalyse?;Der höchste Schutzbedarf eines betrachteten Grundwerts bestimmt grundsätzlich den Gesamtschutzbedarf des Objekts.
+Was unterscheidet Black-Box-, Grey-Box- und White-Box-Tests?;Black Box erfolgt ohne internes Vorwissen, Grey Box mit Teilwissen und White Box mit umfangreichen internen Informationen.
+Warum benötigt ein Penetrationstest eine ausdrückliche Genehmigung?;Damit Umfang, erlaubte Methoden und Grenzen rechtlich und organisatorisch eindeutig festgelegt sind.
+Welche wesentlichen Phasen umfasst ein typischer Penetrationstest?;Vorbereitung, Informationsbeschaffung, Analyse, kontrolliertes Ausnutzen von Schwachstellen, Nachbereitung und Berichterstellung.
+Wie funktioniert ein Man-in-the-Middle-Angriff?;Ein Angreifer schaltet sich zwischen Kommunikationspartner und kann deren Datenverkehr unter bestimmten Voraussetzungen mitlesen oder verändern.
+Wie funktioniert ARP-Spoofing im lokalen Netzwerk?;Gefälschte ARP-Nachrichten bewirken, dass Geräte eine IP-Adresse einer falschen MAC-Adresse zuordnen.
+Was ist der Unterschied zwischen DNS-Spoofing und DNS-Cache-Poisoning?;DNS-Spoofing manipuliert DNS-Antworten. Beim Cache-Poisoning wird eine gefälschte Zuordnung zusätzlich in einem DNS-Cache gespeichert.
+Wofür wird DNSSEC eingesetzt?;DNSSEC ermöglicht die kryptografische Prüfung der Authentizität und Integrität von DNS-Daten, verschlüsselt aber keine DNS-Abfragen.
+Wie unterscheidet der EU AI Act verbotene von Hochrisiko-KI-Anwendungen?;Verbotene KI-Praktiken dürfen grundsätzlich nicht eingesetzt werden. Hochrisiko-KI-Systeme sind unter strengen gesetzlichen Anforderungen zulässig.
+Was ist der Unterschied zwischen symmetrischer und asymmetrischer Verschlüsselung?;Symmetrische Verschlüsselung verwendet denselben geheimen Schlüssel. Asymmetrische Verschlüsselung verwendet ein öffentliches und ein privates Schlüsselpaar.
+Warum wird häufig hybride Verschlüsselung eingesetzt?;Sie kombiniert die Geschwindigkeit symmetrischer Verschlüsselung mit den Möglichkeiten asymmetrischer Kryptografie zum sicheren Schlüsselaustausch.
+Warum sind kryptografische Hashfunktionen keine Verschlüsselungsverfahren?;Sie erzeugen einen nicht umkehrbaren Prüfwert statt eines mit einem Schlüssel entschlüsselbaren Geheimtexts.
+Wie funktionieren digitale Signaturen grundsätzlich?;Der Absender signiert mit seinem privaten Schlüssel. Der Empfänger überprüft die Signatur mit dem zugehörigen öffentlichen Schlüssel.
+Was unterscheidet TLS-Transportverschlüsselung von Ende-zu-Ende-Verschlüsselung bei E-Mails?;TLS schützt die jeweilige Transportverbindung. Ende-zu-Ende-Verschlüsselung schützt den Nachrichteninhalt auch gegenüber zwischengeschalteten Mailservern.
+Warum garantiert ein VPN keine vollständige Anonymität?;VPN-Anbieter, angemeldete Benutzerkonten, Cookies und andere Identifikationsmerkmale können weiterhin Rückschlüsse auf die Person ermöglichen.
+Was bedeutet die 3-2-1-Regel bei Datensicherungen?;Drei Datenkopien einschließlich Original, zwei unterschiedliche Speichermedien und eine Kopie an einem anderen Standort.
+Was versteht man unter Systemhärtung?;Das gezielte Reduzieren von Angriffsflächen durch sichere Konfiguration, Updates und das Deaktivieren unnötiger Dienste und Zugänge.
+Was ist der Unterschied zwischen technischen und organisatorischen Maßnahmen nach Art. 32 DSGVO?;Technische Maßnahmen schützen durch Technik wie Verschlüsselung. Organisatorische Maßnahmen schützen durch Regeln und Abläufe wie Berechtigungskonzepte und Schulungen.
