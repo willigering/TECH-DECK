@@ -5,7 +5,7 @@
 #   TECHDECK_KEY_ALIAS, TECHDECK_KEY_PASSWORD
 # Repository variable:
 #   TECHDECK_SIGNING_CERT_SHA256  (expected signer, lowercase hex; currently
-#   ace2efc26d7a0bf082af006c4006459b26199f51af2192eae46c1dddb4cd2e34)
+#   0cea186bcac2a7b5874ede5d5bdf9dc4e8ed5ba876d6da7ec567278b07ee754d)
 name: Release APK
 
 on:

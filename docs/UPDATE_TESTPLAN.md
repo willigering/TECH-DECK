@@ -3,14 +3,14 @@
 Ziel: Nachweis, dass eine installierte Version **ohne Deinstallation** über den In-App-Updater aktualisiert wird und alle Daten erhalten bleiben. Muss auf einem echten Android-Gerät (oder Emulator) erfolgen.
 
 ## Voraussetzungen
-- Originalschlüssel (Zertifikat SHA-256 `ace2efc2…2e34`) auf dem Build-PC bzw. in `android/key.properties`.
+- Release-Schlüssel (Zertifikat SHA-256 `0cea186b…754d`) auf dem Build-PC bzw. in `android/key.properties`.
 - Testgerät Android 7.0+ (minSdk 24), `adb` optional.
 - Zum Testen ohne echten Release empfiehlt sich ein Fork oder ein temporärer, sofort wieder gelöschter Release – **nicht** im Produktiv-Repo veröffentlichen ohne Freigabe.
 
 ## Ablauf
-1. **Version A bauen**: Branch-Stand mit Updater, `1.7.12+23`. `flutter build apk --release`. Signatur prüfen: `apksigner verify --print-certs <apk>` → SHA-256 `ace2efc2…`.
-2. **Ausgangslage**: Auf dem Gerät ist 1.7.11+22 aus dem bestehenden GitHub-Release installiert. Daten anlegen: eine CSV importieren, ein Thema farbig/wichtig markieren, einige Karten lernen, Theme auf „Midnight / Silver“ stellen, Willkommen ausblenden.
-3. **A über 1.7.11 installieren** (ohne Deinstallation): APK aufs Gerät kopieren und öffnen oder `adb install -r`. Erwartung: „Aktualisieren“, kein Konflikt. Alle Daten aus Schritt 2 vorhanden.
+1. **Version A bauen**: Branch-Stand mit Updater, `1.7.12+23`. `flutter build apk --release`. Signatur prüfen: `apksigner verify --print-certs <apk>` → SHA-256 `0cea186b…`.
+2. **Ausgangslage**: 1.7.11 deinstallieren (anderer Schlüssel), 1.7.12+23 installieren. Daten anlegen: eine CSV importieren, ein Thema farbig/wichtig markieren, einige Karten lernen, Theme auf „Midnight / Silver“ stellen, Willkommen ausblenden.
+3. Daten aus Schritt 2 in 1.7.12 anlegen.
 4. **Version B bauen**: `1.7.13+24` (pubspec + AppInfo + Versionshinweise), gleicher Schlüssel, `tool/update_metadata.py` ausführen.
 5. **B bereitstellen**: als stabilen (nicht Pre-)Release `v1.7.13` mit APK, `techdeck-update.json`, `SHA256SUMS` im Test-Repo veröffentlichen.
 6. **Updateprüfung**: In A *Einstellungen → SOFTWARE UPDATES → JETZT NACH UPDATES SUCHEN*. Erwartung: Dialog „SYSTEM UPDATE AVAILABLE“, Installiert 1.7.12, Verfügbar 1.7.13, Release Notes als Klartext.

@@ -99,7 +99,7 @@ NotebookLM kann die erzeugten Lernkarten als CSV herunterladen. Prüfe die Datei
 
 ## Aktuelle Version
 
-**1.7.10+21**
+**1.7.12+23**
 
 ## Starten
 
@@ -149,28 +149,28 @@ Der Workflow bricht ab, wenn `pubspec.yaml` und `AppInfo` nicht übereinstimmen.
 
 ### Signierung (wichtig)
 
-Alle bisher veröffentlichten APKs (bis 1.7.11+22) sind mit dem **lokalen Android-Debug-Schlüssel des Entwickler-PCs** signiert:
+**Schlüsselwechsel ab 1.7.12:** Bis 1.7.11+22 wurden die APKs mit dem lokalen Android-Debug-Schlüssel signiert (`ace2efc2…2e34`). Dieser Schlüssel war nicht mehr verfügbar. Ab **1.7.12+23** wird mit dem dauerhaften Release-Schlüssel `techdeck-release` signiert:
 
 ```
-CN=Android Debug, O=Android, C=US · RSA 2048 · APK Signature Scheme v2
-Zertifikat SHA-256: ace2efc26d7a0bf082af006c4006459b26199f51af2192eae46c1dddb4cd2e34
+CN=Willi Gering, O=TECH//DECK, C=DE · RSA 4096 · Alias techdeck
+Zertifikat SHA-256: 0cea186bcac2a7b5874ede5d5bdf9dc4e8ed5ba876d6da7ec567278b07ee754d
 ```
 
-Android installiert ein Update nur, wenn es mit **genau diesem Schlüssel** signiert ist. Jeder andere Rechner (auch GitHub Actions) erzeugt einen anderen Debug-Schlüssel – solche APKs ließen sich nur nach einer Deinstallation (= Datenverlust) installieren. Deshalb:
+**Einmalige Neuinstallation:** Android akzeptiert 1.7.12 nicht als Update über 1.7.11 (anderer Schlüssel). Nutzer müssen 1.7.11 **einmalig deinstallieren** und 1.7.12 neu installieren. Dabei gehen lokale Daten verloren (importierte CSV-Karteien, Lernfortschritt, Markierungen, Einstellungen) – eigene CSV-Dateien vorher sichern. Ab 1.7.12 funktionieren alle weiteren Updates über den In-App-Updater ohne Deinstallation.
 
-- Den Keystore `%USERPROFILE%\.android\debug.keystore` (Windows) bzw. `~/.android/debug.keystore` **sichern** und nie löschen. Prüfen: `keytool -list -v -keystore debug.keystore -storepass android` → SHA256 muss oben stehendem Wert entsprechen. Standardwerte des Debug-Keystores: Passwort `android`, Alias `androiddebugkey`, Key-Passwort `android`.
-- Lokal: `android/key.properties` (git-ignoriert) mit `storeFile=`, `storePassword=`, `keyAlias=`, `keyPassword=` anlegen – oder ohne Datei weiterhin auf genau diesem PC bauen (bisheriges Verhalten).
-- Niemals Keystore oder Passwörter committen.
+- Release-Builds **schlagen fehl**, wenn kein Release-Schlüssel konfiguriert ist; es gibt keinen Debug-Fallback mehr.
+- Lokal: `android/key.properties` (git-ignoriert) mit `storeFile=`, `storePassword=`, `keyAlias=`, `keyPassword=`.
+- Keystore und Passwörter sicher **offline sichern** (Verlust = erneute Zwangs-Neuinstallation für alle Nutzer). Niemals committen.
 
 ### Erforderliche GitHub Secrets / Variablen
 
 | Name | Art | Inhalt |
 | --- | --- | --- |
-| `TECHDECK_KEYSTORE_BASE64` | Secret | `base64 -w0 debug.keystore` (bzw. `certutil -encode`) |
+| `TECHDECK_KEYSTORE_BASE64` | Secret | `base64 -w0 techdeck-release.jks` |
 | `TECHDECK_KEYSTORE_PASSWORD` | Secret | Keystore-Passwort |
 | `TECHDECK_KEY_ALIAS` | Secret | Alias |
 | `TECHDECK_KEY_PASSWORD` | Secret | Key-Passwort |
-| `TECHDECK_SIGNING_CERT_SHA256` | Variable | `ace2efc26d7a0bf082af006c4006459b26199f51af2192eae46c1dddb4cd2e34` |
+| `TECHDECK_SIGNING_CERT_SHA256` | Variable | `0cea186bcac2a7b5874ede5d5bdf9dc4e8ed5ba876d6da7ec567278b07ee754d` |
 
 ### Release-Verfahren
 
@@ -185,7 +185,7 @@ Manuell ohne Workflow: `flutter build apk --release`, danach `python3 tool/updat
 
 - Pro Release eine universelle APK `TECH-DECK-<version>+<build>.apk` (optional ABI-Splits `…-arm64-v8a.apk` usw.; der Updater wählt die passende).
 - Release muss *veröffentlicht* und *kein Pre-Release* sein. Hinweis: Der aktuelle Release `v.1.7.11` ist als Pre-Release markiert.
-- Versionen vor dem Updater (≤ 1.7.11) enthalten ihn noch nicht: Die erste Version mit Updater muss einmal manuell über die vorhandene App installiert werden (ohne Deinstallation, sofern mit dem Originalschlüssel signiert).
+- Versionen vor dem Updater (≤ 1.7.11) enthalten ihn noch nicht und sind anders signiert: 1.7.12 muss einmalig nach Deinstallation manuell installiert werden (siehe Signierung).
 
 ### Fehlerbehebung
 

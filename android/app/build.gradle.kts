@@ -14,7 +14,9 @@ plugins {
 //   1. Environment (CI): TECHDECK_KEYSTORE_PATH, TECHDECK_KEYSTORE_PASSWORD,
 //      TECHDECK_KEY_ALIAS, TECHDECK_KEY_PASSWORD
 //   2. android/key.properties (git-ignored): storeFile, storePassword, keyAlias, keyPassword
-//   3. Fallback: unchanged previous behaviour (local debug keystore).
+//   No fallback: release builds FAIL without the release key (never debug-signed).
+// Since 1.7.12 the release key is techdeck-release (cert SHA-256
+// 0cea186bcac2a7b5874ede5d5bdf9dc4e8ed5ba876d6da7ec567278b07ee754d).
 val keyProperties = Properties().apply {
     val f = rootProject.file("key.properties")
     if (f.isFile) f.inputStream().use { load(it) }
@@ -58,13 +60,8 @@ android {
 
     buildTypes {
         release {
-            // Without a configured key the previous behaviour is kept: the
-            // local debug keystore. The release workflow verifies the resulting
-            // certificate fingerprint and refuses to publish on mismatch.
-            signingConfig = if (hasReleaseKey) {
-                signingConfigs.getByName("techdeck")
-            } else {
-                signingConfigs.getByName("debug")
+            if (hasReleaseKey) {
+                signingConfig = signingConfigs.getByName("techdeck")
             }
         }
     }
@@ -86,7 +83,14 @@ val apkBuildNumber = flutter.versionCode
 val releaseApkDirectory = layout.buildDirectory.dir("outputs/apk/release")
 val namedApkDirectory = layout.buildDirectory.dir("outputs/flutter-apk")
 
-tasks.matching { it.name == "assembleRelease" }.configureEach {
+tasks.matching { it.name == "assembleRelease" || it.name == "bundleRelease" }.configureEach {
+    doFirst {
+        if (!hasReleaseKey) {
+            throw GradleException(
+                "TECH//DECK: Release-Signierschlüssel fehlt (TECHDECK_KEYSTORE_PATH oder android/key.properties). Kein Debug-Fallback.",
+            )
+        }
+    }
     doLast {
         val destination = namedApkDirectory.get().asFile
         destination.mkdirs()
