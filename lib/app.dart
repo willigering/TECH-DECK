@@ -7,6 +7,7 @@ import 'core/theme.dart';
 import 'state/deck_controller.dart';
 import 'state/theme_controller.dart';
 import 'state/welcome_controller.dart';
+import 'update/update_controller.dart';
 import 'ui/screens/shell.dart';
 
 class TechDeckApp extends StatelessWidget {
@@ -19,6 +20,7 @@ class TechDeckApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => DeckController()..load()),
         ChangeNotifierProvider(create: (_) => ThemeController()..load()),
         ChangeNotifierProvider(create: (_) => WelcomeController()..load()),
+        ChangeNotifierProvider(create: (_) => UpdateController()..load()),
       ],
       child: Consumer<ThemeController>(
         builder: (context, themes, _) {

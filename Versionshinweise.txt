@@ -2,10 +2,14 @@
   RELEASE NOTES / VERSIONSHINWEISE
   App:        TECH//DECK
   Entwickler: Willi Gering
-  Stand:      2026-09-28
+  Stand:      2026-10-29
 ================================================================================
 
-Aktuelle Version: 1.7.4 (Build 15) - 2026-09-28
+Aktuelle Version: 1.7.12 (Build 23) - 2026-10-29
+
+v1.7.12 (Build 23) - 2026-10-29
+- Neu: Automatische Updates über GitHub Releases (Einstellungen → SOFTWARE UPDATES)
+- Neuer dauerhafter Signierschlüssel: einmalige Neuinstallation nötig (vorher Daten sichern)
 
 v1.7.4 (Build 15) - 2026-09-28
 - Kartendecks farblich und als wichtig markieren (lange drücken)
