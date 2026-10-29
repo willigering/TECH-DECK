@@ -121,3 +121,80 @@ Die APK liegt unter `build/app/outputs/flutter-apk/`. Zusätzlich zur Flutter-St
 ## ~~KI-Distraktoren~~ — In Entwicklung
 
 > **Noch nicht in TECH//DECK implementiert.** Diese Funktion ist für eine zukünftige Version vorgesehen. Der aktuelle Lernmodus benötigt ausschließlich Frage und Antwort.
+
+## Auto-Update-System
+
+TECH//DECK aktualisiert sich selbst über **GitHub Releases** von `willigering/TECH-DECK` – ohne Play Store.
+
+### Funktionsweise
+
+1. **Prüfung beim Start** (`lib/update/update_controller.dart`): nach dem ersten Frame, asynchron, blockiert den Start nicht. Höchstens **einmal in 24 Stunden** (nach einem Fehlschlag frühestens nach 6 Stunden erneut), nur wenn eine Netzverbindung besteht. Abschaltbar unter *Einstellungen → SOFTWARE UPDATES*. Die manuelle Prüfung („JETZT NACH UPDATES SUCHEN“) ist jederzeit möglich.
+2. **Quelle**: `GET https://api.github.com/repos/willigering/TECH-DECK/releases/latest`. Dieser Endpunkt liefert ausschließlich den neuesten **veröffentlichten, stabilen** Release – Entwürfe und Pre-Releases werden nie angeboten. Antworten werden mit ETag zwischengespeichert (`304 Not Modified` zählt nicht gegen das API-Limit von 60 Anfragen/Stunde ohne Login).
+3. **Metadaten**: Jeder neue Release enthält `techdeck-update.json` (Paketkennung, `versionName`, `versionCode`, `minSdk`, Signatur-Fingerprint, APK-Liste mit Größe, ABI und SHA-256) sowie `SHA256SUMS`. Ältere Releases ohne Metadaten werden über den von GitHub selbst berechneten Asset-Digest abgesichert.
+4. **Versionsvergleich**: Ein Update wird nur angeboten, wenn `versionCode` **größer** ist als der installierte (gelesen aus dem Android-PackageManager, nicht aus Konstanten) und `versionName` nicht kleiner ist. Tag, Metadaten und GitHub-Asset müssen übereinstimmen, sonst wird abgebrochen. `minSdk` wird mit der Android-Version des Geräts verglichen, bei mehreren APKs wird die passende ABI-Variante gewählt.
+5. **Download**: nur HTTPS, nur `github.com` / GitHub-Asset-CDN, Weiterleitungen werden einzeln geprüft. Fortschritt in % und MB, abbrechbar, Speicherplatzprüfung, Größen- und SHA-256-Prüfung. Die Datei liegt nur im app-privaten Cache (`cache/updates`); Teil- und Fehldownloads werden gelöscht. „Nur über WLAN herunterladen“ ist standardmäßig aktiv.
+6. **Authentizität**: Prüfsummen allein beweisen nichts. Vor der Installation liest Android die heruntergeladene APK selbst aus (`PackageManager.getPackageArchiveInfo`): Paketkennung muss `com.willigering.tech_deck` sein, `versionCode` muss höher sein (kein Downgrade) und zu den Metadaten passen, `minSdk` muss passen, und das **Signaturzertifikat muss identisch mit dem der installierten App** sein. Nur dann wird der Installer geöffnet. Android erzwingt dieselbe Regel zusätzlich selbst.
+7. **Installation**: über die offizielle `PackageInstaller`-Session-API (`MainActivity.kt`). Die APK wird direkt in die Session gestreamt – es wird kein Dateipfad an andere Apps freigegeben, ein FileProvider ist deshalb nicht nötig. Android zeigt immer seinen eigenen Bestätigungsdialog; es gibt keine stille Installation und kein Root. Einzige neue Berechtigung: `REQUEST_INSTALL_PACKAGES`. Fehlt die Freigabe „Unbekannte Apps installieren“, öffnet die App die passende Systemseite und erklärt den Schritt.
+8. **Benutzerdaten**: Ein Update ersetzt die Installation (gleiche Paketkennung, gleicher Schlüssel). SQLite-Datenbank (importierte CSV-Karteien, eigene Themen, Lernfortschritt, Markierungen) und SharedPreferences (Einstellungen, Theme) bleiben unverändert – der Updater legt nur eigene `update_*`-Schlüssel an.
+
+### Versionsverwaltung
+
+Für jeden Release **beide** Stellen anheben, `versionCode` (Zahl hinter `+`) immer um mindestens 1:
+
+- `pubspec.yaml`: `version: 1.7.12+23`
+- `lib/core/app_info.dart`: `version = '1.7.12'`, `buildNumber = 23`
+- `Versionshinweise.txt`: neuer Abschnitt `v1.7.12 (Build 23) - Datum` (wird als Release Notes übernommen)
+
+Der Workflow bricht ab, wenn `pubspec.yaml` und `AppInfo` nicht übereinstimmen.
+
+### Signierung (wichtig)
+
+Alle bisher veröffentlichten APKs (bis 1.7.11+22) sind mit dem **lokalen Android-Debug-Schlüssel des Entwickler-PCs** signiert:
+
+```
+CN=Android Debug, O=Android, C=US · RSA 2048 · APK Signature Scheme v2
+Zertifikat SHA-256: ace2efc26d7a0bf082af006c4006459b26199f51af2192eae46c1dddb4cd2e34
+```
+
+Android installiert ein Update nur, wenn es mit **genau diesem Schlüssel** signiert ist. Jeder andere Rechner (auch GitHub Actions) erzeugt einen anderen Debug-Schlüssel – solche APKs ließen sich nur nach einer Deinstallation (= Datenverlust) installieren. Deshalb:
+
+- Den Keystore `%USERPROFILE%\.android\debug.keystore` (Windows) bzw. `~/.android/debug.keystore` **sichern** und nie löschen. Prüfen: `keytool -list -v -keystore debug.keystore -storepass android` → SHA256 muss oben stehendem Wert entsprechen. Standardwerte des Debug-Keystores: Passwort `android`, Alias `androiddebugkey`, Key-Passwort `android`.
+- Lokal: `android/key.properties` (git-ignoriert) mit `storeFile=`, `storePassword=`, `keyAlias=`, `keyPassword=` anlegen – oder ohne Datei weiterhin auf genau diesem PC bauen (bisheriges Verhalten).
+- Niemals Keystore oder Passwörter committen.
+
+### Erforderliche GitHub Secrets / Variablen
+
+| Name | Art | Inhalt |
+| --- | --- | --- |
+| `TECHDECK_KEYSTORE_BASE64` | Secret | `base64 -w0 debug.keystore` (bzw. `certutil -encode`) |
+| `TECHDECK_KEYSTORE_PASSWORD` | Secret | Keystore-Passwort |
+| `TECHDECK_KEY_ALIAS` | Secret | Alias |
+| `TECHDECK_KEY_PASSWORD` | Secret | Key-Passwort |
+| `TECHDECK_SIGNING_CERT_SHA256` | Variable | `ace2efc26d7a0bf082af006c4006459b26199f51af2192eae46c1dddb4cd2e34` |
+
+### Release-Verfahren
+
+1. Version anheben (siehe oben), committen, nach `main` mergen.
+2. Einmalig: `tool/github-workflows/release-apk.yml` nach `.github/workflows/release-apk.yml` verschieben (der Workflow liegt vorerst dort, weil der Push-Token keine `workflow`-Berechtigung hatte). Danach *Actions → Release APK → Run workflow* (nur manuell startbar). Der Workflow: `pub get` → `flutter analyze` → `flutter test` → Versionsabgleich → signierter Release-Build → **Fingerprint-Prüfung** (Abbruch, wenn nicht der Originalschlüssel) → `TECH-DECK-<version>+<build>.apk`, `techdeck-update.json`, `SHA256SUMS` als Artefakt.
+3. Optional „Entwurfs-Release anlegen“ ankreuzen: es entsteht ein **Draft**-Release mit Tag `v<version>`. Nichts wird automatisch veröffentlicht.
+4. Draft prüfen, APK manuell testen (siehe `docs/UPDATE_TESTPLAN.md`), dann **veröffentlichen, nicht als Pre-Release markieren** – erst dann sehen die Apps das Update.
+
+Manuell ohne Workflow: `flutter build apk --release`, danach `python3 tool/update_metadata.py <ordner> build/app/outputs/flutter-apk/TECH-DECK-*.apk` (benötigt `aapt2` und `apksigner` aus den Android build-tools) und APK + `techdeck-update.json` + `SHA256SUMS` an den Release hängen.
+
+### APK-Verteilung
+
+- Pro Release eine universelle APK `TECH-DECK-<version>+<build>.apk` (optional ABI-Splits `…-arm64-v8a.apk` usw.; der Updater wählt die passende).
+- Release muss *veröffentlicht* und *kein Pre-Release* sein. Hinweis: Der aktuelle Release `v.1.7.11` ist als Pre-Release markiert.
+- Versionen vor dem Updater (≤ 1.7.11) enthalten ihn noch nicht: Die erste Version mit Updater muss einmal manuell über die vorhandene App installiert werden (ohne Deinstallation, sofern mit dem Originalschlüssel signiert).
+
+### Fehlerbehebung
+
+| Meldung / Symptom | Ursache / Lösung |
+| --- | --- |
+| „App nicht installiert“ / „Paket steht in Konflikt“ | APK mit anderem Schlüssel signiert. Mit dem Originalschlüssel neu bauen. **Nicht** deinstallieren lassen. |
+| „GitHub-API-Limit erreicht“ | 60 Anfragen/h pro IP überschritten; später erneut versuchen. |
+| Kein Update gefunden, obwohl Release existiert | Release ist Draft/Pre-Release, `versionCode` nicht erhöht, `minSdk` zu hoch oder `techdeck-update.json` fehlt/passt nicht zum Tag. |
+| „SHA-256-Prüfsumme stimmt nicht“ | Download beschädigt oder Asset ersetzt; Asset neu hochladen und Metadaten neu erzeugen. |
+| „Download nur über WLAN erlaubt“ | Einstellung „Nur über WLAN herunterladen“ deaktivieren oder WLAN nutzen. |
+| Installer öffnet sich nicht | „Unbekannte Apps installieren“ für TECH//DECK erlauben, erneut tippen. |
+| Workflow bricht bei „Verify signer“ ab | Secrets enthalten nicht den Originalschlüssel – gewollt, damit kein inkompatibles APK entsteht. |

@@ -1,8 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../state/deck_controller.dart';
 import '../../state/welcome_controller.dart';
+import '../../update/update_controller.dart';
+import '../widgets/update_dialog.dart';
 import '../widgets/pcb_background.dart';
 import 'instructions_screen.dart';
 import 'settings_screen.dart';
@@ -19,6 +23,42 @@ class MainShell extends StatefulWidget {
 class _MainShellState extends State<MainShell> {
   int _index = 0;
   final _mainNavigatorKey = GlobalKey<NavigatorState>();
+  bool _updateDialogOpen = false;
+  UpdateController? _updates;
+  WelcomeController? _welcome;
+
+  @override
+  void dispose() {
+    _updates?.removeListener(_maybeShowUpdate);
+    _welcome?.removeListener(_maybeShowUpdate);
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    // Background update check after the first frame; never blocks start-up.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final updates = context.read<UpdateController?>();
+      if (updates == null) return;
+      _updates = updates;
+      _welcome = context.read<WelcomeController?>();
+      updates.addListener(_maybeShowUpdate);
+      _welcome?.addListener(_maybeShowUpdate);
+      unawaited(updates.autoCheckOnStart());
+    });
+  }
+
+  void _maybeShowUpdate() {
+    if (!mounted || _updateDialogOpen) return;
+    final updates = context.read<UpdateController>();
+    final welcome = context.read<WelcomeController>();
+    if (!updates.promptPending || welcome.loading || welcome.visible) return;
+    updates.consumePrompt();
+    _updateDialogOpen = true;
+    showUpdateDialog(context).whenComplete(() => _updateDialogOpen = false);
+  }
 
   Widget _tabNav(Widget child, {Key? key}) => Navigator(
     key: key,

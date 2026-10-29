@@ -1,8 +1,28 @@
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
     id("dev.flutter.flutter-gradle-plugin")
 }
+
+// Release signing (see README, "Auto-Update-System > Signierung").
+// Published APKs up to 1.7.11 are signed with the developer's *local* Android
+// debug keystore (CN=Android Debug, cert SHA-256 ace2efc2...2e34). Updates are
+// only installable over them when the very same key is used again.
+// Source of the key, in this order:
+//   1. Environment (CI): TECHDECK_KEYSTORE_PATH, TECHDECK_KEYSTORE_PASSWORD,
+//      TECHDECK_KEY_ALIAS, TECHDECK_KEY_PASSWORD
+//   2. android/key.properties (git-ignored): storeFile, storePassword, keyAlias, keyPassword
+//   3. Fallback: unchanged previous behaviour (local debug keystore).
+val keyProperties = Properties().apply {
+    val f = rootProject.file("key.properties")
+    if (f.isFile) f.inputStream().use { load(it) }
+}
+fun signingValue(env: String, prop: String): String? =
+    System.getenv(env)?.takeIf { it.isNotBlank() } ?: keyProperties.getProperty(prop)
+val releaseStoreFile = signingValue("TECHDECK_KEYSTORE_PATH", "storeFile")
+val hasReleaseKey = releaseStoreFile != null && file(releaseStoreFile).isFile
 
 android {
     namespace = "com.willigering.tech_deck"
@@ -25,11 +45,27 @@ android {
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        if (hasReleaseKey) {
+            create("techdeck") {
+                storeFile = file(releaseStoreFile!!)
+                storePassword = signingValue("TECHDECK_KEYSTORE_PASSWORD", "storePassword")
+                keyAlias = signingValue("TECHDECK_KEY_ALIAS", "keyAlias")
+                keyPassword = signingValue("TECHDECK_KEY_PASSWORD", "keyPassword")
+            }
+        }
+    }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+            // Without a configured key the previous behaviour is kept: the
+            // local debug keystore. The release workflow verifies the resulting
+            // certificate fingerprint and refuses to publish on mismatch.
+            signingConfig = if (hasReleaseKey) {
+                signingConfigs.getByName("techdeck")
+            } else {
+                signingConfigs.getByName("debug")
+            }
         }
     }
 }

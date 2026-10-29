@@ -1,0 +1,111 @@
+# TECH//DECK release build. Runs ONLY when started manually (workflow_dispatch).
+# It creates a *draft* GitHub release; publishing stays a manual click.
+# Required secrets (see README "Auto-Update-System"):
+#   TECHDECK_KEYSTORE_BASE64, TECHDECK_KEYSTORE_PASSWORD,
+#   TECHDECK_KEY_ALIAS, TECHDECK_KEY_PASSWORD
+# Repository variable:
+#   TECHDECK_SIGNING_CERT_SHA256  (expected signer, lowercase hex; currently
+#   ace2efc26d7a0bf082af006c4006459b26199f51af2192eae46c1dddb4cd2e34)
+name: Release APK
+
+on:
+  workflow_dispatch:
+    inputs:
+      create_draft_release:
+        description: "Entwurfs-Release auf GitHub anlegen (wird NICHT veröffentlicht)"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-apk
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Refuse to run without the original signing key
+        env:
+          KS: ${{ secrets.TECHDECK_KEYSTORE_BASE64 }}
+          EXPECTED: ${{ vars.TECHDECK_SIGNING_CERT_SHA256 }}
+        run: |
+          if [ -z "$KS" ] || [ -z "$EXPECTED" ]; then
+            echo "::error::Signierschlüssel oder erwarteter Zertifikat-Fingerprint fehlt. Kein Release."
+            exit 1
+          fi
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Dependencies
+        run: flutter pub get
+
+      - name: Static analysis
+        run: flutter analyze
+
+      - name: Tests
+        run: flutter test
+
+      - name: Version consistency
+        run: |
+          V=$(grep '^version:' pubspec.yaml | awk '{print $2}')
+          NAME=${V%+*}; CODE=${V#*+}
+          grep -q "version = '$NAME'" lib/core/app_info.dart || { echo "::error::AppInfo.version != $NAME"; exit 1; }
+          grep -q "buildNumber = $CODE;" lib/core/app_info.dart || { echo "::error::AppInfo.buildNumber != $CODE"; exit 1; }
+          echo "NAME=$NAME" >> "$GITHUB_ENV"; echo "CODE=$CODE" >> "$GITHUB_ENV"
+
+      - name: Signed release build
+        env:
+          KS: ${{ secrets.TECHDECK_KEYSTORE_BASE64 }}
+          TECHDECK_KEYSTORE_PASSWORD: ${{ secrets.TECHDECK_KEYSTORE_PASSWORD }}
+          TECHDECK_KEY_ALIAS: ${{ secrets.TECHDECK_KEY_ALIAS }}
+          TECHDECK_KEY_PASSWORD: ${{ secrets.TECHDECK_KEY_PASSWORD }}
+        run: |
+          export TECHDECK_KEYSTORE_PATH="$RUNNER_TEMP/techdeck.keystore"
+          echo "$KS" | base64 -d > "$TECHDECK_KEYSTORE_PATH"
+          flutter build apk --release
+          rm -f "$TECHDECK_KEYSTORE_PATH"
+
+      - name: Verify signer, collect artifacts, metadata and checksums
+        env:
+          EXPECTED: ${{ vars.TECHDECK_SIGNING_CERT_SHA256 }}
+        run: |
+          BT=$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)
+          export PATH="$BT:$PATH"
+          mkdir -p dist
+          cp "build/app/outputs/flutter-apk/TECH-DECK-$NAME+$CODE.apk" dist/
+          ACTUAL=$(apksigner verify --print-certs dist/*.apk | sed -n 's/.*certificate SHA-256 digest: //p' | sort -u)
+          if [ "$ACTUAL" != "$EXPECTED" ]; then
+            echo "::error::APK ist mit $ACTUAL signiert, erwartet $EXPECTED. Dieses APK könnte bestehende Installationen nicht aktualisieren. Abbruch."
+            exit 1
+          fi
+          python3 tool/update_metadata.py dist dist/*.apk
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: TECH-DECK-${{ env.NAME }}+${{ env.CODE }}
+          path: dist/
+
+      - name: Draft release (not published)
+        if: ${{ inputs.create_draft_release }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="v$NAME"
+          NOTES=$(awk -v v="v$NAME" 'index($0, v" ")==1{f=1;next} /^v[0-9]/{if(f)exit} f' Versionshinweise.txt)
+          [ -n "$NOTES" ] || NOTES="TECH//DECK $NAME"
+          gh release create "$TAG" dist/* --draft --title "TECH//DECK $NAME" --notes "$NOTES" --target "$GITHUB_SHA"
