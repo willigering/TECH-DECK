@@ -2,6 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 
+import '../core/topic_catalog.dart';
+import 'deck_navigation_store.dart';
 import '../data/csv/csv_importer.dart';
 import '../data/models/flashcard.dart';
 import '../data/models/topic.dart';
@@ -13,10 +15,60 @@ class DeckController extends ChangeNotifier {
 
   final DeckRepository _repo;
   Timer? _newBadgeTimer;
+  final _navigation = DeckNavigationStore();
+  TopicCatalog? _catalog;
+  Future<Map<String, String>>? _searchIndex;
+  TopicCatalog get catalog => _catalog!;
+  List<Topic> get favoriteTopics =>
+      _topics.where((topic) => isFavorite(topic.id)).toList();
+  List<Topic> get recentTopics => [
+    for (final id in _navigation.recent)
+      if (topicById(id) case final Topic topic) topic,
+  ];
+  bool isFavorite(String id) => _navigation.favorites.contains(id);
+  String? categoryOverride(String id) => _navigation.categories[id];
+  TopicCategory categoryFor(Topic topic) =>
+      catalog.categoryFor(topic, overrideId: categoryOverride(topic.id));
+
+  Future<void> toggleFavorite(String id) async {
+    if (!_navigation.favorites.remove(id)) _navigation.favorites.add(id);
+    notifyListeners();
+    await _navigation.save();
+  }
+
+  Future<void> assignCategory(String id, String? categoryId) async {
+    if (categoryId == null) {
+      _navigation.categories.remove(id);
+    } else {
+      _navigation.categories[id] = categoryId;
+    }
+    notifyListeners();
+    await _navigation.save();
+  }
+
+  Future<Set<String>> searchTopicIds(String query) async {
+    try {
+      final index = await (_searchIndex ??= _repo.loadTopicSearchIndex());
+      return {
+        for (final topic in _topics)
+          if (catalog.matches(
+            topic,
+            categoryFor(topic),
+            query,
+            index[topic.id] ?? '',
+          ))
+            topic.id,
+      };
+    } catch (_) {
+      _searchIndex = null;
+      rethrow;
+    }
+  }
 
   void _scheduleNewBadgeExpiry() {
     _newBadgeTimer?.cancel();
-    final deadlines = _topics.where((t) => t.isNew).map((t) => t.newUntil!).toList()..sort();
+    final deadlines =
+        _topics.where((t) => t.isNew).map((t) => t.newUntil!).toList()..sort();
     if (deadlines.isEmpty) return;
     final delay = deadlines.first.difference(DateTime.now());
     _newBadgeTimer = Timer(delay.isNegative ? Duration.zero : delay, () {
@@ -56,7 +108,10 @@ class DeckController extends ChangeNotifier {
     _error = null;
     notifyListeners();
     try {
+      _catalog ??= await TopicCatalog.load();
+      await _navigation.load();
       await _repo.ensureBundledTopics();
+      _searchIndex = null;
       _topics = await _repo.loadTopics();
       _scheduleNewBadgeExpiry();
       if (_selectedTopicId != null &&
@@ -72,6 +127,8 @@ class DeckController extends ChangeNotifier {
   }
 
   Future<void> markTopicOpened(String id) async {
+    await _navigation.recordOpened(id);
+    notifyListeners();
     if (topicById(id)?.isNew != true) return;
     await _repo.dismissNewBadge(id);
     _topics = await _repo.loadTopics();

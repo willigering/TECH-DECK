@@ -79,6 +79,23 @@ class DeckRepository {
     return rows.map(Flashcard.fromMap).toList();
   }
 
+  /// Read once per content load for searching terms inside questions/answers.
+  Future<Map<String, String>> loadTopicSearchIndex() async {
+    final rows = await (await _db).query(
+      'cards',
+      columns: ['topic_id', 'question', 'answer'],
+    );
+    final buffers = <String, StringBuffer>{};
+    for (final row in rows) {
+      final buffer = buffers.putIfAbsent(
+        row['topic_id'] as String,
+        () => StringBuffer(),
+      );
+      buffer.writeln('${row['question']} ${row['answer']}');
+    }
+    return buffers.map((id, buffer) => MapEntry(id, buffer.toString()));
+  }
+
   Future<Flashcard?> getCard(String id) async {
     final db = await _db;
     final rows = await db.query('cards', where: 'id = ?', whereArgs: [id]);

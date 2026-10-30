@@ -11,7 +11,10 @@ Mitgeliefert sind **22 Decks** mit unterschiedlichen Kartenanzahlen. Dazu gehör
 ## Funktionen
 
 - Ausschließlich CSV-Import (UTF-8, Umlaute und Anführungszeichen); mehrere Dateien gleichzeitig
-- Themenübersicht in Importreihenfolge
+- Aufklappbare Fachkategorien mit Kartenanzahlen; innerhalb der Kategorien bleibt die bisherige Reihenfolge erhalten
+- Suche nach Kategorien, Decknamen, Dateinamen sowie Begriffen in Fragen und Antworten
+- Schnellzugriffe für Favoriten (Lesezeichen), die fünf zuletzt geöffneten Decks und wichtige Decks
+- Fachkategorie bei Bedarf per Langdruck auswählen; automatische Regeln in `assets/navigation/categories.json`
 - Lernmodus mit echter Card-Flip-Animation
 - ~~Quizmodus~~ — **in Entwicklung, aktuell nicht in der App verfügbar**
 - Lernmodus zeigt nur die korrekte Lösung, keine Distraktoren
@@ -21,6 +24,16 @@ Mitgeliefert sind **22 Decks** mit unterschiedlichen Kartenanzahlen. Dazu gehör
 - Drei Designs: Dark/Gold, Light/Gold und Midnight/Silver
 - Statischer Platinenhintergrund ohne laufende Animation
 - Neue mitgelieferte Decks sind orange und mit „Neu“ gekennzeichnet. Die Markierung verschwindet beim ersten Öffnen, beim Farbwechsel, beim Markieren als wichtig oder spätestens sieben Tage nach dem ersten Start der Version.
+
+## Kategorienavigation
+
+Unter **Lernen → Thema wählen** öffnet ein Tipp auf eine Fachkategorie die enthaltenen Kartensätze; ein weiterer Tipp klappt sie ein. Die Überschrift zeigt Kartensatz- und Kartenanzahl, jedes Deck seine eigene Kartenanzahl. Lange Namen werden umgebrochen. Eine Suche öffnet passende Gruppen automatisch; nach dem Löschen der Suche gilt wieder der zuvor gewählte Aufklappzustand. Während einer Suche beziehen sich die angezeigten Gruppenzahlen auf die Treffer.
+
+**Favoriten** werden über das Lesezeichen am Deck gesetzt. **Wichtig** bleibt die bestehende Sternmarkierung im Langdruck-Menü. **Zuletzt** zeigt bis zu fünf erfolgreich geöffnete Decks, neuestes zuerst; diese Liste beginnt mit der ersten Nutzung dieser Navigation. Alle Schnellfilter berücksichtigen auch den Suchtext.
+
+Die automatische Zuordnung prüft die Schlagwörter in `assets/navigation/categories.json` in ihrer Reihenfolge. Nicht erkannte Namen landen unter **Weitere Themen**. Im Langdruck-Menü lässt sich eine Kategorie fest zuweisen oder wieder auf **Automatisch zuordnen** zurücksetzen. Neue Fachgebiete und Schlagwörter erfordern nur eine Änderung der Konfiguration, keine Anpassung des Navigationswidgets. Bestehende Deck-IDs und Namen ändern sich dabei nicht.
+
+Favoriten, Kategoriezuordnungen und Verlauf liegen ausschließlich im zusätzlichen SharedPreferences-Eintrag `deck_navigation_v1`. Bestehende Farb- und Wichtig-Markierungen bleiben in SQLite; Datenbankschema und gebündelte Inhaltsrevision bleiben unverändert. Ein Downgrade auf die bisherige Oberfläche ignoriert den zusätzlichen Einstellungseintrag.
 
 ## Eigene Karteien erstellen
 
@@ -99,7 +112,7 @@ NotebookLM kann die erzeugten Lernkarten als CSV herunterladen. Prüfe die Datei
 
 ## Aktuelle Version
 
-**1.7.12+23**
+**1.7.13+24**
 
 ## Starten
 
@@ -141,15 +154,15 @@ TECH//DECK aktualisiert sich selbst über **GitHub Releases** von `willigering/T
 
 Für jeden Release **beide** Stellen anheben, `versionCode` (Zahl hinter `+`) immer um mindestens 1:
 
-- `pubspec.yaml`: `version: 1.7.12+23`
-- `lib/core/app_info.dart`: `version = '1.7.12'`, `buildNumber = 23`
-- `Versionshinweise.txt`: neuer Abschnitt `v1.7.12 (Build 23) - Datum` (wird als Release Notes übernommen)
+- `pubspec.yaml`: `version: 1.7.13+24`
+- `lib/core/app_info.dart`: `version = '1.7.13'`, `buildNumber = 24`
+- `Versionshinweise.txt`: neuer Abschnitt `v1.7.13 (Build 24) - Datum` (wird als Release Notes übernommen)
 
 Der Workflow bricht ab, wenn `pubspec.yaml` und `AppInfo` nicht übereinstimmen.
 
 ### Signierung (wichtig)
 
-**Schlüsselwechsel ab 1.7.12:** Bis 1.7.11+22 wurden die APKs mit dem lokalen Android-Debug-Schlüssel signiert (`ace2efc2…2e34`). Dieser Schlüssel war nicht mehr verfügbar. Ab **1.7.12+23** wird mit dem dauerhaften Release-Schlüssel `techdeck-release` signiert:
+**Schlüsselwechsel ab 1.7.12:** Bis 1.7.11+22 wurden die APKs mit dem lokalen Android-Debug-Schlüssel signiert (`ace2efc2…2e34`). Dieser Schlüssel war nicht mehr verfügbar. Ab **1.7.13+24** wird mit dem dauerhaften Release-Schlüssel `techdeck-release` signiert:
 
 ```
 CN=Willi Gering, O=TECH//DECK, C=DE · RSA 4096 · Alias techdeck
@@ -198,3 +211,7 @@ Manuell ohne Workflow: `flutter build apk --release`, danach `python3 tool/updat
 | „Download nur über WLAN erlaubt“ | Einstellung „Nur über WLAN herunterladen“ deaktivieren oder WLAN nutzen. |
 | Installer öffnet sich nicht | „Unbekannte Apps installieren“ für TECH//DECK erlauben, erneut tippen. |
 | Workflow bricht bei „Verify signer“ ab | Secrets enthalten nicht den Originalschlüssel – gewollt, damit kein inkompatibles APK entsteht. |
+
+## Halloween-Hintergrund
+
+Vom 24. bis 31. Oktober zeigt der Startbildschirm jährlich Lumi mit Hexenhut und Kürbis als Hintergrund. Am 1. November kehrt automatisch der normale Hintergrund zurück, auch bei App-Rückkehr aus dem Hintergrund. Logo, Texte, Buttons und Navigation behalten ihre bisherigen Positionen und Funktionen. Die Grafik enthält keine gezeichneten Bedienelemente.
