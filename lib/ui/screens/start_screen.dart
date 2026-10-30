@@ -23,6 +23,7 @@ class StartScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final deck = context.watch<DeckController>();
     final empty = !deck.loading && deck.topics.isEmpty;
+    final halloween = isHalloweenSeason(DateTime.now());
 
     return HalloweenBackground(
       child: SafeArea(
@@ -31,7 +32,7 @@ class StartScreen extends StatelessWidget {
           child: Column(
             children: [
               const BrandHeader(showLogo: true),
-              const Spacer(),
+              Spacer(flex: halloween ? 3 : 1),
               if (deck.loading)
                 CircularProgressIndicator(
                   color: Theme.of(context).colorScheme.primary,

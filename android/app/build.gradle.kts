@@ -6,7 +6,7 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
-// Release signing (see README, "Auto-Update-System > Signierung").
+// Release signing (see README, "Veröffentlichung und Updates > Signierung").
 // Published APKs up to 1.7.11 are signed with the developer's *local* Android
 // debug keystore (CN=Android Debug, cert SHA-256 ace2efc2...2e34). Updates are
 // only installable over them when the very same key is used again.

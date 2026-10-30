@@ -49,7 +49,7 @@ Umgebung: Flutter 3.47.9, Dart 3.13.7, Linux. SQLite-Integration über die reine
 
 1. Originalen Release-Schlüssel in der vorgesehenen sicheren Build-Umgebung verwenden; bei Fehlen abbrechen. Mit `apksigner verify --print-certs` denselben Fingerprint wie bei 1.7.12 nachweisen und Metadaten mit dem unveränderten Generator erzeugen.
 2. Auf Android über eine bestehende, mit dem Originalschlüssel signierte 1.7.12-Installation aktualisieren, ohne Deinstallation. Eigene CSVs, vorhandene Markierungen, Einstellungen und vorhandene Fortschrittsdaten vor/nach der Installation vergleichen.
-3. Echten PackageInstaller-/Berechtigungsablauf sowie Bedienung mit Bildschirmtastatur und langem Druck auf einem Gerät prüfen; vollständiger Ablauf auch in `docs/UPDATE_TESTPLAN.md`.
+3. Bedienung mit Bildschirmtastatur und langem Druck auf einem Gerät prüfen. Der frühere GitHub-Updater und sein PackageInstaller-Ablauf wurden für Google Play entfernt.
 4. Merge und Veröffentlichung ausschließlich nach Willis Freigabe. Die bestehende Workflow-Vorlage wurde nicht aktiviert oder ausgeführt.
 
 ## Geänderte Dateien

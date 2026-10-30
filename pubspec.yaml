@@ -19,7 +19,6 @@ dependencies:
   provider: ^6.1.5
   intl: ^0.20.2
   shared_preferences: ^2.5.3
-  crypto: ^3.0.8
 
 dev_dependencies:
   sqflite_common_ffi: ^2.4.0

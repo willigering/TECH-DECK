@@ -1,8 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <!-- Auto-Update: opens the official Android installer for verified GitHub APKs only. -->
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
     <application
         android:label="TECH//DECK"
         android:name="${applicationName}"
