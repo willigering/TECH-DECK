@@ -3,8 +3,8 @@ class AppInfo {
   static const String name = 'TECH//DECK';
   static const String tagline = 'LERNE. VERSTEHE. VERBINDE.';
   static const String developer = 'Willi Gering';
-  static const String version = '1.7.13';
-  static const int buildNumber = 24;
+  static const String version = '1.7.14';
+  static const int buildNumber = 25;
   static const String description =
       'Lernkarten-App zum Lernen, Wiederholen und Vertiefen.';
 }

@@ -5,7 +5,13 @@
   Stand:      2026-10-30
 ================================================================================
 
-Aktuelle Version: 1.7.13 (Build 24) - 2026-10-30
+Aktuelle Version: 1.7.14 (Build 25) - 2026-10-30
+
+v1.7.14 (Build 25) - 30.10.2026
+- Vorbereitung für Google Play: GitHub-Updater und APK-Installationsberechtigung entfernt.
+- Updates der Play-Ausgabe erfolgen ausschließlich über Google Play.
+- Datenschutzerklärung mit Kontakt info@geringdigital.de offline in den Einstellungen verfügbar.
+- Vorhandene Signierung, Paketkennung und Nutzerdaten bleiben erhalten.
 
 v1.7.13 (Build 24) - 30.10.2026
 - Saisonaler Halloween-Hintergrund mit Lumi vom 24. bis 31. Oktober; Startlayout unverändert.
