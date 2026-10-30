@@ -41,7 +41,6 @@ flutter:
     - assets/app_icon.png
     - assets/logo.png
     - assets/decks/
-    - assets/legal/privacy_de.txt
     - assets/navigation/categories.json
     - assets/seasonal/halloween-lumi.webp
   fonts:
