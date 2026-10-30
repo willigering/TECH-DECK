@@ -22,7 +22,7 @@ Auf ausdrücklichen Nutzerwunsch wird TECH//DECK künftig über Google Play vert
 
 ## Noch offen
 
-1. GitHub Pages über Settings → Pages → Deploy from a branch → gh-pages → /(root) aktivieren. Ziel nach erfolgreicher Bereitstellung: https://willigering.github.io/TECH-DECK/privacy.html. Vor Aktivierung ist dieser Link nicht als erreichbar bestätigt. Der `gh-pages`-Zweig enthält ausschließlich die Webseite und `.nojekyll`.
+1. GitHub Pages ist inzwischen erreichbar: https://willigering.github.io/TECH-DECK/privacy.html. Am 30.10.2026 mit HTTP 200 abgerufen; Kontaktadresse, Versionsbezug 1.7.14 und Erklärung zum entfernten Updater im ausgelieferten HTML verifiziert. Der `gh-pages`-Zweig enthält ausschließlich die Webseite und `.nojekyll`.
 2. Diesen PR nach Prüfung freigeben/mergen. Kein Merge oder Release wurde im Rahmen der Vorbereitung durchgeführt.
 3. Signiertes AAB in der sicheren Build-Umgebung mit den bestehenden Secrets bauen. Hier ist kein lokaler privater Keystore verfügbar; der Android-Release-Build und die tatsächliche Artefakt-Signatur sind nicht ausgeführt/geprüft. Keine Aussage über einen erfolgreichen Android-Installationstest.
 4. Bei erstmaligem Play App Signing vor dem ersten Upload die Schlüsselstrategie festlegen: Derselbe Upload-Schlüssel garantiert nicht dasselbe App-Signaturzertifikat der von Google ausgelieferten APK. Für eine nahtlose Übernahme bestehender GitHub-Installationen muss das bestehende App-Signaturzertifikat berücksichtigt werden. Nicht versehentlich einen unabhängigen App-Signierschlüssel erzeugen lassen.
