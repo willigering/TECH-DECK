@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 
 import '../../state/deck_controller.dart';
 import '../widgets/brand.dart';
-import '../widgets/halloween_background.dart';
 import '../widgets/gold_button.dart';
 import 'topic_picker_screen.dart';
 
@@ -24,8 +23,7 @@ class StartScreen extends StatelessWidget {
     final deck = context.watch<DeckController>();
     final empty = !deck.loading && deck.topics.isEmpty;
 
-    return HalloweenBackground(
-      child: SafeArea(
+    return SafeArea(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 24),
           child: Column(
@@ -63,7 +61,6 @@ class StartScreen extends StatelessWidget {
             ],
           ),
         ),
-      ),
     );
   }
 }
