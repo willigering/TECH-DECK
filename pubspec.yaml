@@ -43,6 +43,7 @@ flutter:
     - assets/logo.png
     - assets/decks/
     - assets/navigation/categories.json
+    - assets/seasonal/halloween-lumi.webp
   fonts:
     - family: Orbitron
       fonts:

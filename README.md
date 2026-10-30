@@ -211,3 +211,7 @@ Manuell ohne Workflow: `flutter build apk --release`, danach `python3 tool/updat
 | „Download nur über WLAN erlaubt“ | Einstellung „Nur über WLAN herunterladen“ deaktivieren oder WLAN nutzen. |
 | Installer öffnet sich nicht | „Unbekannte Apps installieren“ für TECH//DECK erlauben, erneut tippen. |
 | Workflow bricht bei „Verify signer“ ab | Secrets enthalten nicht den Originalschlüssel – gewollt, damit kein inkompatibles APK entsteht. |
+
+## Halloween-Hintergrund
+
+Vom 24. bis 31. Oktober zeigt der Startbildschirm jährlich Lumi mit Hexenhut und Kürbis als Hintergrund. Am 1. November kehrt automatisch der normale Hintergrund zurück, auch bei App-Rückkehr aus dem Hintergrund. Logo, Texte, Buttons und Navigation behalten ihre bisherigen Positionen und Funktionen. Die Grafik enthält keine gezeichneten Bedienelemente.

@@ -40,7 +40,7 @@ Damit ist die Erhaltung der bestehenden Implementierung auf Quellcode- und autom
 Umgebung: Flutter 3.47.9, Dart 3.13.7, Linux. SQLite-Integration über die reine Entwicklungsabhängigkeit `sqflite_common_ffi`.
 
 - `flutter analyze --no-pub`: keine Befunde.
-- `flutter test --no-pub --reporter expanded`: **100 Tests erfolgreich**.
+- `flutter test --no-pub --reporter expanded`: **102 Tests erfolgreich**.
 - Davon 20 neue Tests: Kategorien, automatische/manuelle Zuordnung, Suche in Titeln/Kategorien/Dateinamen/Karteninhalten, Literalbehandlung und Umlaute; Favoriten/Verlauf und gespeicherte Zuordnungen; echte SQLite-Wiederherstellung; Accordion, Langdruck/Farbe/Wichtig, Lernstart/Rückkehr, Suchlöschung/Nulltreffer; alle drei Designs bei 320×568 und 568×320 sowie 200 % Schrift und deaktivierten Animationen.
 - Bestehende Update-Tests bleiben unverändert und erfolgreich: Versionsvergleich, Release-Auswahl, falsche Paketkennung, inkompatible Signatur, manipulierte Prüfsummen, Downloadabbruch, WLAN-Regel, fehlende Installationsfreigabe und Update-Oberfläche.
 - `git diff --check`: sauber.
@@ -75,3 +75,9 @@ Umgebung: Flutter 3.47.9, Dart 3.13.7, Linux. SQLite-Integration über die reine
 | `README.md` | Bedienung und Konfiguration |
 | `Versionshinweise.txt` | Geplante Versionshinweise |
 | `docs/NAVIGATION_QA.md` | Dieser Prüfbericht |
+
+## Ergänzung: Halloween mit Lumi
+
+Reiner dekorativer Hintergrund nach der ausgewählten Lumi-Vorlage, über das eingebaute Bildgenerierungswerkzeug von Schrift und UI befreit, als WebP optimiert. Prompt: Graue BKH Lumi mit Hexenhut, Kürbis und dunklen Schaltkreisen erhalten, alle gezeichneten Texte/Buttons entfernen, oben und unten dunkle Freiflächen.
+
+Zusätzlich geändert: `lib/ui/screens/start_screen.dart`, `lib/ui/widgets/halloween_background.dart`, `assets/seasonal/halloween-lumi.webp`, `test/halloween_background_test.dart`; Assetregistrierung in `pubspec.yaml`. Saison 24.–31. Oktober, jährlich, lokale Gerätezeit. Timer am Tageswechsel und Lifecycle-Observer aktualisieren die Ansicht; keine Änderungen an Startlayout, Hit-Targets oder Navigation. Zwei zusätzliche Tests prüfen Datumsgrenzen sowie identische Button-Geometrie und Bedienbarkeit mit/ohne Hintergrund.
