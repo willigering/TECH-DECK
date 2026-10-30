@@ -110,4 +110,8 @@ v1.1.0 (Build 2) - 2026-09-03
 v1.0.0 (Build 1) - 2026-09-03
 - Erste Version: CSV-Import, Lernen, Quiz, Statistik, Offline
 
+1.7.15
+- Halloween-Hintergrund so angepasst, dass das Brand-Logo nicht mehr über dem Katzenkopf liegt.
+- Kategorienavigation als aufklappbare Accordion-Ansicht im Kartensatz-Auswahlbildschirm enthalten.
+
 --- Ende ---
