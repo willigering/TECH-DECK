@@ -37,9 +37,18 @@ class DeckRepository {
       GROUP BY t.id
       ORDER BY t.is_important DESC, t.sort_order ASC
     ''');
-    final start = int.tryParse(await _meta(db, 'new_decks_started_1.7.5+16') ?? '');
-    final deadline = start == null ? null : DateTime.fromMillisecondsSinceEpoch(start).add(const Duration(days: 7));
-    final dismissals = await db.query('app_meta', where: "key LIKE 'new_deck_dismissed_%'");
+    final start = int.tryParse(
+      await _meta(db, 'new_decks_started_1.7.5+16') ?? '',
+    );
+    final deadline = start == null
+        ? null
+        : DateTime.fromMillisecondsSinceEpoch(
+            start,
+          ).add(const Duration(days: 7));
+    final dismissals = await db.query(
+      'app_meta',
+      where: "key LIKE 'new_deck_dismissed_%'",
+    );
     final dismissed = dismissals.map((row) => row['key']).toSet();
     return rows.map((row) {
       final topic = Topic.fromMap(row, cardCount: _asInt(row['card_count']));
@@ -137,14 +146,28 @@ class DeckRepository {
       ('assets/decks/17_Klausurvorbereitung.csv', 'Klausurvorbereitung'),
       ('assets/decks/18_Windows_Terminal.csv', 'Windows Terminal'),
       ('assets/decks/19_Linux_Terminal.csv', 'Linux Terminal'),
-      ('assets/decks/20_IT_Abkuerzungen_und_Akronyme.csv', 'IT-Abkürzungen und Akronyme'),
+      (
+        'assets/decks/20_IT_Abkuerzungen_und_Akronyme.csv',
+        'IT-Abkürzungen und Akronyme',
+      ),
       ('assets/decks/21_IHK_Pruefung.csv', 'IHK-Prüfung'),
-      ('assets/decks/22_Datenschutz_Privacy.csv', 'Datenschutz: Privacy by Design und Default'),
+      (
+        'assets/decks/22_Datenschutz_Privacy.csv',
+        'Datenschutz: Privacy by Design und Default',
+      ),
+      ('assets/decks/23_Schadsoftware.csv', 'Schadsoftware'),
+      ('assets/decks/24_Schutzbedarf.csv', 'Schutzbedarf'),
+      ('assets/decks/25_Unternehmensformen.csv', 'Unternehmensformen'),
+      ('assets/decks/26_Datenschutz_Klausur.csv', 'Datenschutz-Klausur'),
     ];
     final db = await _db;
     const newDeckStartKey = 'new_decks_started_1.7.5+16';
     if (await _meta(db, newDeckStartKey) == null) {
-      await _setMeta(db, newDeckStartKey, DateTime.now().millisecondsSinceEpoch.toString());
+      await _setMeta(
+        db,
+        newDeckStartKey,
+        DateTime.now().millisecondsSinceEpoch.toString(),
+      );
     }
     final currentRev = await _meta(db, 'bundled_rev');
     final forceReplace = currentRev != bundledContentRev;
@@ -362,12 +385,7 @@ class DeckRepository {
     if (clearColor || colorKey != null || isImportant == true) {
       await _setMeta(db, 'new_deck_dismissed_$topicId', '1');
     }
-    await db.update(
-      'topics',
-      values,
-      where: 'id = ?',
-      whereArgs: [topicId],
-    );
+    await db.update('topics', values, where: 'id = ?', whereArgs: [topicId]);
   }
 
   Future<void> deleteTopic(String topicId) async {

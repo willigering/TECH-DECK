@@ -120,7 +120,7 @@ void main() {
               .where((f) => f.path.toLowerCase().endsWith('.csv'))
               .toList()
             ..sort((a, b) => a.path.compareTo(b.path));
-      expect(files, hasLength(22));
+      expect(files, hasLength(26));
       var total = 0;
       for (final file in files) {
         final name = file.uri.pathSegments.last;
@@ -131,6 +131,8 @@ void main() {
             ? 100
             : name.contains('IHK_Pruefung')
             ? 82
+            : name.contains('Unternehmensformen')
+            ? 134
             : 50;
         expect(
           result.cards,
@@ -142,7 +144,7 @@ void main() {
         }
         total += result.cards.length;
       }
-      expect(total, 1232);
+      expect(total, 1516);
     });
   });
 }
