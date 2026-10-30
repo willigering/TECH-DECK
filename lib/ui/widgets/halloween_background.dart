@@ -59,10 +59,17 @@ class _HalloweenBackgroundState extends State<HalloweenBackground>
         Positioned.fill(
           child: IgnorePointer(
             child: ExcludeSemantics(
-              child: Image.asset(
-                'assets/seasonal/halloween-lumi.webp',
-                fit: BoxFit.cover,
-                errorBuilder: (_, _, _) => const SizedBox.shrink(),
+              child: ColoredBox(
+                color: Color(0xFF070605),
+                child: Transform.translate(
+                  // Keep the cat's face clear of the fixed brand header.
+                  offset: const Offset(0, 110),
+                  child: Image.asset(
+                    'assets/seasonal/halloween-lumi.webp',
+                    fit: BoxFit.cover,
+                    errorBuilder: (_, _, _) => const SizedBox.shrink(),
+                  ),
+                ),
               ),
             ),
           ),
