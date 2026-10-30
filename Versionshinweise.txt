@@ -1,3 +1,6 @@
+Geplante nächste Version
+- Updates künftig über den Play Store; GitHub-Updateprüfung, Update-Einstellungen und APK-Installer aus der App entfernt.
+
 ================================================================================
   RELEASE NOTES / VERSIONSHINWEISE
   App:        TECH//DECK

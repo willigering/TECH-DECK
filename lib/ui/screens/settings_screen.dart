@@ -9,7 +9,6 @@ import '../widgets/brand.dart';
 import '../widgets/gold_button.dart';
 import '../widgets/topic_mark_sheet.dart';
 import '../widgets/topic_tile.dart';
-import '../widgets/update_settings_section.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -141,8 +140,6 @@ class SettingsScreen extends StatelessWidget {
               const SizedBox(height: 10),
             ],
           const SizedBox(height: 28),
-          const UpdateSettingsSection(),
-          const SizedBox(height: 22),
           GoldPanel(
             glow: false,
             child: Row(
