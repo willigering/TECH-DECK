@@ -1,0 +1,43 @@
+Datenschutzerklärung für TECH//DECK (TECH/DECK)
+Stand: 30. Oktober 2026 · Google-Play-Ausgabe ab Version 1.7.14
+
+1. Verantwortlicher und Kontakt
+Verantwortlich für die App TECH//DECK ist Willi Gering (Gering Digital).
+Kontakt für Datenschutzfragen und Support: info@geringdigital.de
+
+2. Lernen ohne Benutzerkonto
+TECH//DECK ist eine Lernkarten-App. Ein Benutzerkonto ist nicht erforderlich. Die Lernfunktion verarbeitet Kartensätze und Einstellungen auf deinem Gerät. Die App enthält nach dem aktuellen Funktionsstand keine Werbung, keine Werbe-ID-Auswertung, keine Analyse- oder Tracking-Dienste und keine automatische Übermittlung von Lerninhalten an den Entwickler.
+
+3. Lokal verarbeitete Daten
+Wenn du CSV-Dateien auswählst, liest die App die gewählten Dateien und übernimmt Fragen und Antworten in ihre lokale Datenbank. Dabei können der Dateiname, der daraus abgeleitete Themenname, der Importzeitpunkt und lokal erzeugte Kennungen für Kartensätze und Karten gespeichert werden. Die Kennungen dienen der internen Zuordnung und sind keine Werbe- oder Hardwarekennungen.
+Außerdem speichert die App unter anderem Farb- und Wichtig-Markierungen, Favoriten, zuletzt geöffnete Kartensätze, Kategoriezuordnungen, Designeinstellungen und weitere App-Einstellungen. Die Verarbeitung dient der Bereitstellung und Wiederherstellung der von dir genutzten Funktionen. Importierte Inhalte werden nicht an einen KI-Dienst oder einen Entwickler-Server hochgeladen.
+Enthalten deine selbst importierten Karten personenbezogene Informationen, werden diese ebenfalls lokal verarbeitet. Verwende nur Inhalte, die du verwenden darfst.
+
+4. Netzwerkverbindungen und Updates
+Die hier beschriebene Google-Play-Ausgabe der App stellt selbst keine Netzwerkverbindungen zu einem Entwickler-Server, zu GitHub oder zu Analyse- oder Werbediensten her. Lerninhalte und App-Einstellungen werden nicht automatisch an den Entwickler übermittelt. Der frühere GitHub-Updater ist in dieser Ausgabe nicht mehr enthalten.
+Download, Installation und Aktualisierung über Google Play werden durch Google Play beziehungsweise das Betriebssystem durchgeführt. Für deren Datenverarbeitung gelten die Datenschutzhinweise von Google: https://policies.google.com/privacy
+
+5. Dateiauswahl, Gerätesicherung und Sicherheit
+Für einen CSV-Import wählst du Dateien über die Dateiauswahl aus. Die App verwendet die ausgewählten Inhalte für den Import und führt keinen pauschalen Upload deines Gerätespeichers durch. Die App fordert keine Berechtigung zur Installation anderer APK-Dateien an.
+App-Daten liegen im von Android verwalteten App-Speicher. Die App fügt der lokalen Datenbank keine eigene zusätzliche Verschlüsselung hinzu. Schütze dein Gerät entsprechend dem Inhalt deiner Lernkarten.
+Abhängig von deiner Android-Konfiguration, deinem Gerätehersteller und deinen Sicherungseinstellungen können lokale App-Daten in Betriebssystem-Backups enthalten sein oder auf ein anderes Gerät übertragen werden. TECH//DECK betreibt hierfür keinen eigenen Cloud-Synchronisationsdienst. Für solche Systemdienste gelten zusätzlich die Informationen des jeweiligen Anbieters. Nutzt du einen Cloud-Dateianbieter in der Dateiauswahl, gelten für diesen Anbieter ebenfalls dessen eigene Bedingungen.
+
+6. Speicherdauer und Löschung
+Lokale Kartensätze und Einstellungen bleiben gespeichert, solange du sie verwendest beziehungsweise bis du sie löschst. Einzelne Kartensätze kannst du in den Einstellungen der App löschen. Favoriten, Markierungen und Kategoriezuordnungen kannst du über die entsprechenden Bedienelemente ändern oder entfernen. Zuletzt verwendete Kartensätze werden als begrenzter Verlauf gespeichert.
+Über Androids App-Einstellungen kannst du sämtliche App-Daten löschen. Eine Deinstallation entfernt grundsätzlich die lokalen App-Daten; separat gespeicherte Original-CSV-Dateien und gegebenenfalls vorhandene Betriebssystem-Backups bleiben davon unberührt. Backups verwaltest du bei deinem Betriebssystem-/Sicherungsanbieter. Der Entwickler kann Daten auf deinem Gerät nicht aus der Ferne einsehen oder löschen.
+
+7. Kontaktaufnahme per E-Mail
+Wenn du info@geringdigital.de anschreibst, werden deine E-Mail-Adresse, deine Nachricht und gegebenenfalls freiwillig mitgesendete Angaben oder Anhänge zur Bearbeitung deiner Anfrage verarbeitet. Sende keine unnötigen vertraulichen Lerninhalte oder Zugangsdaten. Die Nachricht wird über die beteiligten E-Mail-Anbieter übermittelt und nur so lange aufbewahrt, wie die Bearbeitung und gegebenenfalls gesetzliche Aufbewahrungspflichten es erfordern.
+Rechtsgrundlage ist bei vertragsbezogenen Anfragen Art. 6 Abs. 1 Buchst. b DSGVO, ansonsten das berechtigte Interesse an der Beantwortung von Anfragen nach Art. 6 Abs. 1 Buchst. f DSGVO. Die beschriebenen funktionsnotwendigen Verarbeitungen dienen der Bereitstellung der App; soweit hierfür personenbezogene Daten in der Verantwortung des Entwicklers verarbeitet werden, erfolgt dies auf Grundlage von Art. 6 Abs. 1 Buchst. b DSGVO beziehungsweise Art. 6 Abs. 1 Buchst. f DSGVO für sicheren Betrieb und Fehlerbearbeitung.
+
+8. Diese Datenschutz-Webseite
+Diese Webseite wird über GitHub Pages bereitgestellt. Beim Aufruf erhält GitHub technisch notwendige Verbindungsdaten, insbesondere deine IP-Adresse. GitHub erläutert, dass IP-Adressen von Pages-Besuchern zu Sicherheitszwecken protokolliert und gespeichert werden. Es gelten ergänzend die Datenschutzhinweise von GitHub (https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement); dort findest du auch Informationen zu internationalen Datenübermittlungen und den eingesetzten Schutzmaßnahmen. Der Entwickler hat keinen Einfluss auf die dort festgelegten Speicherfristen.
+Die Seite selbst bindet keine Analysewerkzeuge, Werbung, externen Schriftarten oder externen Bilder ein und setzt keine eigenen Cookies oder Browser-Speicher für Tracking ein. Ihre Bereitstellung dient der Datenschutzinformation; Rechtsgrundlage für die hierfür erforderliche Verarbeitung ist Art. 6 Abs. 1 Buchst. f DSGVO.
+Wenn du den Datenschutztext innerhalb der App liest, wird dessen mitgelieferte lokale Fassung angezeigt. Allein dafür wird diese Webseite nicht aufgerufen.
+
+9. Deine Rechte
+Soweit personenbezogene Daten in der Verantwortung des Entwicklers verarbeitet werden, stehen dir nach Maßgabe der DSGVO insbesondere die Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung und Datenübertragbarkeit zu. Gegen Verarbeitungen auf Grundlage berechtigter Interessen kannst du aus Gründen deiner besonderen Situation Widerspruch einlegen. Eine erteilte Einwilligung kannst du mit Wirkung für die Zukunft widerrufen. Du kannst dich außerdem bei einer Datenschutzaufsichtsbehörde beschweren, beispielsweise bei der Landesbeauftragten für Datenschutz und Informationsfreiheit Nordrhein-Westfalen.
+Für Anfragen erreichst du Willi Gering unter info@geringdigital.de. Für ausschließlich lokal gespeicherte Inhalte nutze die beschriebenen Löschmöglichkeiten; beim Entwickler liegt davon keine zentrale Kopie vor.
+
+10. Änderungen
+Bei Änderungen an Funktionen oder Datenverarbeitungen wird diese Erklärung angepasst. Maßgeblich sind die tatsächlich verwendete App-Ausgabe, deren Funktionen und der oben angegebene Stand.

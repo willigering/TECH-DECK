@@ -1,3 +1,5 @@
+> Historischer Prüfbericht für Version 1.7.13. In der Play-Store-Vorbereitung ab 1.7.14 wurde der hier beschriebene GitHub-Updater auf ausdrücklichen Nutzerwunsch entfernt. Die damaligen Aussagen über unveränderte Update-Dateien gelten nicht für diese neue Ausgabe.
+
 # Kartenauswahl: Umsetzung und Prüfbericht
 
 Stand: 30.10.2026. Ausgangspunkt: `1fd72c449d67b60ef601b13902b4f37ca8b8860f` (`main`, veröffentlichte Version 1.7.12+23). Der Branch bereitet **1.7.13+24** vor; es wurde keine APK erstellt, kein Release angelegt/veröffentlicht und nichts gemergt.

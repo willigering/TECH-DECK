@@ -6,10 +6,10 @@ import '../../state/deck_controller.dart';
 import '../../state/theme_controller.dart';
 import '../../state/welcome_controller.dart';
 import '../widgets/brand.dart';
+import 'privacy_screen.dart';
 import '../widgets/gold_button.dart';
 import '../widgets/topic_mark_sheet.dart';
 import '../widgets/topic_tile.dart';
-import '../widgets/update_settings_section.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -63,6 +63,14 @@ class SettingsScreen extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(20, 24, 20, 32),
         children: [
           const SectionLabel('EINSTELLUNGEN'),
+          ListTile(
+            leading: const Icon(Icons.privacy_tip_outlined),
+            title: const Text('Datenschutzerklärung'),
+            subtitle: const Text('Willi Gering · info@geringdigital.de'),
+            onTap: () => Navigator.of(
+              context,
+            ).push(MaterialPageRoute(builder: (_) => const PrivacyScreen())),
+          ),
           const SizedBox(height: 20),
           GoldButton(
             label: 'WILLKOMMEN ANZEIGEN',
@@ -141,7 +149,6 @@ class SettingsScreen extends StatelessWidget {
               const SizedBox(height: 10),
             ],
           const SizedBox(height: 28),
-          const UpdateSettingsSection(),
           const SizedBox(height: 22),
           GoldPanel(
             glow: false,
