@@ -94,17 +94,27 @@ class TopicTile extends StatelessWidget {
           Icon(_icon, color: accent, size: 24),
           const SizedBox(width: 12),
           Expanded(
-            child: Text(
-              _label,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                fontFamily: 'Roboto',
-                fontSize: 17,
-                fontWeight: topic.isImportant
-                    ? FontWeight.w700
-                    : FontWeight.w600,
-                color: cs.onSurface,
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  _label,
+                  softWrap: true,
+                  style: TextStyle(
+                    fontFamily: 'Roboto',
+                    fontSize: 16,
+                    fontWeight: topic.isImportant
+                        ? FontWeight.w700
+                        : FontWeight.w600,
+                    color: cs.onSurface,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  '${topic.cardCount} ${topic.cardCount == 1 ? 'Karte' : 'Karten'}',
+                  style: TextStyle(fontSize: 13, color: accent),
+                ),
+              ],
             ),
           ),
           if (isNew) ...[
@@ -114,7 +124,14 @@ class TopicTile extends StatelessWidget {
                 color: newColor.withValues(alpha: .14),
                 borderRadius: BorderRadius.circular(6),
               ),
-              child: Text('Neu', style: TextStyle(color: newColor, fontSize: 11, fontWeight: FontWeight.w700)),
+              child: Text(
+                'Neu',
+                style: TextStyle(
+                  color: newColor,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
             ),
             const SizedBox(width: 6),
           ],
@@ -122,16 +139,6 @@ class TopicTile extends StatelessWidget {
             Icon(Icons.star_rounded, color: accent, size: 20),
             const SizedBox(width: 6),
           ],
-          Text(
-            '${topic.cardCount} ${topic.cardCount == 1 ? 'Karte' : 'Karten'}',
-            style: TextStyle(
-              fontFamily: 'Roboto',
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: accent,
-            ),
-          ),
-          const SizedBox(width: 6),
           trailing ??
               Icon(Icons.chevron_right_rounded, color: accent, size: 22),
         ],
