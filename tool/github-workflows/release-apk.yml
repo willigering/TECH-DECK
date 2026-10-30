@@ -109,3 +109,14 @@ jobs:
           NOTES=$(awk -v v="v$NAME" 'index($0, v" ")==1{f=1;next} /^v[0-9]/{if(f)exit} f' Versionshinweise.txt)
           [ -n "$NOTES" ] || NOTES="TECH//DECK $NAME"
           gh release create "$TAG" dist/* --draft --title "TECH//DECK $NAME" --notes "$NOTES" --target "$GITHUB_SHA"
+
+      - name: VirusTotal scan (optional, non-fatal)
+        if: ${{ inputs.create_draft_release }}
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VIRUSTOTAL_API_KEY: ${{ secrets.VIRUSTOTAL_API_KEY }}
+        run: |
+          if [ -z "$VIRUSTOTAL_API_KEY" ]; then echo "::warning::VIRUSTOTAL_API_KEY fehlt, Scan uebersprungen"; exit 0; fi
+          python3 tool/virustotal_scan.py dist/*.apk --repo "$GITHUB_REPOSITORY" --tag "v$NAME" \
+            || echo "::warning::VirusTotal-Scan fehlgeschlagen, Release bleibt ohne Virenpruefung"

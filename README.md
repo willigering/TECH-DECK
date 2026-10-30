@@ -198,3 +198,11 @@ Manuell ohne Workflow: `flutter build apk --release`, danach `python3 tool/updat
 | „Download nur über WLAN erlaubt“ | Einstellung „Nur über WLAN herunterladen“ deaktivieren oder WLAN nutzen. |
 | Installer öffnet sich nicht | „Unbekannte Apps installieren“ für TECH//DECK erlauben, erneut tippen. |
 | Workflow bricht bei „Verify signer“ ab | Secrets enthalten nicht den Originalschlüssel – gewollt, damit kein inkompatibles APK entsteht. |
+
+## Virenprüfung (VirusTotal)
+
+`tool/virustotal_scan.py` lädt eine Datei zu VirusTotal hoch (API v3, >32 MB über `upload_url`), wartet auf das Ergebnis (max. 4 Anfragen/Minute) und hängt mit `--tag` einen Abschnitt „Virenprüfung“ (Link, „x/y Scanner ohne Befund“, Datum) an die Release Notes an:
+
+    VIRUSTOTAL_API_KEY=... python3 tool/virustotal_scan.py TECH-DECK.apk --repo willigering/TECH-DECK --tag v1.7.13
+
+Der Release-Workflow macht das automatisch, wenn das Secret `VIRUSTOTAL_API_KEY` gesetzt ist. Fehler beim Scan brechen das Release nicht ab, erscheinen aber als Warnung.
