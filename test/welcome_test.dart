@@ -97,7 +97,7 @@ void main() {
         );
         await tester.tap(find.byType(Checkbox));
         await tester.pump();
-        await tester.tap(find.text('Na gut, ich lerne.'));
+        await tester.tap(find.text('Na schön. Mach mich schlau!'));
         expect(selection, isFalse);
         expect(tester.takeException(), isNull);
       });
@@ -132,7 +132,7 @@ void main() {
     expect(find.byType(StartScreen), findsOneWidget);
     expect(find.byType(WelcomeScreen), findsOneWidget);
     expect(deck.loading, isTrue);
-    await tester.tap(find.text('Na gut, ich lerne.'));
+    await tester.tap(find.text('Na schön. Mach mich schlau!'));
     await tester.pump();
     expect(find.byType(WelcomeScreen), findsNothing);
     expect(find.byType(StartScreen), findsOneWidget);
@@ -142,7 +142,7 @@ void main() {
     await tester.tap(find.text('WILLKOMMEN ANZEIGEN'));
     await tester.pump();
     expect(find.byType(WelcomeScreen), findsOneWidget);
-    await tester.tap(find.text('Na gut, ich lerne.'));
+    await tester.tap(find.text('Na schön. Mach mich schlau!'));
     await tester.pump();
     expect(find.byType(WelcomeScreen), findsNothing);
     expect(find.byIcon(Icons.menu_book_rounded), findsOneWidget);
