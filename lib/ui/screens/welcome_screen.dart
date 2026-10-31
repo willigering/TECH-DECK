@@ -183,7 +183,7 @@ class _WelcomeContent extends StatelessWidget {
                       children: [
                         Text(_titles[i],
                           style: titleStyle?.copyWith(fontSize: tiny ? 12 : 14)),
-                        if (true) ...[
+                        ...[
                           const SizedBox(height: 2),
                           Text(
                             tiny ? _tinyDetails[i] : (short ? _briefDetails[i] : _details[i]),
