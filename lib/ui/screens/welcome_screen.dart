@@ -122,8 +122,8 @@ class _WelcomeContent extends StatelessWidget {
     final cs = theme.colorScheme;
     return LayoutBuilder(
       builder: (context, bounds) {
-        final short = bounds.maxHeight < 610;
-        final tiny = bounds.maxHeight < 390;
+        final short = bounds.maxHeight < 760;
+        final tiny = bounds.maxHeight < 500;
         final landscape = bounds.maxWidth > bounds.maxHeight;
         final gap = tiny ? 5.0 : (short ? 10.0 : 18.0);
         final titleStyle = theme.textTheme.titleMedium?.copyWith(
