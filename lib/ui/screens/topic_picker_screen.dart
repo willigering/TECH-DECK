@@ -149,7 +149,6 @@ class _TopicPickerScreenState extends State<TopicPickerScreen> {
           icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 18),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text('Thema wählen'),
       ),
       body: SafeArea(
         child: CustomScrollView(
@@ -161,7 +160,7 @@ class _TopicPickerScreenState extends State<TopicPickerScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const BrandHeader(compact: true),
+                    const SectionLabel('THEMA WÄHLEN'),
                     const SizedBox(height: 16),
                     TextField(
                       controller: _search,
@@ -280,16 +279,10 @@ class _TopicPickerScreenState extends State<TopicPickerScreen> {
                 padding: const EdgeInsets.fromLTRB(20, 4, 20, 32),
                 sliver: SliverList.list(
                   children: [
-                    Text(
+                    SectionLabel(
                       searching
                           ? '${topics.length} ${topics.length == 1 ? 'Kartensatz' : 'Kartensätze'} gefunden'
                           : 'THEMA FÜR LERNEN',
-                      style: TextStyle(
-                        color: cs.primary,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 1.2,
-                      ),
                     ),
                     const SizedBox(height: 10),
                     if (_filter != _QuickFilter.all)
@@ -358,21 +351,54 @@ class _CategoryAccordion extends StatelessWidget {
     final total = topics.fold(0, (sum, topic) => sum + topic.cardCount);
     final content = expanded
         ? Padding(
-            padding: const EdgeInsets.only(top: 8, left: 8),
-            child: Column(children: [for (final topic in topics) tile(topic)]),
+            // Sub-entries hang indented off a thin guide line so they read
+            // as children of the category header above.
+            padding: const EdgeInsets.only(top: 8, left: 14),
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                border: Border(
+                  left: BorderSide(
+                    color: cs.primary.withValues(alpha: .35),
+                    width: 2,
+                  ),
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Column(
+                  children: [for (final topic in topics) tile(topic)],
+                ),
+              ),
+            ),
           )
         : const SizedBox(width: double.infinity);
     return Column(
       children: [
         Semantics(
           expanded: expanded,
+          // Category headers are tinted with a gold accent bar so they are
+          // clearly distinguishable from the deck tiles inside them.
           child: GoldPanel(
             glow: false,
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+            highlight: true,
+            padding: const EdgeInsets.fromLTRB(12, 14, 14, 14),
             onTap: onToggle,
             child: Row(
               children: [
-                Icon(Icons.folder_outlined, size: 22, color: cs.primary),
+                Container(
+                  width: 4,
+                  height: 36,
+                  decoration: BoxDecoration(
+                    color: cs.primary,
+                    borderRadius: BorderRadius.circular(99),
+                  ),
+                ),
+                const SizedBox(width: 12),
+                Icon(
+                  expanded ? Icons.folder_open_rounded : Icons.folder_rounded,
+                  size: 24,
+                  color: cs.primary,
+                ),
                 const SizedBox(width: 10),
                 Expanded(
                   child: Column(
@@ -382,14 +408,19 @@ class _CategoryAccordion extends StatelessWidget {
                         name,
                         style: TextStyle(
                           color: cs.onSurface,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
+                          fontWeight: FontWeight.w800,
+                          fontSize: 17,
+                          letterSpacing: .2,
                         ),
                       ),
                       const SizedBox(height: 3),
                       Text(
                         '${topics.length} ${topics.length == 1 ? 'Kartensatz' : 'Kartensätze'} · $total ${total == 1 ? 'Karte' : 'Karten'}',
-                        style: TextStyle(color: cs.primary, fontSize: 12),
+                        style: TextStyle(
+                          color: cs.primary,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                     ],
                   ),
@@ -397,7 +428,7 @@ class _CategoryAccordion extends StatelessWidget {
                 AnimatedRotation(
                   turns: expanded ? .5 : 0,
                   duration: duration,
-                  child: const Icon(Icons.expand_more_rounded),
+                  child: Icon(Icons.expand_more_rounded, color: cs.primary),
                 ),
               ],
             ),

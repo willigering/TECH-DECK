@@ -210,24 +210,35 @@ class BrandHeader extends StatelessWidget {
 }
 
 class SectionLabel extends StatelessWidget {
-  const SectionLabel(this.text, {super.key, this.trailing});
+  const SectionLabel(
+    this.text, {
+    super.key,
+    this.trailing,
+    this.centered = true,
+  });
 
   final String text;
   final Widget? trailing;
 
+  /// Section headings are centered app-wide for a uniform look.
+  final bool centered;
+
   @override
   Widget build(BuildContext context) {
+    final label = Text(
+      text,
+      textAlign: centered ? TextAlign.center : null,
+      style: TextStyle(
+        fontFamily: 'Orbitron',
+        fontSize: 13,
+        letterSpacing: 2.4,
+        color: Theme.of(context).colorScheme.primary,
+      ),
+    );
+    if (centered && trailing == null) return Center(child: label);
     return Row(
       children: [
-        Text(
-          text,
-          style: TextStyle(
-            fontFamily: 'Orbitron',
-            fontSize: 13,
-            letterSpacing: 2.4,
-            color: Theme.of(context).colorScheme.primary,
-          ),
-        ),
+        label,
         const Spacer(),
         ?trailing,
       ],

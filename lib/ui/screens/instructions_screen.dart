@@ -46,12 +46,15 @@ Keine Nummerierung, keine erfundenen Inhalte und keinen zusätzlichen Text auße
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Eigene Lernkarten erstellen',
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 16,
-                    color: Theme.of(context).colorScheme.primary,
+                Center(
+                  child: Text(
+                    'Eigene Lernkarten erstellen',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: 16,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
                 ),
                 SizedBox(height: 12),
