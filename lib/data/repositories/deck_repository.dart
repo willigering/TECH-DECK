@@ -14,12 +14,19 @@ class DeckRepository {
   DeckRepository({AppDatabase? database})
     : _dbProvider = database ?? AppDatabase.instance;
 
-  static const bundledContentRev = 'learn-only-3';
+  static const bundledContentRev = 'learn-only-4';
 
   static const newDeckNames = {
     'IT-Abkürzungen und Akronyme',
-    'IHK-Prüfung',
     'Datenschutz: Privacy by Design und Default',
+  };
+
+  /// Früher mitgelieferte Decks, deren Karten in Fachdecks aufgegangen sind.
+  /// Schlüssel: Deckname, Wert: Dateiname der früheren Auslieferung.
+  static const retiredBundledDecks = {
+    'Klausurvorbereitung': '17_Klausurvorbereitung.csv',
+    'IHK-Prüfung': '21_IHK_Pruefung.csv',
+    'Datenschutz-Klausur': '26_Datenschutz_Klausur.csv',
   };
 
   final AppDatabase _dbProvider;
@@ -160,14 +167,12 @@ class DeckRepository {
         'assets/decks/16_Pruefung_und_Fehleranalyse.csv',
         'Prüfung und Fehleranalyse',
       ),
-      ('assets/decks/17_Klausurvorbereitung.csv', 'Klausurvorbereitung'),
       ('assets/decks/18_Windows_Terminal.csv', 'Windows Terminal'),
       ('assets/decks/19_Linux_Terminal.csv', 'Linux Terminal'),
       (
         'assets/decks/20_IT_Abkuerzungen_und_Akronyme.csv',
         'IT-Abkürzungen und Akronyme',
       ),
-      ('assets/decks/21_IHK_Pruefung.csv', 'IHK-Prüfung'),
       (
         'assets/decks/22_Datenschutz_Privacy.csv',
         'Datenschutz: Privacy by Design und Default',
@@ -175,7 +180,6 @@ class DeckRepository {
       ('assets/decks/23_Schadsoftware.csv', 'Schadsoftware'),
       ('assets/decks/24_Schutzbedarf.csv', 'Schutzbedarf'),
       ('assets/decks/25_Unternehmensformen.csv', 'Unternehmensformen'),
-      ('assets/decks/26_Datenschutz_Klausur.csv', 'Datenschutz-Klausur'),
     ];
     final db = await _db;
     const newDeckStartKey = 'new_decks_started_1.7.5+16';
@@ -188,6 +192,9 @@ class DeckRepository {
     }
     final currentRev = await _meta(db, 'bundled_rev');
     final forceReplace = currentRev != bundledContentRev;
+    if (forceReplace) {
+      await _removeRetiredBundledDecks(db);
+    }
     for (var i = 0; i < bundled.length; i++) {
       final item = bundled[i];
       final data = await rootBundle.load(item.$1);
@@ -209,6 +216,26 @@ class DeckRepository {
       await _setMeta(db, 'bundled_rev', bundledContentRev);
     }
     await _ensureKlausurMark(db);
+  }
+
+  /// Entfernt nur die früher mitgelieferten Fassungen aufgelöster Decks.
+  /// Eigene Importe erkennt man am abweichenden Dateinamen; sie bleiben.
+  Future<void> _removeRetiredBundledDecks(Database db) async {
+    await db.transaction((txn) async {
+      for (final entry in retiredBundledDecks.entries) {
+        final rows = await txn.query(
+          'topics',
+          columns: ['id'],
+          where: 'name = ? AND source_filename = ?',
+          whereArgs: [entry.key, entry.value],
+        );
+        for (final row in rows) {
+          final id = row['id'] as String;
+          await txn.delete('cards', where: 'topic_id = ?', whereArgs: [id]);
+          await txn.delete('topics', where: 'id = ?', whereArgs: [id]);
+        }
+      }
+    });
   }
 
   /// Klausurvorbereitung einmalig rot und als wichtig markieren.

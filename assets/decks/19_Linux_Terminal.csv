@@ -1,11 +1,11 @@
 Frage;Antwort
 Was macht pwd?;Zeigt den vollständigen Pfad des aktuellen Verzeichnisses.
 Was macht ls?;Listet Dateien und Verzeichnisse im aktuellen Ordner auf.
-Was macht ls -l?;Zeigt Dateien mit Details wie Rechten, Besitzer, Größe und Datum.
-Was macht ls -a?;Zeigt auch versteckte Dateien und Verzeichnisse.
+Was zeigt ls -l zusätzlich zu ls an?;Eine ausführliche Liste mit Details wie Zugriffsrechten, Besitzer, Gruppe, Größe und Änderungsdatum.
+Wie zeigt man mit ls auch versteckte Dateien an?;Mit ls -a. Versteckte Dateien beginnen unter Linux mit einem Punkt, z. B. .bashrc.
 Was macht cd <Ordner>?;Wechselt in das angegebene Verzeichnis.
 Was macht cd ..?;Wechselt eine Verzeichnisebene nach oben.
-Was macht cd ~?;Wechselt in das Home-Verzeichnis des aktuellen Benutzers.
+Wie wechselt man unter Linux in das eigene Home-Verzeichnis?;Mit cd ~ oder einfach cd ohne Argument.
 Was macht mkdir <Ordner>?;Erstellt ein neues Verzeichnis.
 Was macht rmdir <Ordner>?;Löscht ein leeres Verzeichnis.
 Was macht touch <Datei>?;Erstellt eine leere Datei oder aktualisiert ihren Zeitstempel.
@@ -26,7 +26,7 @@ Was macht man <Befehl>?;Öffnet die Handbuchseite mit Hilfe zum angegebenen Befe
 Was macht whoami?;Zeigt den Namen des aktuell angemeldeten Benutzers.
 Was macht id?;Zeigt Benutzer-ID, Gruppen-ID und Gruppenmitgliedschaften.
 Was macht sudo <Befehl>?;Führt einen Befehl mit erhöhten Rechten aus, sofern erlaubt.
-Was macht su?;Wechselt zu einem anderen Benutzer, standardmäßig root.
+Was macht su?;Wechselt zu einem anderen Benutzer, ohne Angabe zu root. Dafür wird das Passwort des Zielbenutzers benötigt (bei sudo dagegen das eigene).
 Wofür wird chmod verwendet?;Ändert Zugriffsrechte von Dateien und Verzeichnissen.
 Wofür wird chown verwendet?;Ändert Besitzer und optional die Gruppe einer Datei.
 Was macht ps?;Zeigt Prozesse der aktuellen Sitzung an.
@@ -44,7 +44,7 @@ Was macht ip route?;Zeigt die IP-Routingtabelle einschließlich Standardroute.
 Was macht ip link?;Zeigt und verwaltet Netzwerkinterfaces auf Verbindungsebene.
 Was macht ping <Ziel>?;Prüft die Erreichbarkeit eines Hosts mit ICMP.
 Was macht traceroute <Ziel>?;Zeigt die Hops auf dem Netzwerkweg zum Ziel.
-Was zeigt ss -tulpen?;Zeigt u. a. lauschende TCP/UDP-Sockets, Ports und Prozesse.
+Was zeigt ss -tulpen?;Lauschende (-l) TCP- (-t) und UDP-Sockets (-u) mit numerischen Ports (-n), zugehörigen Prozessen (-p) und erweiterten Informationen (-e).
 Was macht ip neigh?;Zeigt den Nachbar-Cache, z. B. IPv4-zu-MAC-Zuordnungen.
 Was macht dig <Domain>?;Fragt DNS-Informationen zu einer Domain ab.
 Was macht systemctl status <Dienst>?;Zeigt Zustand und Informationen eines systemd-Dienstes.

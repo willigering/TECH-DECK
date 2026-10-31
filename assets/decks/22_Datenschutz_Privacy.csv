@@ -1,4 +1,5 @@
 ﻿Frage;Antwort
+Welche technischen Verfahren eignen sich für eine automatische Zutrittskontrolle?;Zum Beispiel Chipkarten- oder RFID-Leser, PIN-Code-Tastatur und biometrische Verfahren wie Fingerabdruck- oder Gesichtserkennung.
 Was bedeutet Privacy by Design?;Datenschutz wird bereits bei der Planung und Entwicklung von Systemen und Prozessen technisch und organisatorisch berücksichtigt.
 Was bedeutet Privacy by Default?;Die Voreinstellungen eines Systems sind so gestaltet, dass grundsätzlich nur die für den jeweiligen Zweck erforderlichen personenbezogenen Daten verarbeitet werden.
 Wo ist Privacy by Design und Privacy by Default in der DSGVO geregelt?;In Art. 25 DSGVO.
@@ -45,7 +46,7 @@ Mit welcher Behörde arbeitet der Datenschutzbeauftragte im Rahmen seiner Aufgab
 Kann ein Datenschutzbeauftragter auch Ansprechpartner für betroffene Personen sein?;Ja, Betroffene können ihn zu Fragen der Verarbeitung ihrer personenbezogenen Daten und ihrer Rechte kontaktieren.
 Wann müssen nichtöffentliche Stellen in Deutschland nach § 38 BDSG grundsätzlich einen Datenschutzbeauftragten benennen?;Wenn in der Regel mindestens 20 Personen ständig mit der automatisierten Verarbeitung personenbezogener Daten beschäftigt sind.
 Muss unabhängig von der Beschäftigtenzahl immer geprüft werden, ob bereits die DSGVO eine Benennung des Datenschutzbeauftragten verlangt?;Ja, insbesondere die Voraussetzungen des Art. 37 DSGVO gelten unabhängig von der deutschen 20-Personen-Regel.
-Was ist die Hauptaufgabe eines Informationssicherheitsbeauftragten?;Die Informationssicherheit einer Organisation zu koordinieren und die Umsetzung geeigneter Sicherheitsmaßnahmen zu unterstützen.
+Was ist die Hauptaufgabe eines Informationssicherheitsbeauftragten?;Der Informationssicherheitsbeauftragte (ISB) koordiniert die Informationssicherheit einer Organisation, berät die Leitung und unterstützt die Umsetzung geeigneter Sicherheitsmaßnahmen, z. B. nach BSI-IT-Grundschutz oder ISO/IEC 27001.
 Was ist der grundlegende Unterschied zwischen Datenschutzbeauftragtem und Informationssicherheitsbeauftragtem?;Der Datenschutzbeauftragte konzentriert sich auf den Schutz personenbezogener Daten und Datenschutzrecht, der Informationssicherheitsbeauftragte auf die Sicherheit von Informationen und IT-Systemen insgesamt.
 Welche grundlegenden Schutzziele stehen bei der Informationssicherheit im Mittelpunkt?;Vertraulichkeit, Integrität und Verfügbarkeit.
 Warum überschneiden sich Datenschutz und Informationssicherheit häufig?;Weil technische und organisatorische Sicherheitsmaßnahmen zugleich personenbezogene Daten schützen können.

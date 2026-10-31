@@ -12,7 +12,8 @@ Warum ist die Aussage falsch, ein Wurm diene nur zum Lahmlegen von Netzwerken?;D
 Was ist ein Trojanisches Pferd?;Ein Trojaner ist ein scheinbar nützliches oder harmloses Programm mit einer versteckten schädlichen Funktion.
 Was unterscheidet einen Trojaner von einem Virus?;Ein Trojaner muss sich nicht selbst vermehren. Ein Virus verbreitet sich durch das Infizieren anderer Dateien oder Programme.
 Warum ist Social Engineering bei Trojanern häufig wichtig?;Der Benutzer soll dazu gebracht werden, die scheinbar legitime Datei selbst zu installieren oder auszuführen.
-Was ist ein Remote-Access-Trojaner?;Ein Trojaner, der einem Angreifer die unbefugte Fernsteuerung eines kompromittierten Systems ermöglicht.
+Was ist ein Remote-Access-Trojaner?;"RAT – Remote Access Trojan
+Trojaner, der einem Angreifer die unbemerkte Fernsteuerung eines kompromittierten Systems ermöglicht, z. B. Dateizugriff, Bildschirm- oder Kameraüberwachung."
 Was ist Ransomware?;Ransomware sperrt Systeme oder verschlüsselt Daten und fordert anschließend häufig Lösegeld.
 Welches Schutzziel wird durch verschlüsselnde Ransomware besonders beeinträchtigt?;Die Verfügbarkeit, weil berechtigte Benutzer nicht mehr auf ihre Daten zugreifen können.
 Warum kann Ransomware auch die Vertraulichkeit verletzen?;Angreifer können Daten vor der Verschlüsselung kopieren und mit ihrer Veröffentlichung drohen.

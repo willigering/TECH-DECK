@@ -9,7 +9,7 @@ Was macht tracert <Ziel>?;Zeigt die Router bzw. Hops auf dem Weg zum Ziel.
 Wofür dient nslookup <Name>?;Fragt DNS ab, z. B. um einen Namen in eine IP aufzulösen.
 Was zeigt arp -a?;Den ARP-Cache mit bekannten IPv4- und MAC-Zuordnungen.
 Was zeigt route print?;Die lokale IP-Routingtabelle des Rechners.
-Was zeigt netstat -ano?;Verbindungen, lauschende Ports, Adressen und Prozess-IDs.
+Was zeigt netstat -ano?;Alle Verbindungen und lauschenden Ports (-a) mit numerischen Adressen und Ports (-n) sowie der Prozess-ID (-o) des zugehörigen Programms.
 Was macht hostname?;Zeigt den Computernamen des aktuellen Windows-PCs.
 Was macht getmac?;Zeigt die MAC-Adressen der Netzwerkadapter.
 Wofür dient pathping <Ziel>?;Analysiert Route und Paketverluste entlang mehrerer Hops.
@@ -19,7 +19,7 @@ Was macht dir?;Zeigt Dateien und Unterordner des aktuellen Verzeichnisses.
 Was macht dir /a?;Zeigt auch Dateien mit speziellen Attributen, z. B. versteckte.
 Was macht cd <Ordner>?;Wechselt in das angegebene Verzeichnis.
 Was bewirkt cd ..?;Wechselt eine Verzeichnisebene nach oben.
-Was bewirkt cd \?;Wechselt ins Stammverzeichnis des aktuellen Laufwerks.
+Wie wechselt man in CMD ins Stammverzeichnis des aktuellen Laufwerks?;Mit cd \ – z. B. von C:\Users\Max nach C:\
 Wie wechselt man in CMD auf Laufwerk D:?;D: eingeben und Enter drücken.
 Was macht mkdir Test?;Erstellt einen neuen Ordner namens Test.
 Was macht rmdir Test?;Löscht den leeren Ordner Test.
@@ -41,9 +41,9 @@ Was macht taskkill /PID 1234?;Beendet den Prozess mit der Prozess-ID 1234.
 Was bedeutet /F bei taskkill?;Erzwingt das Beenden des angegebenen Prozesses.
 Was macht shutdown /s /t 0?;Fährt Windows sofort herunter.
 Was macht shutdown /r /t 0?;Startet Windows sofort neu.
-Was macht sfc /scannow?;Prüft geschützte Windows-Systemdateien und repariert sie ggf.
+Was macht sfc /scannow?;Prüft geschützte Windows-Systemdateien und ersetzt beschädigte durch korrekte Versionen. Benötigt Administratorrechte.
 Wofür dient chkdsk?;Prüft ein Dateisystem bzw. Laufwerk auf Fehler.
-Was macht chkdsk C: /f?;Prüft Laufwerk C: und versucht Dateisystemfehler zu beheben.
+Was macht chkdsk C: /f?;Prüft Laufwerk C: und behebt Dateisystemfehler. Da C: als Systemlaufwerk in Benutzung ist, wird die Prüfung beim nächsten Neustart ausgeführt.
 Was macht driverquery?;Listet installierte Gerätetreiber und Informationen dazu auf.
 Was macht sc query?;Zeigt Informationen über Windows-Dienste und deren Status.
 Was macht net user?;Listet lokale Benutzerkonten auf bzw. verwaltet Benutzer.
