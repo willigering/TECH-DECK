@@ -58,6 +58,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                         ),
                       ],
                     ),
+                    const SizedBox(height: 18),
                     SizedBox(
                       width: double.infinity,
                       child: FilledButton(
@@ -68,7 +69,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           ),
                         ),
                         onPressed: () => widget.onContinue(_doNotShowAgain),
-                        child: const Text('Na gut, ich lerne.'),
+                        child: const Text('Na schön. Mach mich schlau!'),
                       ),
                     ),
                   ],
