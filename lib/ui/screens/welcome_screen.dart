@@ -69,7 +69,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           ),
                         ),
                         onPressed: () => widget.onContinue(_doNotShowAgain),
-                        child: const Text('Na schön. Mach mich schlau!'),
+                        child: const Text('Na schön, mach mich schlau!'),
                       ),
                     ),
                   ],
