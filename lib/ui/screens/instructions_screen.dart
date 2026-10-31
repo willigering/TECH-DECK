@@ -40,18 +40,21 @@ Keine Nummerierung, keine erfundenen Inhalte und keinen zusätzlichen Text auße
       child: ListView(
         padding: const EdgeInsets.fromLTRB(20, 24, 20, 32),
         children: [
-          const SectionLabel('ANLEITUNG', centered: true),
+          const SectionLabel('ANLEITUNG'),
           const SizedBox(height: 14),
           GoldPanel(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  'Eigene Lernkarten erstellen',
-                  style: TextStyle(
-                    fontFamily: 'Roboto',
-                    fontSize: 16,
-                    color: Theme.of(context).colorScheme.primary,
+                Center(
+                  child: Text(
+                    'Eigene Lernkarten erstellen',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontFamily: 'Roboto',
+                      fontSize: 16,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   ),
                 ),
                 SizedBox(height: 12),

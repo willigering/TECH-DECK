@@ -149,7 +149,6 @@ class _TopicPickerScreenState extends State<TopicPickerScreen> {
           icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 18),
           onPressed: () => Navigator.of(context).pop(),
         ),
-        title: const Text('Thema wählen'),
       ),
       body: SafeArea(
         child: CustomScrollView(
@@ -161,7 +160,7 @@ class _TopicPickerScreenState extends State<TopicPickerScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const BrandHeader(compact: true),
+                    const SectionLabel('THEMA WÄHLEN'),
                     const SizedBox(height: 16),
                     TextField(
                       controller: _search,
@@ -280,16 +279,10 @@ class _TopicPickerScreenState extends State<TopicPickerScreen> {
                 padding: const EdgeInsets.fromLTRB(20, 4, 20, 32),
                 sliver: SliverList.list(
                   children: [
-                    Text(
+                    SectionLabel(
                       searching
                           ? '${topics.length} ${topics.length == 1 ? 'Kartensatz' : 'Kartensätze'} gefunden'
                           : 'THEMA FÜR LERNEN',
-                      style: TextStyle(
-                        color: cs.primary,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 1.2,
-                      ),
                     ),
                     const SizedBox(height: 10),
                     if (_filter != _QuickFilter.all)

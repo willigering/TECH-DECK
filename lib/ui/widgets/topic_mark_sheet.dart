@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../../core/topic_marks.dart';
 import '../../data/models/topic.dart';
 import '../../state/deck_controller.dart';
+import 'brand.dart';
 
 Future<void> showTopicMarkSheet(BuildContext context, Topic topic) {
   return showModalBottomSheet<void>(
@@ -36,10 +37,11 @@ class _TopicMarkSheet extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(20, 4, 20, 24),
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
                 topic.name,
+                textAlign: TextAlign.center,
                 style: TextStyle(
                   fontFamily: 'Roboto',
                   fontSize: 15,
@@ -111,15 +113,7 @@ class _TopicMarkSheet extends StatelessWidget {
                 },
               ),
               const SizedBox(height: 16),
-              Text(
-                'FARBE',
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontSize: 12,
-                  letterSpacing: 2.2,
-                  color: cs.primary,
-                ),
-              ),
+              const SectionLabel('FARBE'),
               const SizedBox(height: 12),
               Wrap(
                 spacing: 10,

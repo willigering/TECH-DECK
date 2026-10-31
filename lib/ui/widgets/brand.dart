@@ -214,13 +214,13 @@ class SectionLabel extends StatelessWidget {
     this.text, {
     super.key,
     this.trailing,
-    this.centered = false,
+    this.centered = true,
   });
 
   final String text;
   final Widget? trailing;
 
-  /// Centers the label (used for the top heading of each main tab).
+  /// Section headings are centered app-wide for a uniform look.
   final bool centered;
 
   @override
