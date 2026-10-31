@@ -120,31 +120,52 @@ void main() {
               .where((f) => f.path.toLowerCase().endsWith('.csv'))
               .toList()
             ..sort((a, b) => a.path.compareTo(b.path));
-      expect(files, hasLength(26));
+      const expectedCards = {
+        '01_IT_Grundlagen.csv': 54,
+        '02_Hardware_und_Architektur.csv': 72,
+        '03_Betriebssysteme.csv': 58,
+        '04_Netzwerke_und_OSI.csv': 49,
+        '05_IPv4_IPv6_Subnetting.csv': 51,
+        '06_Netzwerkdienste_und_Protokolle.csv': 48,
+        '07_IT_Sicherheit.csv': 71,
+        '08_Datenbanken_und_SQL.csv': 52,
+        '09_Programmierung_und_Skripting.csv': 50,
+        '10_Virtualisierung_und_Cloud.csv': 49,
+        '11_Webtechnologien.csv': 52,
+        '12_DevOps_und_CICD.csv': 42,
+        '13_IT_Service_Management.csv': 46,
+        '14_Monitoring_Logging_Backup.csv': 48,
+        '15_Datenschutz_Recht_Wirtschaft.csv': 70,
+        '16_Pruefung_und_Fehleranalyse.csv': 45,
+        '18_Windows_Terminal.csv': 50,
+        '19_Linux_Terminal.csv': 50,
+        '20_IT_Abkuerzungen_und_Akronyme.csv': 100,
+        '22_Datenschutz_Privacy.csv': 51,
+        '23_Schadsoftware.csv': 50,
+        '24_Schutzbedarf.csv': 50,
+        '25_Unternehmensformen.csv': 128,
+      };
+      expect(
+        files.map((f) => f.uri.pathSegments.last).toList(),
+        expectedCards.keys.toList(),
+      );
       var total = 0;
       for (final file in files) {
         final name = file.uri.pathSegments.last;
         final result = CsvParser.parseCards(file.readAsStringSync());
-        final expected =
-            name.contains('Klausurvorbereitung') ||
-                name.contains('IT_Abkuerzungen')
-            ? 100
-            : name.contains('IHK_Pruefung')
-            ? 82
-            : name.contains('Unternehmensformen')
-            ? 134
-            : 50;
+        final expected = expectedCards[name]!;
         expect(
           result.cards,
           hasLength(expected),
           reason: '$name muss $expected Karten haben',
         );
         for (final card in result.cards) {
+          expect(card.question, isNotEmpty);
           expect(card.answer, isNotEmpty);
         }
         total += result.cards.length;
       }
-      expect(total, 1516);
+      expect(total, 1336);
     });
   });
 }

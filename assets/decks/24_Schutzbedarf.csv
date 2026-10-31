@@ -1,6 +1,6 @@
 ﻿Frage;Antwort
 Was ist eine Schutzbedarfsfeststellung?;Dabei wird bewertet, welche Schäden bei einer Beeinträchtigung von Vertraulichkeit, Integrität oder Verfügbarkeit entstehen könnten.
-Welche drei Schutzbedarfskategorien verwendet der BSI-IT-Grundschutz?;Normal, hoch und sehr hoch.
+Welche drei Schutzbedarfskategorien verwendet der BSI-IT-Grundschutz?;Normal, hoch und sehr hoch (BSI-Standard 200-2).
 Was bedeutet die Schutzbedarfskategorie normal?;Die möglichen Schadensauswirkungen sind begrenzt und überschaubar.
 Was bedeutet die Schutzbedarfskategorie hoch?;Die möglichen Schadensauswirkungen können beträchtlich sein.
 Was bedeutet die Schutzbedarfskategorie sehr hoch?;Die möglichen Schadensauswirkungen können ein existenziell bedrohliches oder katastrophales Ausmaß erreichen.

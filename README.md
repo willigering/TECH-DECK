@@ -6,7 +6,7 @@ Karteikarten-App zum Lernen, Wiederholen und Vertiefen.
 
 ## Idee
 
-Mitgeliefert sind **22 Decks** mit unterschiedlichen Kartenanzahlen. Dazu gehören IT-Grundlagen, Hardware, Betriebssysteme, Netzwerke, Windows- und Linux-Terminal, IT-Abkürzungen, IHK-Prüfung und Datenschutz. Zusätzlich kann eine CSV-Datei als eigenes Thema importiert werden: Der Dateiname (ohne `.csv`) wird zum Themennamen. Die Reihenfolge der importierten Dateien ist die Reihenfolge der Themen — ohne alphabetische Umsortierung.
+Mitgeliefert sind **23 Decks** mit unterschiedlichen Kartenanzahlen. Dazu gehören IT-Grundlagen, Hardware, Betriebssysteme, Netzwerke, Windows- und Linux-Terminal, IT-Abkürzungen, Datenschutz und Unternehmensformen. Die Inhalte der früheren Klausur- und Prüfungsdecks sind in die passenden Fachdecks eingeordnet. Zusätzlich kann eine CSV-Datei als eigenes Thema importiert werden: Der Dateiname (ohne `.csv`) wird zum Themennamen. Die Reihenfolge der importierten Dateien ist die Reihenfolge der Themen — ohne alphabetische Umsortierung.
 
 ## Funktionen
 
