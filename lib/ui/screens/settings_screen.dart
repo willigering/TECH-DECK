@@ -61,13 +61,6 @@ class SettingsScreen extends StatelessWidget {
       child: ListView(
         padding: const EdgeInsets.fromLTRB(20, 24, 20, 32),
         children: [
-          const SectionLabel('EINSTELLUNGEN'),
-          GoldButton(
-            label: 'WILLKOMMEN ANZEIGEN',
-            icon: Icons.waving_hand_outlined,
-            onTap: () => context.read<WelcomeController>().show(),
-          ),
-          const SizedBox(height: 28),
           const SectionLabel('ERSCHEINUNGSBILD'),
           const SizedBox(height: 12),
           Wrap(
@@ -138,8 +131,13 @@ class SettingsScreen extends StatelessWidget {
               ),
               const SizedBox(height: 10),
             ],
-          const SizedBox(height: 28),
           const SizedBox(height: 22),
+          GoldButton(
+            label: 'WILLKOMMEN ANZEIGEN',
+            icon: Icons.waving_hand_outlined,
+            onTap: () => context.read<WelcomeController>().show(),
+          ),
+          const SizedBox(height: 24),
           GoldPanel(
             glow: false,
             child: Row(
