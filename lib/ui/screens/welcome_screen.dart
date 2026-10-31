@@ -93,7 +93,6 @@ const _titles = [
   'Deck wählen',
   'Erst denken. Dann drehen.',
   'Eigene Karten mitbringen',
-  'Mach’s dir passend',
 ];
 const _details = [
   'Such dir ein Thema aus. Die mitgelieferten Decks warten schon '
@@ -101,15 +100,12 @@ const _details = [
   'Lies die Frage und überleg dir die Antwort. Dreh die Karte um und '
       'schau nach. Kommt dir bekannt vor? Gut. Hast du’s gewusst? Noch besser.',
   'Du kannst zusätzliche Decks als CSV importieren. So bekommt auch '
-      'dein nächstes Prüfungsthema einen eigenen Kartenstapel.',
-  'Wähle in den Einstellungen dein Lieblingsdesign. Lernen darf '
-      'wenigstens gut aussehen.',
+      'auch DEIN nächstes Prüfungsthema einen eigenen Kartenstapel.',
 ];
 const _icons = [
   Icons.menu_book_outlined,
   Icons.flip_outlined,
   Icons.file_upload_outlined,
-  Icons.palette_outlined,
 ];
 
 /// One-screen layout: no scroll, concise copy on short viewports.
@@ -125,7 +121,7 @@ class _WelcomeContent extends StatelessWidget {
         final short = bounds.maxHeight < 760;
         final tiny = bounds.maxHeight < 500;
         final landscape = bounds.maxWidth > bounds.maxHeight;
-        final gap = tiny ? 5.0 : (short ? 10.0 : 18.0);
+        final gap = tiny ? 5.0 : (short ? 9.0 : 14.0);
         final titleStyle = theme.textTheme.titleMedium?.copyWith(
           color: cs.primary,
           fontWeight: FontWeight.w700,
@@ -187,10 +183,10 @@ class _WelcomeContent extends StatelessWidget {
                       children: [
                         Text(_titles[i],
                           style: titleStyle?.copyWith(fontSize: tiny ? 12 : 14)),
-                        if (!tiny) ...[
+                        if (true) ...[
                           const SizedBox(height: 2),
                           Text(
-                            short ? _briefDetails[i] : _details[i],
+                            tiny ? _tinyDetails[i] : (short ? _briefDetails[i] : _details[i]),
                             style: theme.textTheme.bodySmall,
                           ),
                         ],
@@ -233,8 +229,13 @@ class _WelcomeContent extends StatelessWidget {
 }
 
 const _briefDetails = [
-  'Thema auswählen und lernen.',
-  'Überlegen, dann Karte drehen.',
-  'Eigene CSV-Decks importieren.',
-  'Design in Einstellungen wählen.',
+  'Die Decks warten auf ihren großen Auftritt.',
+  'Kommt dir bekannt vor? Gut. Gewusst? Noch besser.',
+  'Auch DEIN nächstes Prüfungsthema als CSV.',
+];
+
+const _tinyDetails = [
+  'Deck auswählen.',
+  'Kommt dir bekannt vor? Gut.',
+  'Auch DEIN Thema als CSV.',
 ];
