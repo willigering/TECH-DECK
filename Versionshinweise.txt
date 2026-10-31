@@ -2,10 +2,18 @@
   RELEASE NOTES / VERSIONSHINWEISE
   App:        TECH//DECK
   Entwickler: Willi Gering
-  Stand:      2026-10-30
+  Stand:      2026-10-31
 ================================================================================
 
-Aktuelle Version: 1.7.15 (Build 26) - 2026-10-30
+Aktuelle Version: 1.7.19 (Build 32) - 2026-10-31
+
+v1.7.19 (Build 32) - 31.10.2026
+- Neu gestalteter Begrüßungsbildschirm.
+- Kein abgeschnittener Inhalt auf kleinen Bildschirmen.
+- Kartenmenü: Kategorien und Unterkategorien sofort unterscheidbar.
+- Startseite mit Überschrift „Thema wählen“.
+- Zentrierte Überschriften in Einstellungen und Anleitung.
+- Kleine Fehlerbehebungen.
 
 v1.7.14 (Build 25) - 30.10.2026
 - Vorbereitung für Google Play: GitHub-Updater und APK-Installationsberechtigung entfernt.
