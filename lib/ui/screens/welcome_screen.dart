@@ -177,11 +177,18 @@ class _WelcomeContent extends StatelessWidget {
             Text(_outro, style: theme.textTheme.bodySmall),
           ],
         );
-        // Preserve the approved copy on small displays: scroll instead of
-        // silently replacing jokes with abbreviated descriptions.
-        return SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          child: content,
+        // Keep the approved welcome screen on a single page without scrolling.
+        // Scale down the complete layout only when the available height requires it.
+        return FittedBox(
+          fit: BoxFit.scaleDown,
+          alignment: Alignment.topCenter,
+          child: SizedBox(
+            width: bounds.maxWidth,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: content,
+            ),
+          ),
         );
       },
     );
