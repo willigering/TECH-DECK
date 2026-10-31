@@ -137,7 +137,7 @@ class _WelcomeContent extends StatelessWidget {
               ],
             ),
             SizedBox(height: gap),
-            Text('Wissen rein.\\nBrett vorm Kopf raus.',
+            Text('Wissen rein.\nBrett vorm Kopf raus.',
               style: theme.textTheme.titleLarge?.copyWith(
                 color: cs.onSurface,
                 fontWeight: FontWeight.w700,
@@ -177,17 +177,12 @@ class _WelcomeContent extends StatelessWidget {
             Text(_outro, style: theme.textTheme.bodySmall),
           ],
         );
-        // Keep the approved welcome screen on a single page without scrolling.
-        // Scale down the complete layout only when the available height requires it.
-        return FittedBox(
-          fit: BoxFit.scaleDown,
+        // Use available space naturally instead of shrinking all typography.
+        return Align(
           alignment: Alignment.topCenter,
-          child: SizedBox(
-            width: bounds.maxWidth,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: content,
-            ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: content,
           ),
         );
       },
