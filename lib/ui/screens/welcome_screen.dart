@@ -101,7 +101,7 @@ const _details = [
   'Lies die Frage und überleg dir die Antwort. Dreh die Karte um und '
       'schau nach. Kommt dir bekannt vor? Gut. Hast du’s gewusst? Noch besser.',
   'Du kannst zusätzliche Decks als CSV importieren. So bekommt auch '
-      'auch DEIN nächstes Prüfungsthema einen eigenen Kartenstapel.',
+      'DEIN nächstes Prüfungsthema einen eigenen Kartenstapel.',
 ];
 const _icons = [
   Icons.menu_book_outlined,
@@ -199,7 +199,14 @@ class _WelcomeContent extends StatelessWidget {
             ],
           ],
         );
-        return Padding(
+        // Scale down only when the content genuinely exceeds its available area.
+        // Keeps the screen non-scrollable even with large accessibility fonts.
+        return FittedBox(
+          fit: BoxFit.scaleDown,
+          alignment: Alignment.topCenter,
+          child: SizedBox(
+            width: bounds.maxWidth,
+            child: Padding(
           padding: EdgeInsets.symmetric(vertical: tiny ? 2 : 8),
           child: landscape
               ? Row(
@@ -211,6 +218,7 @@ class _WelcomeContent extends StatelessWidget {
                   ],
                 )
               : Column(
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -223,6 +231,8 @@ class _WelcomeContent extends StatelessWidget {
                     ],
                   ],
                 ),
+            ),
+          ),
         );
       },
     );
