@@ -87,9 +87,9 @@ void main() {
         );
         await tester.pumpAndSettle();
         expect(tester.takeException(), isNull);
-        expect(find.byType(Scrollable), findsNothing);
+        expect(find.byType(Scrollable), findsWidgets);
         expect(find.text('Deck wählen'), findsOneWidget);
-        expect(find.text('Mach’s dir passend'), findsOneWidget);
+        expect(find.text('Mach’s dir passend', skipOffstage: false), findsOneWidget);
         expect(find.text('Nicht wieder anzeigen'), findsOneWidget);
         expect(
           tester.getRect(find.byType(FilledButton)).bottom,

@@ -31,12 +31,17 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         body: SafeArea(
           child: Center(
             child: ConstrainedBox(
-              constraints: const BoxConstraints(maxWidth: 960),
+              constraints: const BoxConstraints(maxWidth: 720),
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
                 child: Column(
                   children: [
-                    const Expanded(child: _WelcomeContent()),
+                    const Expanded(
+                      child: SingleChildScrollView(
+                        primary: false,
+                        child: _WelcomeContent(),
+                      ),
+                    ),
                     const SizedBox(height: 8),
                     Row(
                       children: [
@@ -52,9 +57,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                             ),
                             child: Text(
                               'Nicht wieder anzeigen',
-                              style: theme.textTheme.bodyMedium!.copyWith(
-                                fontSize: 12,
-                              ),
+                              style: theme.textTheme.bodyMedium,
                             ),
                           ),
                         ),
@@ -70,13 +73,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           ),
                         ),
                         onPressed: () => widget.onContinue(_doNotShowAgain),
-                        child: const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 8),
-                          child: Text(
-                            'Na gut, ich lerne.',
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
+                        child: const Text('Na gut, ich lerne.'),
                       ),
                     ),
                   ],
@@ -113,12 +110,6 @@ const _details = [
   'Wähle in den Einstellungen dein Lieblingsdesign. Lernen darf '
       'wenigstens gut aussehen.',
 ];
-const _shortDetails = [
-  'Thema wählen. Die Decks warten schon.',
-  'Überlegen, dann aufdecken. Gewusst? Noch besser.',
-  'CSV-Decks in den Einstellungen importieren.',
-  'Design in den Einstellungen wählen.',
-];
 const _icons = [
   Icons.menu_book_outlined,
   Icons.flip_outlined,
@@ -126,188 +117,81 @@ const _icons = [
   Icons.palette_outlined,
 ];
 
-/// Measure complete paragraphs before choosing one uniform typography size.
-/// Short screens use concise copy and landscape uses two columns, never scroll.
+/// Readable, scrollable introduction with the brand symbol in the top-right.
 class _WelcomeContent extends StatelessWidget {
   const _WelcomeContent();
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final scaler = MediaQuery.textScalerOf(context);
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final wide = constraints.maxWidth >= 500;
-        final showLogo = constraints.maxHeight >= 300;
-        final width = wide
-            ? (constraints.maxWidth - 28) / 2
-            : constraints.maxWidth;
-        double measure(String text, TextStyle style, double availableWidth) {
-          final painter = TextPainter(
-            text: TextSpan(text: text, style: style),
-            textDirection: Directionality.of(context),
-            textScaler: scaler,
-          )..layout(maxWidth: availableWidth);
-          final height = painter.height;
-          painter.dispose();
-          return height;
-        }
-
-        TextStyle bodyStyle(double size) =>
-            theme.textTheme.bodyMedium!.copyWith(fontSize: size, height: 1.25);
-        TextStyle titleStyle(double size) => bodyStyle(size).copyWith(
-          fontWeight: FontWeight.w700,
-          color: theme.colorScheme.primary,
-        );
-        TextStyle headlineStyle(double size) => bodyStyle(size).copyWith(
-          fontSize: size + 5,
-          height: 1.15,
-          fontWeight: FontWeight.w700,
-          color: theme.colorScheme.onSurface,
-        );
-        double gap(double size) => size >= 14 ? 16 : 10;
-        double requiredHeight(double size, bool compact) {
-          final spacing = gap(size);
-          final intro = compact ? 'Karte für Karte für deine Prüfung.' : _intro;
-          final hero =
-              measure(
-                'TECH//DECK',
-                titleStyle(size + 3).copyWith(fontFamily: 'Orbitron'),
-                width,
-              ) +
-              (showLogo ? 48 : 0) +
-              spacing +
-              measure(
-                compact
-                    ? 'Wissen rein.\nBrett raus.'
-                    : 'Wissen rein.\nBrett vorm Kopf raus.',
-                headlineStyle(size),
-                width,
-              ) +
-              8 +
-              measure(intro, bodyStyle(size), width);
-          var steps = 0.0;
-          for (var i = 0; i < 4; i++) {
-            steps +=
-                measure(_titles[i], titleStyle(size), width - 34) +
-                4 +
-                measure(
-                  (compact ? _shortDetails : _details)[i],
-                  bodyStyle(size),
-                  width - 34,
-                );
-          }
-          steps += 3 * spacing;
-          final outro = measure(_outro, bodyStyle(size), width);
-          return wide
-              ? (hero > steps ? hero : steps) + spacing + outro
-              : hero + spacing + steps + spacing + outro;
-        }
-
-        var size = 16.0;
-        var compact = false;
-        var found = false;
-        for (final useCompact in [false, true]) {
-          for (var candidate = 16.0; candidate >= 12; candidate -= .5) {
-            if (requiredHeight(candidate, useCompact) <=
-                constraints.maxHeight) {
-              size = candidate;
-              compact = useCompact;
-              found = true;
-              break;
-            }
-          }
-          if (found) break;
-        }
-        // Small landscape windows or large system text: retain every section.
-        if (!found) {
-          compact = true;
-          size = 12;
-          while (size > 4 &&
-              requiredHeight(size, compact) > constraints.maxHeight) {
-            size -= .5;
-          }
-        }
-
-        final spacing = gap(size);
-        final hero = Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              'TECH//DECK',
-              style: titleStyle(size + 3).copyWith(fontFamily: 'Orbitron'),
-            ),
-            if (showLogo) ...[
-              const SizedBox(height: 8),
-              Align(alignment: Alignment.centerLeft, child: TdLogo(size: 40)),
-            ],
-            SizedBox(height: spacing),
-            Text(
-              compact
-                  ? 'Wissen rein.\nBrett raus.'
-                  : 'Wissen rein.\nBrett vorm Kopf raus.',
-              style: headlineStyle(size),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              compact ? 'Karte für Karte für deine Prüfung.' : _intro,
-              style: bodyStyle(size),
-            ),
-          ],
-        );
-        final steps = Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            for (var i = 0; i < 4; i++) ...[
-              if (i > 0) SizedBox(height: spacing),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Icon(_icons[i], size: 22, color: theme.colorScheme.primary),
-                  const SizedBox(width: 12),
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Text(_titles[i], style: titleStyle(size)),
-                        const SizedBox(height: 4),
-                        Text(
-                          (compact ? _shortDetails : _details)[i],
-                          style: bodyStyle(size),
-                        ),
-                      ],
+    final cs = theme.colorScheme;
+    return Padding(
+      padding: const EdgeInsets.only(top: 8, bottom: 24),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 12),
+                  child: Text(
+                    'TECH//DECK',
+                    style: theme.textTheme.titleLarge?.copyWith(
+                      fontFamily: 'Orbitron',
+                      color: cs.primary,
+                      fontWeight: FontWeight.w700,
                     ),
                   ),
-                ],
+                ),
               ),
+              const SizedBox(width: 12),
+              const TdLogo(size: 56),
             ],
+          ),
+          const SizedBox(height: 28),
+          Text(
+            'Wissen rein.\\nBrett vorm Kopf raus.',
+            style: theme.textTheme.headlineSmall?.copyWith(
+              color: cs.onSurface,
+              fontWeight: FontWeight.w700,
+              height: 1.2,
+            ),
+          ),
+          const SizedBox(height: 18),
+          Text(_intro, style: theme.textTheme.bodyLarge),
+          const SizedBox(height: 28),
+          for (var i = 0; i < _titles.length; i++) ...[
+            if (i > 0) const SizedBox(height: 22),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(_icons[i], size: 24, color: cs.primary),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        _titles[i],
+                        style: theme.textTheme.titleMedium?.copyWith(
+                          color: cs.primary,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                      const SizedBox(height: 6),
+                      Text(_details[i], style: theme.textTheme.bodyMedium),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ],
-        );
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            if (wide)
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(child: hero),
-                  const SizedBox(width: 28),
-                  Expanded(child: steps),
-                ],
-              )
-            else ...[
-              hero,
-              SizedBox(height: spacing),
-              steps,
-            ],
-            SizedBox(height: spacing),
-            Text(_outro, style: bodyStyle(size)),
-          ],
-        );
-      },
+          const SizedBox(height: 28),
+          Text(_outro, style: theme.textTheme.bodyLarge),
+        ],
+      ),
     );
   }
 }
