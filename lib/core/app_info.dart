@@ -4,7 +4,7 @@ class AppInfo {
   static const String tagline = 'LERNE. VERSTEHE. VERBINDE.';
   static const String developer = 'Willi Gering';
   static const String version = '1.7.15';
-  static const int buildNumber = 26;
+  static const int buildNumber = 27;
   static const String description =
       'Lernkarten-App zum Lernen, Wiederholen und Vertiefen.';
 }
