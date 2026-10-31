@@ -61,7 +61,7 @@ class SettingsScreen extends StatelessWidget {
       child: ListView(
         padding: const EdgeInsets.fromLTRB(20, 24, 20, 32),
         children: [
-          const SectionLabel('ERSCHEINUNGSBILD'),
+          const SectionLabel('ERSCHEINUNGSBILD', centered: true),
           const SizedBox(height: 12),
           Wrap(
             spacing: 10,

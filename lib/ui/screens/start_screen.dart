@@ -28,7 +28,9 @@ class StartScreen extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 24),
           child: Column(
             children: [
-              const BrandHeader(showLogo: true),
+              const SectionLabel('THEMA WÄHLEN', centered: true),
+              const SizedBox(height: 24),
+              const TdLogo(size: 176),
               const Spacer(),
               if (deck.loading)
                 CircularProgressIndicator(
