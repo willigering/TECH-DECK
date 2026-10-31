@@ -83,12 +83,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   }
 }
 
-const _intro =
-    'Willkommen bei TECH//DECK. Hier lernst du Karte für Karte '
-    'für deine Prüfung. Auch die Sachen, bei denen du im Unterricht '
-    'noch überzeugt genickt hast.';
-const _outro =
-    'Kleine Runde reicht. Du musst heute nicht das gesamte '
+const _intro = 'Karte für Karte für deine Prüfung. Auch für die Themen, '
+    'bei denen du im Unterricht noch überzeugt genickt hast.';
+const _outro = 'Kleine Runde reicht. Du musst heute nicht das gesamte '
     'Internet verstehen.';
 const _titles = [
   'Deck wählen',
@@ -96,12 +93,11 @@ const _titles = [
   'Eigene Karten mitbringen',
 ];
 const _details = [
-  'Such dir ein Thema aus. Die mitgelieferten Decks warten schon '
-      'auf ihren großen Auftritt.',
-  'Lies die Frage und überleg dir die Antwort. Dreh die Karte um und '
-      'schau nach. Kommt dir bekannt vor? Gut. Hast du’s gewusst? Noch besser.',
-  'Du kannst zusätzliche Decks als CSV importieren. So bekommt auch '
-      'DEIN nächstes Prüfungsthema einen eigenen Kartenstapel.',
+  'Such dir ein Thema aus. Die Decks warten schon auf ihren großen Auftritt.',
+  'Überleg dir die Antwort, dann dreh die Karte um. Kommt dir bekannt vor? '
+      'Gut. Hast du’s gewusst? Noch besser.',
+  'Importiere eigene CSV-Decks. So bekommt auch DEIN nächstes Prüfungsthema '
+      'einen eigenen Kartenstapel.',
 ];
 const _icons = [
   Icons.menu_book_outlined,
@@ -109,7 +105,6 @@ const _icons = [
   Icons.file_upload_outlined,
 ];
 
-/// One-screen layout: no scroll, concise copy on short viewports.
 class _WelcomeContent extends StatelessWidget {
   const _WelcomeContent();
 
@@ -119,118 +114,79 @@ class _WelcomeContent extends StatelessWidget {
     final cs = theme.colorScheme;
     return LayoutBuilder(
       builder: (context, bounds) {
-        final short = bounds.maxHeight < 760;
-        final tiny = bounds.maxHeight < 500;
-        final landscape = bounds.maxWidth > bounds.maxHeight;
-        final gap = tiny ? 5.0 : (short ? 9.0 : 14.0);
-        final titleStyle = theme.textTheme.titleMedium?.copyWith(
-          color: cs.primary,
-          fontWeight: FontWeight.w700,
-        );
-        final hero = Column(
-          mainAxisSize: MainAxisSize.min,
+        final compact = bounds.maxHeight < 620;
+        final gap = compact ? 12.0 : 20.0;
+        final content = Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
           children: [
             Row(
               children: [
                 Expanded(
-                  child: Text(
-                    'TECH//DECK',
+                  child: Text('TECH//DECK',
                     maxLines: 1,
                     style: theme.textTheme.titleLarge?.copyWith(
                       fontFamily: 'Orbitron',
                       color: cs.primary,
                       fontWeight: FontWeight.w700,
-                      fontSize: tiny ? 17 : 22,
+                      fontSize: 22,
                     ),
                   ),
                 ),
-                TdLogo(size: tiny ? 32 : (short ? 40 : 52)),
+                const TdLogo(size: 42),
               ],
             ),
             SizedBox(height: gap),
-            Text(
-              tiny ? 'Wissen rein. Brett raus.' : 'Wissen rein.\nBrett vorm Kopf raus.',
+            Text('Wissen rein.\\nBrett vorm Kopf raus.',
               style: theme.textTheme.titleLarge?.copyWith(
                 color: cs.onSurface,
                 fontWeight: FontWeight.w700,
-                fontSize: tiny ? 16 : (short ? 19 : 23),
+                fontSize: 23,
               ),
             ),
-            if (!short) ...[
-              SizedBox(height: gap),
-              Text(_intro, style: theme.textTheme.bodyMedium),
-            ] else if (!tiny) ...[
-              SizedBox(height: gap / 2),
-              Text('Karte für Karte für deine Prüfung.',
-                  style: theme.textTheme.bodyMedium),
-            ],
-          ],
-        );
-        final steps = Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+            const SizedBox(height: 10),
+            Text(_intro, style: theme.textTheme.bodyMedium),
+            SizedBox(height: gap),
             for (var i = 0; i < _titles.length; i++) ...[
               if (i > 0) SizedBox(height: gap),
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(_icons[i], size: tiny ? 17 : 20, color: cs.primary),
-                  const SizedBox(width: 9),
+                  Icon(_icons[i], size: 21, color: cs.primary),
+                  const SizedBox(width: 12),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(_titles[i],
-                          style: titleStyle?.copyWith(fontSize: tiny ? 12 : 14)),
-                        ...[
-                          const SizedBox(height: 2),
-                          Text(
-                            tiny ? _tinyDetails[i] : (short ? _briefDetails[i] : _details[i]),
-                            style: theme.textTheme.bodySmall,
+                          style: theme.textTheme.titleMedium?.copyWith(
+                            color: cs.primary,
+                            fontWeight: FontWeight.w700,
+                            fontSize: 16,
                           ),
-                        ],
+                        ),
+                        const SizedBox(height: 4),
+                        Text(_details[i], style: theme.textTheme.bodySmall),
                       ],
                     ),
                   ),
                 ],
               ),
             ],
+            SizedBox(height: gap),
+            Text(_outro, style: theme.textTheme.bodySmall),
           ],
         );
-        // Scale down only when the content genuinely exceeds its available area.
-        // Keeps the screen non-scrollable even with large accessibility fonts.
+        // Keep the approved welcome screen on a single page without scrolling.
+        // Scale down the complete layout only when the available height requires it.
         return FittedBox(
           fit: BoxFit.scaleDown,
           alignment: Alignment.topCenter,
           child: SizedBox(
             width: bounds.maxWidth,
             child: Padding(
-          padding: EdgeInsets.symmetric(vertical: tiny ? 2 : 8),
-          child: landscape
-              ? Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(child: hero),
-                    const SizedBox(width: 16),
-                    Expanded(child: steps),
-                  ],
-                )
-              : Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    hero,
-                    SizedBox(height: gap),
-                    steps,
-                    if (!short) ...[
-                      SizedBox(height: gap),
-                      Text(_outro, style: theme.textTheme.bodyMedium),
-                    ],
-                  ],
-                ),
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: content,
             ),
           ),
         );
@@ -238,15 +194,3 @@ class _WelcomeContent extends StatelessWidget {
     );
   }
 }
-
-const _briefDetails = [
-  'Die Decks warten auf ihren großen Auftritt.',
-  'Kommt dir bekannt vor? Gut. Gewusst? Noch besser.',
-  'Auch DEIN nächstes Prüfungsthema als CSV.',
-];
-
-const _tinyDetails = [
-  'Deck auswählen.',
-  'Kommt dir bekannt vor? Gut.',
-  'Auch DEIN Thema als CSV.',
-];
