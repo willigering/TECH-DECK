@@ -5,7 +5,12 @@
   Stand:      2026-10-31
 ================================================================================
 
-Aktuelle Version: 1.7.20 (Build 33) - 2026-10-31
+Aktuelle Version: 1.7.21 (Build 34) - 2026-10-31
+
+v1.7.21 (Build 34) - 31.10.2026
+- Lernkarten fachlich überarbeitet und korrigiert.
+- Klausur-Decks aufgelöst und Inhalte in die Themen-Decks integriert.
+- IT-Abkürzungen und Akronyme deutlich erweitert.
 
 v1.7.20 (Build 33) - 31.10.2026
 - Einheitlich zentrierte Überschriften und Unterüberschriften.
