@@ -36,13 +36,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 padding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
                 child: Column(
                   children: [
-                    const Expanded(
-                      child: SingleChildScrollView(
-                        primary: false,
-                        child: _WelcomeContent(),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
+                    const Expanded(child: _WelcomeContent()),
+                    const SizedBox(height: 4),
                     Row(
                       children: [
                         Checkbox(
@@ -117,7 +112,7 @@ const _icons = [
   Icons.palette_outlined,
 ];
 
-/// Readable, scrollable introduction with the brand symbol in the top-right.
+/// One-screen layout: no scroll, concise copy on short viewports.
 class _WelcomeContent extends StatelessWidget {
   const _WelcomeContent();
 
@@ -125,73 +120,121 @@ class _WelcomeContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final cs = theme.colorScheme;
-    return Padding(
-      padding: const EdgeInsets.only(top: 8, bottom: 24),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 12),
+    return LayoutBuilder(
+      builder: (context, bounds) {
+        final short = bounds.maxHeight < 760;
+        final tiny = bounds.maxHeight < 500;
+        final landscape = bounds.maxWidth > bounds.maxHeight;
+        final gap = tiny ? 5.0 : (short ? 10.0 : 18.0);
+        final titleStyle = theme.textTheme.titleMedium?.copyWith(
+          color: cs.primary,
+          fontWeight: FontWeight.w700,
+        );
+        final hero = Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Expanded(
                   child: Text(
                     'TECH//DECK',
+                    maxLines: 1,
                     style: theme.textTheme.titleLarge?.copyWith(
                       fontFamily: 'Orbitron',
                       color: cs.primary,
                       fontWeight: FontWeight.w700,
+                      fontSize: tiny ? 17 : 22,
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(width: 12),
-              const TdLogo(size: 56),
-            ],
-          ),
-          const SizedBox(height: 28),
-          Text(
-            'Wissen rein.\\nBrett vorm Kopf raus.',
-            style: theme.textTheme.headlineSmall?.copyWith(
-              color: cs.onSurface,
-              fontWeight: FontWeight.w700,
-              height: 1.2,
-            ),
-          ),
-          const SizedBox(height: 18),
-          Text(_intro, style: theme.textTheme.bodyLarge),
-          const SizedBox(height: 28),
-          for (var i = 0; i < _titles.length; i++) ...[
-            if (i > 0) const SizedBox(height: 22),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Icon(_icons[i], size: 24, color: cs.primary),
-                const SizedBox(width: 14),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        _titles[i],
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          color: cs.primary,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      const SizedBox(height: 6),
-                      Text(_details[i], style: theme.textTheme.bodyMedium),
-                    ],
-                  ),
-                ),
+                TdLogo(size: tiny ? 32 : (short ? 40 : 52)),
               ],
             ),
+            SizedBox(height: gap),
+            Text(
+              tiny ? 'Wissen rein. Brett raus.' : 'Wissen rein.\nBrett vorm Kopf raus.',
+              style: theme.textTheme.titleLarge?.copyWith(
+                color: cs.onSurface,
+                fontWeight: FontWeight.w700,
+                fontSize: tiny ? 16 : (short ? 19 : 23),
+              ),
+            ),
+            if (!short) ...[
+              SizedBox(height: gap),
+              Text(_intro, style: theme.textTheme.bodyMedium),
+            ] else if (!tiny) ...[
+              SizedBox(height: gap / 2),
+              Text('Karte für Karte für deine Prüfung.',
+                  style: theme.textTheme.bodyMedium),
+            ],
           ],
-          const SizedBox(height: 28),
-          Text(_outro, style: theme.textTheme.bodyLarge),
-        ],
-      ),
+        );
+        final steps = Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            for (var i = 0; i < _titles.length; i++) ...[
+              if (i > 0) SizedBox(height: gap),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(_icons[i], size: tiny ? 17 : 20, color: cs.primary),
+                  const SizedBox(width: 9),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(_titles[i],
+                          style: titleStyle?.copyWith(fontSize: tiny ? 12 : 14)),
+                        if (!tiny) ...[
+                          const SizedBox(height: 2),
+                          Text(
+                            short ? _briefDetails[i] : _details[i],
+                            style: theme.textTheme.bodySmall,
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ],
+        );
+        return Padding(
+          padding: EdgeInsets.symmetric(vertical: tiny ? 2 : 8),
+          child: landscape
+              ? Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(child: hero),
+                    const SizedBox(width: 16),
+                    Expanded(child: steps),
+                  ],
+                )
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    hero,
+                    SizedBox(height: gap),
+                    steps,
+                    if (!short) ...[
+                      SizedBox(height: gap),
+                      Text(_outro, style: theme.textTheme.bodyMedium),
+                    ],
+                  ],
+                ),
+        );
+      },
     );
   }
 }
+
+const _briefDetails = [
+  'Thema auswählen und lernen.',
+  'Überlegen, dann Karte drehen.',
+  'Eigene CSV-Decks importieren.',
+  'Design in Einstellungen wählen.',
+];
