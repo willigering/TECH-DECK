@@ -2,10 +2,18 @@
   RELEASE NOTES / VERSIONSHINWEISE
   App:        TECH//DECK
   Entwickler: Willi Gering
-  Stand:      2026-10-30
+  Stand:      2026-11-22
 ================================================================================
 
-Aktuelle Version: 1.7.15 (Build 26) - 2026-10-30
+Aktuelle Version: 1.7.17 (Build 30) - 2026-11-22
+
+v1.7.17 (Build 30) - 22.11.2026
+- Neu: C# – Prüfungsvorbereitung mit 50 Lernkarten.
+- Neu: IT VI – Prüfungsvorbereitung mit 48 Lernkarten zu ITIL und IT-Recht.
+- Ausschließlich Prüfungsfragen mit Antworten, keine Aufgaben.
+- Neue Decks werden automatisch beim Start ergänzt. Die Inhaltsrevision
+  bleibt gleich, damit vorhandene Karten und Markierungen erhalten bleiben.
+- Build 30 vor dem Play-Upload mit der höchsten Console-Buildnummer abgleichen.
 
 v1.7.14 (Build 25) - 30.10.2026
 - Vorbereitung für Google Play: GitHub-Updater und APK-Installationsberechtigung entfernt.

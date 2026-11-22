@@ -180,6 +180,14 @@ class DeckRepository {
       ('assets/decks/23_Schadsoftware.csv', 'Schadsoftware'),
       ('assets/decks/24_Schutzbedarf.csv', 'Schutzbedarf'),
       ('assets/decks/25_Unternehmensformen.csv', 'Unternehmensformen'),
+      (
+        'assets/decks/27_CSharp_Pruefungsvorbereitung.csv',
+        'C# – Prüfungsvorbereitung',
+      ),
+      (
+        'assets/decks/28_IT_VI_Pruefungsvorbereitung.csv',
+        'IT VI – Prüfungsvorbereitung',
+      ),
     ];
     final db = await _db;
     const newDeckStartKey = 'new_decks_started_1.7.5+16';
