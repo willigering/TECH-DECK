@@ -57,6 +57,8 @@ void main() {
     (const Size(844, 390), 1.0),
     (const Size(320, 568), 2.0),
     (const Size(768, 1024), 1.0),
+    (const Size(360, 740), 1.0),
+    (const Size(412, 915), 1.3),
   ]) {
     for (final choice in TdThemeChoice.values) {
       testWidgets('One welcome page: $viewport, $choice', (tester) async {
@@ -87,9 +89,26 @@ void main() {
         );
         await tester.pumpAndSettle();
         expect(tester.takeException(), isNull);
-        expect(find.byType(Scrollable), findsNothing);
-        expect(find.text('Deck wählen'), findsOneWidget);
-        expect(find.text('Mach’s dir passend', skipOffstage: false), findsNothing);
+        // Normal phones and tablets fit without scrolling; small or
+        // landscape displays and large font sizes may scroll instead of
+        // shrinking or clipping text.
+        final scroll = tester.state<ScrollableState>(find.byType(Scrollable));
+        final fits =
+            viewport.$2 == 1.0 &&
+            viewport.$1.height >= 740 &&
+            viewport.$1.width >= 360;
+        if (fits) expect(scroll.position.maxScrollExtent, 0);
+        expect(find.text('Wissen rein.'), findsOneWidget);
+        expect(find.text('Brett vorm Kopf raus.'), findsOneWidget);
+        expect(find.textContaining(r'\n'), findsNothing);
+        expect(find.byType(FittedBox), findsNothing);
+        await tester.ensureVisible(find.byType(FilledButton));
+        await tester.pumpAndSettle();
+        expect(find.text('Deck wählen', skipOffstage: false), findsOneWidget);
+        expect(
+          find.text('Mach’s dir passend', skipOffstage: false),
+          findsNothing,
+        );
         expect(find.text('Nicht wieder anzeigen'), findsOneWidget);
         expect(
           tester.getRect(find.byType(FilledButton)).bottom,
