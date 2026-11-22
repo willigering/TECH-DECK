@@ -1,19 +1,35 @@
+v1.7.22 (Build 35) – 22.11.2026
+- 50 C#- und 48 IT-VI-Lernkarten zur Prüfungsvorbereitung.
+- Ausschließlich Fragen und Antworten, keine Aufgaben.
+- Alle Layoutänderungen aus 1.7.21 bleiben enthalten.
+- Flutter für reproduzierbare Builds auf 3.47.9 festgelegt.
+
 ================================================================================
   RELEASE NOTES / VERSIONSHINWEISE
   App:        TECH//DECK
   Entwickler: Willi Gering
-  Stand:      2026-11-22
+  Stand:      2026-10-31
 ================================================================================
 
-Aktuelle Version: 1.7.17 (Build 30) - 2026-11-22
+Aktuelle Version: 1.7.21 (Build 34) - 2026-10-31
 
-v1.7.17 (Build 30) - 22.11.2026
-- Neu: C# – Prüfungsvorbereitung mit 50 Lernkarten.
-- Neu: IT VI – Prüfungsvorbereitung mit 48 Lernkarten zu ITIL und IT-Recht.
-- Ausschließlich Prüfungsfragen mit Antworten, keine Aufgaben.
-- Neue Decks werden automatisch beim Start ergänzt. Die Inhaltsrevision
-  bleibt gleich, damit vorhandene Karten und Markierungen erhalten bleiben.
-- Build 30 vor dem Play-Upload mit der höchsten Console-Buildnummer abgleichen.
+v1.7.21 (Build 34) - 31.10.2026
+- Lernkarten fachlich überarbeitet und korrigiert.
+- Klausur-Decks aufgelöst und Inhalte in die Themen-Decks integriert.
+- IT-Abkürzungen und Akronyme deutlich erweitert.
+
+v1.7.20 (Build 33) - 31.10.2026
+- Einheitlich zentrierte Überschriften und Unterüberschriften.
+- Überschrift „Thema wählen“ im Kartenmenü.
+- Startseite wieder mit TECH//DECK-Schriftzug und Slogan.
+
+v1.7.19 (Build 32) - 31.10.2026
+- Neu gestalteter Begrüßungsbildschirm.
+- Kein abgeschnittener Inhalt auf kleinen Bildschirmen.
+- Kartenmenü: Kategorien und Unterkategorien sofort unterscheidbar.
+- Startseite mit Überschrift „Thema wählen“.
+- Zentrierte Überschriften in Einstellungen und Anleitung.
+- Kleine Fehlerbehebungen.
 
 v1.7.14 (Build 25) - 30.10.2026
 - Vorbereitung für Google Play: GitHub-Updater und APK-Installationsberechtigung entfernt.
