@@ -144,6 +144,8 @@ void main() {
         '23_Schadsoftware.csv': 50,
         '24_Schutzbedarf.csv': 50,
         '25_Unternehmensformen.csv': 128,
+        '27_CSharp_Pruefungsvorbereitung.csv': 50,
+        '28_IT_VI_Pruefungsvorbereitung.csv': 48,
       };
       expect(
         files.map((f) => f.uri.pathSegments.last).toList(),
@@ -165,7 +167,7 @@ void main() {
         }
         total += result.cards.length;
       }
-      expect(total, 1336);
+      expect(total, 1434);
     });
   });
 }
