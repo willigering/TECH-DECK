@@ -87,6 +87,34 @@ void main() {
         );
   });
 
+  test('New exam decks are added without replacing existing card IDs', () async {
+    final db = await AppDatabase.instance.database;
+    await db.update(
+      'app_meta',
+      {'value': DeckRepository.bundledContentRev},
+      where: 'key = ?',
+      whereArgs: ['bundled_rev'],
+    );
+    final repo = DeckRepository();
+    await repo.ensureBundledTopics();
+    await repo.ensureBundledTopics();
+    final topics = await repo.loadTopics();
+    expect(
+      topics.singleWhere((t) => t.name == 'C# – Prüfungsvorbereitung').cardCount,
+      50,
+    );
+    expect(
+      topics.singleWhere((t) => t.name == 'IT VI – Prüfungsvorbereitung').cardCount,
+      48,
+    );
+    expect(
+      await db.query('cards', where: 'id = ?', whereArgs: ['old-grundlagen']),
+      hasLength(1),
+    );
+    expect(topics.singleWhere((t) => t.id == 'grundlagen-id').isImportant, isTrue);
+    expect(topics.singleWhere((t) => t.id == 'own-id').cardCount, 1);
+  });
+
   test('Content update replaces bundled cards, keeps deck IDs, marks and '
       'own decks, and removes only retired bundled decks', () async {
     final repo = DeckRepository();
