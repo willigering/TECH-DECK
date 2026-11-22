@@ -4,6 +4,8 @@ name: Build Play Store AAB
 
 on:
   workflow_dispatch:
+  push:
+    branches: [release/1.7.22]
 
 permissions:
   contents: read
