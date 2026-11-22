@@ -1,3 +1,9 @@
+v1.7.22 (Build 35) – 22.11.2026
+- 50 C#- und 48 IT-VI-Lernkarten zur Prüfungsvorbereitung.
+- Ausschließlich Fragen und Antworten, keine Aufgaben.
+- Alle Layoutänderungen aus 1.7.21 bleiben enthalten.
+- Flutter für reproduzierbare Builds auf 3.47.9 festgelegt.
+
 ================================================================================
   RELEASE NOTES / VERSIONSHINWEISE
   App:        TECH//DECK
